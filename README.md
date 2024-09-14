@@ -6,7 +6,7 @@ It's bittersweet to announce that this is our **final ITI graduation project**, 
 
 ## 🚀 Project Overview
 
-The core idea of our project is to **simplify the process of ordering food during session breaks**. 🥪 Whether you're a student, instructor, or external guest, the goal is to **reduce waiting times**, avoid **queue jams**, and make the whole experience more seamless. Our web app enables users to order food online, saving time for both students and instructors.
+The core idea of our project is to **simplify the process of ordering food during session breaks**. 🥪 Whether you're a student, instructor, or external guest, the goal is to **reduce waiting times**, avoid **queue jams**, and make the whole experience more seamless. Our web app enables users to order food online from the ITI Cafe, saving time for both students and instructors for more demanding tasks/Breaks in-between sessions.
 
 ### 💡 Key Features:
 - **Order Anytime, Anywhere**: Place food orders online to avoid long queues.
@@ -66,7 +66,7 @@ You're all set! 🎉
 | ![Contributors](https://img.shields.io/github/contributors/ahmedabougabal/ITICafeFoodDeliveryApp) | ![Last Commit](https://img.shields.io/github/last-commit/ahmedabougabal/ITICafeFoodDeliveryApp) | ![Repo View](https://komarev.com/ghpvc/?username=ahmedabougabal&style=flat-square) |
 
 ## 👥 Collaborators
-- [Ahmed Abou Gabal](https://github.com/ahmedabougabal) - **Maintainer**
+- [Ahmed Abou Gabal](https://github.com/ahmedabougabal) - **Collaborator**
 - [KareemMMorsy](https://github.com/KareemMMorsy) - **Collaborator**
 - [Mahmoud Wafi](https://github.com/Mahmoud-Wafi) - **Collaborator**
 - [MoatazSobhy](https://github.com/MoatazSobhy) - **Collaborator**
