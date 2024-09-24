@@ -1,0 +1,26 @@
+[
+  {
+    "model": "core.branch",
+    "pk": 1,
+    "fields": {
+      "name": "ITI New Capital",
+      "address": "New Administrative Capital, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 2,
+    "fields": {
+      "name": "ITI Smart Village",
+      "address": "Smart Village, Cairo-Alexandria Desert Road, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 3,
+    "fields": {
+      "name": "ITI Cairo University",
+      "address": "Cairo University Campus, Giza, Egypt"
+    }
+  }
+]
