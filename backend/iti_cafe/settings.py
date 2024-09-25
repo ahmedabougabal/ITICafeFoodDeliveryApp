@@ -32,19 +32,33 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
-    'users',
     'menu',
     'orders',
     'django_filters',
+       #apps of user authentication
+    'users',
+    'rest_framework',
+    'rest_framework_simplejwt',
+   'corsheaders',
+    'rest_framework_simplejwt.token_blacklist',
 ]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000",]  # React app
+
+
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',        #add middleware for corsheader; it should be above common middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -134,13 +148,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Django REST Framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend',
@@ -171,3 +184,25 @@ LOGGING = {
         },
     },
 }
+
+AUTH_USER_MODEL = 'users.User'
+
+
+# Looking to send emails in production? Check out our Email API/SMTP product!
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT=587
+EMAIL_HOST_USER="mahmoudwafi33@gmail.com"
+EMAIL_HOST_PASSWORD="egjv ffdo kaxm pest"
+EMAIL_USE_TLS=True
+
+
+
+
+
+#EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+#MAIL_HOST_USER = 'e51ece82959d02'
+#EMAIL_HOST_PASSWORD = 'b2ddf365a55b20'
+#DEFAULT_FROM_EMAIL="info@mahmoud.com"
+#EMAIL_PORT = '2525'
+#EMAIL_USE_TLS= True
