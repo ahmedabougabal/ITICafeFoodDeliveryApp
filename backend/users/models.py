@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser , PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from .managers import  UserManager   # type:ignore
 from rest_framework_simplejwt.tokens import RefreshToken    # type:ignore
+# Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     BRANCHES = {
     "New Capital": "NEW Capital","Mansoura": "Mansoura","Cairo University": "Cairo University","Smart Village": "Smart Village",

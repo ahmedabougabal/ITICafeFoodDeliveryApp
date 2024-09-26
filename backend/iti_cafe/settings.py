@@ -189,6 +189,7 @@ AUTH_USER_MODEL = 'users.User'
 
 
 # Looking to send emails in production? Check out our Email API/SMTP product!
+
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT=587
