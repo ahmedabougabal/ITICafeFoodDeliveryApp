@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'menu',
     'orders',
+    'core',
     'django_filters',
        #apps of user authentication
     'users',
