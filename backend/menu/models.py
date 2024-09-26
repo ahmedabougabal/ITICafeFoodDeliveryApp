@@ -12,7 +12,8 @@ class MenuItem(models.Model):
     description= models.TextField()
     category= models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='menu_items', blank=True, null=True)
-    branches = models.ManyToManyField(Branch, related_name='menu_items')
+    branch = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name='menu_items')
+    is_available = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.branch.name}"
