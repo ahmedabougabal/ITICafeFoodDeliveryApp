@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from menu.models import MenuItem
 from .models import Order, OrderItem
 from menu.serializers import MenuItemSerializer
 
