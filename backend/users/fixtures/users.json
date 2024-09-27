@@ -1,0 +1,56 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$randomhashhere",
+      "last_login": null,
+      "is_superuser": true,
+      "email": "admin_newcapital@iti.gov.eg",
+      "first_name": "Admin",
+      "last_name": "New Capital",
+      "phone_number": "+201234567890",
+      "branch": "NEW Capital",
+      "is_active": true,
+      "is_verified": true,
+      "is_staff": true,
+      "date_joined": "2024-09-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$anotherhashhere",
+      "last_login": null,
+      "is_superuser": true,
+      "email": "admin_smartvillage@iti.gov.eg",
+      "first_name": "Admin",
+      "last_name": "Smart Village",
+      "phone_number": "+201234567891",
+      "branch": "Smart Village",
+      "is_active": true,
+      "is_verified": true,
+      "is_staff": true,
+      "date_joined": "2024-09-26T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$thirdhashhere",
+      "last_login": null,
+      "is_superuser": true,
+      "email": "admin_cairouniversity@iti.gov.eg",
+      "first_name": "Admin",
+      "last_name": "Cairo University",
+      "phone_number": "+201234567892",
+      "branch": "Cairo University",
+      "is_active": true,
+      "is_verified": true,
+      "is_staff": true,
+      "date_joined": "2024-09-26T00:00:00Z"
+    }
+  }
+]
