@@ -1,19 +1,28 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-from .managers import  UserManager   # type:ignore
-from rest_framework_simplejwt.tokens import RefreshToken    # type:ignore
+from .managers import  UserManager 
+from rest_framework_simplejwt.tokens import RefreshToken   
+from django.core.validators import RegexValidator
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     BRANCHES = {
     "New Capital": "NEW Capital","Mansoura": "Mansoura","Cairo University": "Cairo University","Smart Village": "Smart Village",
     "Aswan": "Aswan","Asuit": "Asuit","Qena": "Qena","Menia": "Menia","Menofia": "Menofia","Beni Suef": "Beni Suef","Sohag": "Sohag",
-    "Asmalilia": "Asmalilia","Alexendria":"Alexendria"}
+    "Ismalilia": "Ismalilia","Alexendria":"Alexendria"}
+    USER_TYPE_CHOICES = [
+        ('user', 'User'),
+        ('instructor', 'Instructor'),
+    ]
     email=models.EmailField(max_length=255, unique=True , verbose_name='Email Address')
     first_name= models.CharField(max_length=40 , verbose_name="First Name")
     last_name= models.CharField(max_length=40 , verbose_name="Last Name")
-    phone_number=models.CharField(max_length=13)
+    phone_number = models.CharField(
+        max_length=13,
+        validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be in the format: '+999999999'. Up to 15 digits allowed.")],
+    )
     branch=models.CharField(max_length=30,choices=BRANCHES)
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='user')
     is_active = models.BooleanField(default=True)
     is_superuser=models.BooleanField(default=False)
     is_verified=models.BooleanField(default=False)

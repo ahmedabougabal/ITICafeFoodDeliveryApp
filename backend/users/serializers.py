@@ -12,6 +12,17 @@ from .utils import send_normal_email
 from rest_framework import status  # type:ignore
 from rest_framework.exceptions import AuthenticationFailed  # type:ignore
 from django.core.validators import MinLengthValidator
+from django.core.exceptions import ValidationError
+
+
+def validate_password_strength(password):
+    if len(password) < 8:
+        raise ValidationError("Password must be at least 8 characters long.")
+    if not any(char.isdigit() for char in password):
+        raise ValidationError("Password must contain at least one digit.")
+    if not any(char.isalpha() for char in password):
+        raise ValidationError("Password must contain at least one letter.")
+
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password=serializers.CharField(max_length=60 , write_only=True, validators=[MinLengthValidator(8)] )
@@ -19,7 +30,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=User
-        fields=['email','first_name','last_name','branch','phone_number','password','confirm_password']
+        fields=['email','first_name','last_name','branch','phone_number','user_type','password','confirm_password']
         
     def validate(self,attrs):
         password=attrs.get('password','')
@@ -36,6 +47,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             last_name=validated_data.get("last_name"),
             branch=validated_data.get('branch'),
             phone_number=validated_data.get('phone_number'),
+            user_type=validated_data.get('user_type'),
             password=validated_data.get("password"),
                                       )
         
@@ -77,6 +89,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'branch',
             'phone_number',
+            'user_type',
             'date_joined',
             'last_login',
         ] 
@@ -110,6 +123,7 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(max_length=60, write_only=True)
     uidb64 = serializers.CharField(write_only=True)
     token = serializers.CharField(write_only=True)
+    
 
     class Meta:
         model = User
@@ -136,6 +150,8 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
         # Check if passwords match
         if password != confirm_password:
             raise serializers.ValidationError("The two password fields didn't match.")
+        
+        validate_password_strength(password)
 
         # Attach the user to attrs for later use
         attrs['user'] = user
@@ -170,13 +186,14 @@ class LogoutSerializer(serializers.Serializer):
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'branch', 'phone_number']  # Include only the fields you want to allow editing
+        fields = ['first_name', 'last_name', 'branch', 'phone_number','user_type']  # Include only the fields you want to allow editing
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.branch = validated_data.get('branch', instance.branch)
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.user_type = validated_data.get('user_type', instance.user_type)
         instance.save()
         return instance
 
