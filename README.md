@@ -1,6 +1,6 @@
 # 🍽 ITI Cafe Food Delivery/Ordering App - ITI Graduation Project
 
-Hey Folks! 👋
+Hellllloooooooooooooooooooo Folks! 👋
 
 It's bittersweet to announce that this is our **final ITI graduation project**, but we are excited to share what we've built! 🎓✨ We wanted to leave a lasting impression and solve a real-life problem we encountered within our beloved institution, refer to the repo's description :D
 
@@ -19,6 +19,7 @@ We have chosen a **robust and scalable tech stack** to ensure our app runs smoot
 - **Backend**: [Python](https://www.python.org/) / [Django](https://www.djangoproject.com/)
 - **Database**: [PostgreSQL](https://www.postgresql.org/)
 - **Package Management**: [Pipenv](https://pipenv.pypa.io/en/latest/)
+- **Frontend**: [React](https://react.dev/) / [TailWind](https://v2.tailwindcss.com/docs)
 - **Deployment**: Coming soon!
 
 ## 📊 Repository Stats
@@ -70,6 +71,8 @@ You're all set! 🎉
 - [KareemMMorsy](https://github.com/KareemMMorsy) - **Collaborator**
 - [Mahmoud Wafi](https://github.com/Mahmoud-Wafi) - **Collaborator**
 - [MoatazSobhy](https://github.com/MoatazSobhy) - **Collaborator**
+- [AhmedFadl](https://github.com/AhmedSayedFadl) - **Collaborator**
+
 
 ## 🔗 Useful Links
 - [Python Docs](https://docs.python.org/3/)
