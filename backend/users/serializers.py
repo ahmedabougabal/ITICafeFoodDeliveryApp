@@ -1,5 +1,4 @@
 from rest_framework import serializers  # type:ignore
-from core.models import Branch
 from .models import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken,TokenError # type:ignore
@@ -28,8 +27,6 @@ def validate_password_strength(password):
 class UserRegisterSerializer(serializers.ModelSerializer):
     password=serializers.CharField(max_length=60 , write_only=True, validators=[MinLengthValidator(8)] )
     confirm_password=serializers.CharField(max_length=60 , write_only=True)
-    branch = serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all())
-    branch_name = serializers.ChoiceField(choices=User.BRANCHES.items())
     
     class Meta:
         model=User
@@ -39,17 +36,11 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         password=attrs.get('password','')
         confirm_password=attrs.get('confirm_password','')
         if password !=confirm_password:
-            raise serializers.ValidationError("Passwords Doesn't Match")
-        if attrs['branch'].name != attrs['branch_name']:
-            raise serializers.ValidationError("Branch and Branch name Do not Match")
+            raise serializers.ValidationError("Passwords Does`nt Match")
         return super().validate(attrs)
     
            
     def create(self,validated_data):
-# wafi, both lines are used to remove confirm pass and branch_name from data used to create a user
-        validated_data.pop('confirm_password', None)
-        validated_data.pop('branch_name', None)
-
         user=User.objects.create_user(
             email=validated_data['email'],
             first_name=validated_data.get("first_name"),
@@ -97,7 +88,6 @@ class UserSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'branch',
-            'branch_name',
             'phone_number',
             'user_type',
             'date_joined',
@@ -196,7 +186,7 @@ class LogoutSerializer(serializers.Serializer):
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'branch','branch_name','phone_number','user_type']
+        fields = ['first_name', 'last_name', 'branch', 'phone_number','user_type']
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -204,15 +194,9 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
         instance.branch = validated_data.get('branch', instance.branch)
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)
         instance.user_type = validated_data.get('user_type', instance.user_type)
-        instance.branch_name = validated_data.get('branch_name', instance.branch_name)
         instance.save()
         return instance
 
-    def validate(self, attrs):
-        if 'branch' in attrs and 'branch_name' in attrs:
-            if attrs['branch'].name != attrs['branch_name']:
-                raise serializers.ValidationError("Branch and branch name do not match.")
-        return attrs
     
     
     
