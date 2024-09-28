@@ -11,8 +11,8 @@
     "model": "core.branch",
     "pk": 2,
     "fields": {
-      "name": "Mansoura",
-      "address": "Mansoura University Campus, Mansoura, Egypt"
+      "name": "Smart Village",
+      "address": "Smart Village, Cairo-Alexandria Desert Road, Egypt"
     }
   },
   {
@@ -21,86 +21,6 @@
     "fields": {
       "name": "Cairo University",
       "address": "Cairo University Campus, Giza, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 4,
-    "fields": {
-      "name": "Smart Village",
-      "address": "Smart Village, Cairo-Alexandria Desert Road, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 5,
-    "fields": {
-      "name": "Aswan",
-      "address": "Aswan University Campus, Aswan, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 6,
-    "fields": {
-      "name": "Asuit",
-      "address": "Assiut University Campus, Assiut, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 7,
-    "fields": {
-      "name": "Qena",
-      "address": "South Valley University Campus, Qena, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 8,
-    "fields": {
-      "name": "Menia",
-      "address": "Minia University Campus, Minia, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 9,
-    "fields": {
-      "name": "Menofia",
-      "address": "Menoufia University Campus, Shebin El-Kom, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 10,
-    "fields": {
-      "name": "Beni Suef",
-      "address": "Beni-Suef University Campus, Beni Suef, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 11,
-    "fields": {
-      "name": "Sohag",
-      "address": "Sohag University Campus, Sohag, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 12,
-    "fields": {
-      "name": "Ismalilia",
-      "address": "Suez Canal University Campus, Ismailia, Egypt"
-    }
-  },
-  {
-    "model": "core.branch",
-    "pk": 13,
-    "fields": {
-      "name": "Alexandria",
-      "address": "Alexandria University Campus, Alexandria, Egypt"
     }
   }
 ]
