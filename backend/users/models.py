@@ -49,10 +49,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }
+
     def get_discount_rate(self):
         if self.user_type == 'instructor':
             return 0.50 # 50% OFF FOR ENG MINAAAAAA
         return 0.0 # NO DISCOUNT FOR NORMAL USERS
+
+
           
 class OneTimePassword(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
