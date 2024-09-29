@@ -4,3 +4,5 @@ __pycache__/
 db.sqlite3
 # Ignore Python cache files and directories
 *.py[cod]
+# Ignore JetBrains IDE files
+.idea/
