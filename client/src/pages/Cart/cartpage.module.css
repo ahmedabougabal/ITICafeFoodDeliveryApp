@@ -4,9 +4,9 @@
     align-items: flex-start;
     margin: 1.5rem;
     margin-top: 0.5rem;
-
 }
-.list{
+
+.list {
     display: flex;
     flex-direction: column;
     flex: 3 0;
@@ -17,7 +17,8 @@
     margin: 0.5rem;
     padding: 0;
 }
-.list li{
+
+.list li {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -25,37 +26,40 @@
     border-bottom: 1px solid #e4e4e4;
 }
 
-.list li:last-child{
+.list li:last-child {
     border: none;
-
 }
-.list li img{
+
+.list li img {
     width: 5rem;
     height: 5rem;
     border-radius: 100rem;
     object-fit: cover;
-
 }
-.list li{
+
+.list li {
     padding: 1rem;
 }
-.list li div:not(:first-child){
+
+.list li div:not(:first-child) {
     flex-basis: 18%;
 }
 
-.list .remove_button{
+.list .remove_button {
     border-radius: 1rem;
     border: none;
     padding: 0.5rem;
-    color:#e72929;
+    color: #e72929;
     opacity: .7;
     outline: none;
 }
-.list .remove_button:hover{
+
+.list .remove_button:hover {
     opacity: 1;
     cursor: pointer;
 }
-.checkout{
+
+.checkout {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,10 +70,9 @@
     border-radius: 1rem;
     padding: 0.5rem;
     margin: 0.5rem;
-
 }
 
-.checkout > div{
+.checkout > div {
     font-size: 1.4rem;
     margin: 1rem;
     flex: 3;
@@ -78,32 +81,52 @@
     justify-content: center;
     align-items: flex-start;
 }
-.checkout .food_count{
+
+.checkout .food_count {
     margin-bottom: 1.5rem;
 }
 
-.checkout .food_count::before{
+.checkout .food_count::before {
     content: 'Count: ';
     color: grey;
 }
 
-.checkout .total_price::before{
+.checkout .total_price::before {
     content: 'Price: ';
     color: grey;
 }
 
-.checkout a{
+.checkout_button {
     padding: 1rem;
     color: white;
-    display:block;
-    width:99%;
+    display: block;
+    width: 99%;
     background-color: #e72929;
     border-radius: 1rem;
     text-align: center;
-    justify-self: center;
-}
-.checkout a:hover{
-    opacity: 0.8;
+    border: none;
     cursor: pointer;
+}
 
+.checkout_button:hover {
+    opacity: 0.8;
+}
+
+.empty_cart {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.continue_shopping {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #e72929;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+
+.continue_shopping:hover {
+    opacity: 0.8;
 }
