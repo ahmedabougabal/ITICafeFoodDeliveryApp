@@ -1,10 +1,34 @@
-import { sample_foods } from "../data";
+import axios from 'axios';
 
-export const getAll = async () => sample_foods;
+const BASE_URL = 'http://localhost:8000';
+const API_URL = `${BASE_URL}/api/menu/items/`;
 
-export const search = async(searchTerm: string) => sample_foods
-.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+export const getAll = async () => {
+    try {
+        const response = await axios.get(API_URL);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching menu items:', error);
+        throw error;
+    }
+};
 
-export const getById= async (foodId:any) =>
-    sample_foods.find(item=>item.id === foodId)
+export const search = async (searchTerm: string) => {
+    try {
+        const response = await axios.get(`${API_URL}?search=${searchTerm}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error searching menu items:', error);
+        throw error;
+    }
+};
+
+export const getById = async (foodId: string) => {
+    try {
+        const response = await axios.get(`${API_URL}${foodId}/`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching menu item by ID:', error);
+        throw error;
+    }
+};

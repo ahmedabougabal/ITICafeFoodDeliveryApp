@@ -1,33 +1,40 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getAll, search } from '../../services/FoodService';
 import Thumbnails from '../../components/Thumbnails/Thumbnails';
 import { useParams } from 'react-router-dom';
 import Search from '../../components/Search/Search';
 
-
-const initialState = { foods: []};
-const reducer = (state :any,action :any) => {
-  switch(action.type){
-    case 'FOODS_LOADED':
-      return {...state, foods: action.payload };
-    default:
-      return state;
-  }
-};
 const HomePage = () => {
-  const [state,dispatch] = useReducer(reducer,initialState);
-  const {foods} = state;
-  const {searchTerm} = useParams();
+  const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { searchTerm } = useParams();
 
-  useEffect( ()=>{
-    
-    const loadedFood = searchTerm ? search(searchTerm):getAll();
-    loadedFood.then(foods => dispatch({type:'FOODS_LOADED',payload:foods}))
-  },[searchTerm])
+  useEffect(() => {
+    const loadFoods = async () => {
+      try {
+        setLoading(true);
+        const loadedFoods = searchTerm ? await search(searchTerm) : await getAll();
+        setFoods(loadedFoods);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load menu items. Please try again later.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadFoods();
+  }, [searchTerm]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <>
-    <Search />
-    <Thumbnails foods={foods} />
+      <Search />
+      <Thumbnails foods={foods} />
     </>
   )
 }

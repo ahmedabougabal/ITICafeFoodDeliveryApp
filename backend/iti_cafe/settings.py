@@ -174,6 +174,11 @@ REST_FRAMEWORK = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True  # development only ya shabab
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # My React app's URL
+]
 
 # Logging configuration
 LOGGING = {
