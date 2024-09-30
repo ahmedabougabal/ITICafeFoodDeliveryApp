@@ -1,0 +1,10 @@
+1- create app for rooms  >> 'DONE'
+2- create superuser to create rooms  >> 'DONE'
+3- show list of rooms >> 'DONE'
+4- room detail view >> 'DONE'
+5- creating a consumer >> 'DONE'
+6- joining a chat and run websocket once i enter room >> 'DONE'
+7- sending messages >> 'DONE'
+8- storing messages in database >> 'DONE'
+9- scrolling to the bottom 'DONE'
+

@@ -45,11 +45,17 @@ INSTALLED_APPS = [
    'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
+    'rooms',
+    'channels'
 ]
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",]  # React app
 
-
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 from datetime import timedelta
 SIMPLE_JWT = {
@@ -88,6 +94,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'iti_cafe.wsgi.application'
+ASGI_APPLICATION = 'iti_cafe.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
