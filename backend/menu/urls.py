@@ -13,4 +13,6 @@ urlpatterns = [
     path('items/branch-menu/', MenuItemViewSet.as_view({'get': 'branch_menu'}), name='menu-item-branch-menu'),
     path('items/bulk-create/', MenuItemViewSet.as_view({'post': 'bulk_create'}), name='menu-item-bulk-create'),
     path('items/bulk-update/', MenuItemViewSet.as_view({'put': 'bulk_update'}), name='menu-item-bulk-update'),
+    path('items/<int:pk>/details/', MenuItemViewSet.as_view({'get': 'details'}), name='menu-item-details'),
+
 ]

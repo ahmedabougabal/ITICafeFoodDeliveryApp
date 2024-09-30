@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import MenuItem, Category
-from .serializers import MenuItemSerializer, MenuItemCreateUpdateSerializer, CategorySerializer
+from .serializers import MenuItemSerializer, MenuItemCreateUpdateSerializer, CategorySerializer, MenuItemDetailSerializer
 from .permissions import IsAuthenticatedAndHasBranch
 from .filters import MenuItemFilter
 from django.utils import timezone
@@ -25,7 +25,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
     permission_classes = [IsAuthenticatedAndHasBranch]
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -40,7 +39,9 @@ class MenuItemViewSet(viewsets.ModelViewSet):
         return queryset.filter(is_available=True)
 
     def get_serializer_class(self):
-        if self.action in ['create', 'update', 'partial_update']:
+        if self.action == 'details':
+            return MenuItemDetailSerializer
+        elif self.action in ['create', 'update', 'partial_update']:
             return MenuItemCreateUpdateSerializer
         return MenuItemSerializer
 
@@ -94,6 +95,12 @@ class MenuItemViewSet(viewsets.ModelViewSet):
             self.perform_bulk_update(serializer)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['get'])
+    def details(self, request, pk=None):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
     def perform_bulk_update(self, serializer):
         serializer.save()
