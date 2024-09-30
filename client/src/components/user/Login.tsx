@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import AxiosInstance from "../utils/AxiosInstance";
+import AxiosInstance from "../../utils/AxiosInstance";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Login = () => {
                 localStorage.setItem('token', JSON.stringify(response.access_token));
                 localStorage.setItem('refresh_token', JSON.stringify(response.refresh_token));
                 localStorage.setItem('user', JSON.stringify(user));
-                await navigate('/dashboard');
+                await navigate('/');
                 toast.success('Login successful');
             }
         } catch (error) {

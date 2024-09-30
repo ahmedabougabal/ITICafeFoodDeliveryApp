@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import AxiosInstance from "../utils/AxiosInstance";
+import AxiosInstance from "../../utils/AxiosInstance";
 
 const BRANCHES = {
     "New Capital": "NEW Capital",

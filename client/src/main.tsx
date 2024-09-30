@@ -5,7 +5,7 @@ import './index.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 import { BrowserRouter } from 'react-router-dom'
 import CartProvider from './hooks/useCart.tsx';
-
+import 'react-toastify/dist/ReactToastify.css';
 createRoot(document.getElementById('root')!).render(
   
   <StrictMode>
