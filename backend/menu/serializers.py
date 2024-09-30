@@ -81,16 +81,16 @@ class MenuItemCreateUpdateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("You can only create/update menu items for your own branch.")
         return value
 
-    class MenuItemDetailSerializer(serializers.ModelSerializer):
-        category = CategorySerializer()
-        variants = MenuItemVariantSerializer(many=True)
-        special_offers = SpecialOfferSerializer(many=True)
+class MenuItemDetailSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    variants = MenuItemVariantSerializer(many=True)
+    special_offers = SpecialOfferSerializer(many=True)
 
-        class Meta:
-            model = MenuItem
-            fields = [
-                'id', 'name', 'description', 'price', 'image', 'category',
-                'is_available', 'stock', 'calories', 'allergens',
-                'time_availability_start', 'time_availability_end',
-                'order_count', 'variants', 'special_offers'
-            ]
+    class Meta:
+        model = MenuItem
+        fields = [
+            'id', 'name', 'description', 'price', 'image', 'category',
+            'is_available', 'stock', 'calories', 'allergens',
+            'time_availability_start', 'time_availability_end',
+            'order_count', 'variants', 'special_offers'
+        ]
