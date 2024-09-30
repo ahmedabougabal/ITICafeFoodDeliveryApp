@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
-import AxiosInstance from '../utils/AxiosInstance'
+import AxiosInstance from '../../utils/AxiosInstance'
 
 const PasswordResetRequest = () => {
     const [email, setEmail]=useState("")

@@ -8,7 +8,7 @@ import EditProfile from './components/user/EditProfile';
 import Signup from './components/user/Signup';
 import Login from './components/user/Login';
 import VerifyEmail from './components/user/VerifyEmail';
-import {ToastContainer} from 'react-toastify';
+// import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
@@ -20,13 +20,13 @@ const AppRoutes = () => {
         <Route path='/search/:searchTerm' element={<HomePage />} />
         <Route path='/food/:id' element={<FoodPage />} />
         <Route path='/cart' element={<CartPage />} />
-         <Route path='/signup' element={<Signup/>}/>
-            <Route path='/login' element={<Login/>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path="/profile/edit" element={<EditProfile />} />
-            <Route path='/otp/verify' element={<VerifyEmail/>}/>
-            <Route path='/forget-password' element={<PasswordResetRequest/>}/>
-            <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path="/profile/edit" element={<EditProfile />} />
+        <Route path='/otp/verify' element={<VerifyEmail/>}/>
+        <Route path='/forget-password' element={<PasswordResetRequest/>}/>
+        <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
     </Routes>
   )
 }
