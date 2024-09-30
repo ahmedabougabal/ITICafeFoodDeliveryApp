@@ -3,26 +3,35 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import MenuItem, Category
-from .serializers import MenuItemSerializer, MenuItemCreateUpdateSerializer, CategorySerializer, MenuItemDetailSerializer
-from .permissions import IsAuthenticatedAndHasBranch
-from .filters import MenuItemFilter
 from django.utils import timezone
 from django.db.models import Count
 
+from .models import MenuItem, Category
+from .serializers import (
+    MenuItemSerializer,
+    MenuItemCreateUpdateSerializer,
+    MenuItemDetailSerializer,
+    CategorySerializer
+)
+from .permissions import IsAuthenticatedAndHasBranch
+from .filters import MenuItemFilter
 
+
+# Custom pagination class for consistent pagination settings
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
 
 
+# Category ViewSet with standard CRUD operations and authentication check
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticatedAndHasBranch]
 
 
+# MenuItem ViewSet with filtering, ordering, and custom actions
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
     permission_classes = [IsAuthenticatedAndHasBranch]
@@ -34,6 +43,7 @@ class MenuItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        # Apply branch filtering for non-superuser requests
         if not self.request.user.is_superuser:
             queryset = queryset.filter(branch=self.request.user.branch)
         return queryset.filter(is_available=True)
@@ -50,9 +60,7 @@ class MenuItemViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def popular(self, request):
-        popular_items = self.get_queryset().annotate(
-            order_count=Count('orderitem')
-        ).order_by('-order_count')[:5]
+        popular_items = self.get_queryset().annotate(order_count=Count('orderitem')).order_by('-order_count')[:5]
         serializer = self.get_serializer(popular_items, many=True)
         return Response(serializer.data)
 
@@ -96,11 +104,18 @@ class MenuItemViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def perform_bulk_update(self, serializer):
+        serializer.save()
+
     @action(detail=True, methods=['get'])
     def details(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
-    def perform_bulk_update(self, serializer):
-        serializer.save()
+    # retrieve all menu items without any filters (testing ONLY)
+    @action(detail=False, methods=['get'])
+    def all_items(self, request):
+        all_items = MenuItem.objects.all()
+        serializer = self.get_serializer(all_items, many=True)
+        return Response(serializer.data)
