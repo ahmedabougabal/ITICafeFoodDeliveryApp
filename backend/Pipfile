@@ -10,6 +10,7 @@ djangorestframework = "*"
 django-environ = "*"
 django-cors-headers = "*"
 django-filter = "*"
+django-perms = "*"
 
 [dev-packages]
 
