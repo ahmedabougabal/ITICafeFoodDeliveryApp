@@ -1,10 +1,7 @@
-// EditProfile.jsx
-
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-
 const BRANCHES = {
     "New Capital": "NEW Capital",
     "Mansoura": "Mansoura",
@@ -28,6 +25,7 @@ const EditProfile = () => {
         last_name: '',
         branch: '',
         phone_number: '',
+        user_type: '' // Include user_type in the state
     });
 
     useEffect(() => {
@@ -51,60 +49,49 @@ const EditProfile = () => {
         try {
             await AxiosInstance.put('/profile/update', profileData);
             toast.success('Profile updated successfully');
-            navigate('/profile'); // Redirect to profile after updating
+            navigate('/profile');
         } catch (error) {
             toast.error('Failed to update profile');
         }
     };
 
     return (
-        <div className="form-container">
-            <div className="wrapper">
-                <h2>Edit Profile</h2>
+        <div className='form-container'>
+            <div className='wrapper'>
                 <form onSubmit={handleSubmit}>
+                    <h2>Edit Profile</h2>
                     <div className='form-group'>
                         <label>First Name:</label>
-                        <input
-                            type="text"
-                            name="first_name"
-                            value={profileData.first_name}
-                            onChange={handleChange}
-                        />
+                        <input type="text" name="first_name" value={profileData.first_name} onChange={handleChange} />
                     </div>
                     <div className='form-group'>
                         <label>Last Name:</label>
-                        <input
-                            type="text"
-                            name="last_name"
-                            value={profileData.last_name}
-                            onChange={handleChange}
-                        />
+                        <input type="text" name="last_name" value={profileData.last_name} onChange={handleChange} />
+                    </div>
+                    <div className='form-group'>
+                        <label>Email Address:</label>
+                        <input type="email" name="email" value={profileData.email} disabled />
                     </div>
                     <div className='form-group'>
                         <label>Branch:</label>
-                        <select
-                            name="branch"
-                            value={profileData.branch}
-                            onChange={handleChange}
-                        >
-                            <option value="">Select a branch</option>
-                            {Object.entries(BRANCHES).map(([key, value]) => (
-                                <option key={key} value={key}>
-                                    {value}
-                                </option>
+                        <select name="branch" value={profileData.branch} onChange={handleChange}>
+                            {Object.keys(BRANCHES).map(branchName => (
+                                <option key={branchName} value={branchName}>{BRANCHES[branchName]}</option>
                             ))}
                         </select>
                     </div>
                     <div className='form-group'>
                         <label>Phone Number:</label>
-                        <input
-                            type="text"
-                            name="phone_number"
-                            value={profileData.phone_number}
-                            onChange={handleChange}
-                        />
+                        <input type="text" name="phone_number" value={profileData.phone_number} onChange={handleChange} />
                     </div>
-                    <input type="submit" value="Save Changes" className="submitButton" />
+                    <div className='form-group'>
+                        <label>User Type:</label>
+                        <select name="user_type" value={profileData.user_type} onChange={handleChange}>
+                            <option value="user">User</option>
+                            <option value="instructor">Instructor</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Update" className="submitButton" />
                 </form>
             </div>
         </div>

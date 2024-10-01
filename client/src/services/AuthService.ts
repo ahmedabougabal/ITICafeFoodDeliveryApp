@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8000';
-const API_URL = `${BASE_URL}/api/users/`;
+const API_URL = `${BASE_URL}/api-auth/`;
 
 export const authService = {
   login: async (username: string, password: string) => {
     try {
-      const response = await axios.post(`${API_URL}login/`, { username, password });
+      const response = await axios.post(`${API_URL}login`, { username, password });
       if (response.data.access) {
         localStorage.setItem('user', JSON.stringify(response.data));
       }
@@ -30,6 +30,7 @@ export const authService = {
   logout: () => {
     localStorage.removeItem('user');
   },
+
 
   getCurrentUser: () => {
     const userStr = localStorage.getItem('user');

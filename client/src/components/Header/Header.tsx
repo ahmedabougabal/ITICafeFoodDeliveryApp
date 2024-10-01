@@ -3,8 +3,10 @@ import classes from './header.module.css';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import '../../App.css'
+
 interface User {
-  name: string;
+  full_name: string;
+  email: string;
 }
 
 interface HeaderProps {
@@ -24,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
         <ul>
           {user ? (
             <li className={classes.menu_container}>
-              <Link to="/profile">{user.name}</Link>
+              <Link to="/profile">{user.full_name}</Link>
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
                 <Link to="/orders">Orders</Link>
