@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import styled from 'styled-components';
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
+import './signup.css';
 
 const BRANCHES = {
     "New Capital": "NEW Capital",
@@ -21,120 +21,6 @@ const BRANCHES = {
     "Alexandria": "Alexandria"
 };
 
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #e0f7fa, #80deea);
-    padding: 1rem;
-    box-sizing: border-box;
-`;
-
-const FormWrapper = styled.div`
-    background: white;
-    padding: 1.5rem 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-
-    h2 {
-        margin-bottom: 1rem;
-        text-align: center;
-        color: #053271;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 500;
-    }
-`;
-
-const FormGroup = styled.div`
-    margin-bottom: 1rem;
-
-    label {
-        display: block;
-        margin-bottom: 0.3rem;
-        font-weight: bold;
-        font-size: 0.85rem;
-        color: #053271;
-    }
-
-    input, select {
-        width: 100%;
-        padding: 0.5rem;
-        border: 1.5px solid #80deea;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        transition: border 0.3s;
-
-        &:focus {
-            border-color: #053271;
-            outline: none;
-        }
-    }
-
-    button {
-        background: transparent;
-        border: none;
-        color: #1b1b1b;
-        cursor: pointer;
-        font-size: 0.85rem;
-        margin-top: 0.3rem;
-
-        &:hover {
-            color: #053271;
-        }
-    }
-`;
-
-const SubmitButton = styled.input`
-    background-color: #053271;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 100%;
-    transition: background 0.3s;
-
-    &:hover {
-        background-color: #1b1b1b;
-    }
-`;
-
-const LoginLink = styled.button`
-    background: none;
-    border: none;
-    color: #053271;
-    cursor: pointer;
-    text-align: center;
-    display: block;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
-const GoogleButton = styled.button`
-    width: 100%;
-    background: #db4437;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    cursor: pointer;
-    transition: background 0.3s;
-
-    &:hover {
-        background: #c13527;
-    }
-`;
-
 const Signup = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -149,28 +35,78 @@ const Signup = () => {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [errors, setErrors] = useState({}); // Error state
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setErrors({ ...errors, [e.target.name]: '' }); // Clear error on change
     };
 
     const validateForm = () => {
         const { email, first_name, last_name, branch, phone_number, password, confirm_password } = formData;
-        if (!email || !first_name || !last_name || !branch || !phone_number || !password || !confirm_password) {
-            toast.error("All fields are required.");
-            return false;
+        let newErrors = {}; // Object to hold error messages
+        let isValid = true;
+
+        // Check for empty fields
+        if (!email) {
+            newErrors.email = "Email is required.";
+            isValid = false;
         }
+        if (!first_name) {
+            newErrors.first_name = "First name is required.";
+            isValid = false;
+        }
+        if (!last_name) {
+            newErrors.last_name = "Last name is required.";
+            isValid = false;
+        }
+        if (!branch) {
+            newErrors.branch = "Branch is required.";
+            isValid = false;
+        }
+        if (!phone_number) {
+            newErrors.phone_number = "Phone number is required.";
+            isValid = false;
+        }
+        if (!password) {
+            newErrors.password = "Password is required.";
+            isValid = false;
+        }
+        if (!confirm_password) {
+            newErrors.confirm_password = "Confirm password is required.";
+            isValid = false;
+        }
+
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email && !emailRegex.test(email)) {
+            newErrors.email = "Invalid email address.";
+            isValid = false;
+        }
+
+        // Password validation
+        if (password && (password.length < 8 || !/\d/.test(password))) {
+            newErrors.password = "Password must be at least 8 characters long and contain digits.";
+            isValid = false;
+        }
+
+        // Confirm password match
         if (password !== confirm_password) {
-            toast.error("Passwords do not match.");
-            return false;
+            newErrors.confirm_password = "Passwords do not match.";
+            isValid = false;
         }
-        return true;
+
+        setErrors(newErrors); // Set the error state
+        return isValid;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validateForm()) return;
+        if (!validateForm()) {
+            toast.error("Please fix the errors.");
+            return;
+        }
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api-auth/register', formData);
@@ -180,7 +116,7 @@ const Signup = () => {
             }
         } catch (error) {
             if (error.response && error.response.status === 400) {
-                toast.error("Email already exists.");
+                setErrors(prevErrors => ({ ...prevErrors, email: "Email already exists." }));
             } else {
                 toast.error("An unexpected error occurred.");
             }
@@ -188,23 +124,26 @@ const Signup = () => {
     };
 
     return (
-        <Container>
-            <FormWrapper>
+        <div className="container">
+            <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
-                    <h2>Create Account</h2>
-                    <FormGroup>
+                    <div className="form-group">
+                        <h2>Create Account</h2>
                         <label>First Name:</label>
                         <input type="text" name="first_name" value={formData.first_name} onChange={handleChange} />
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.first_name && <p className="error-message">{errors.first_name}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Last Name:</label>
                         <input type="text" name="last_name" value={formData.last_name} onChange={handleChange} />
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.last_name && <p className="error-message">{errors.last_name}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Email Address:</label>
                         <input type="email" name="email" value={formData.email} onChange={handleChange} />
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.email && <p className="error-message">{errors.email}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Branch:</label>
                         <select name="branch" value={formData.branch} onChange={handleChange}>
                             <option value="">Select Branch</option>
@@ -212,36 +151,40 @@ const Signup = () => {
                                 <option key={branchName} value={branchName}>{BRANCHES[branchName]}</option>
                             ))}
                         </select>
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.branch && <p className="error-message">{errors.branch}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Phone Number:</label>
                         <input type="text" name="phone_number" value={formData.phone_number} onChange={handleChange} />
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.phone_number && <p className="error-message">{errors.phone_number}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Password:</label>
                         <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} />
                         <button type="button" onClick={() => setShowPassword(!showPassword)}>
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
-                    </FormGroup>
-                    <FormGroup>
+                        {errors.password && <p className="error-message">{errors.password}</p>}
+                    </div>
+                    <div className="form-group">
                         <label>Confirm Password:</label>
                         <input type={showConfirmPassword ? "text" : "password"} name="confirm_password" value={formData.confirm_password} onChange={handleChange} />
                         <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                         </button>
-                    </FormGroup>
-                    <SubmitButton type="submit" value="Submit" />
-                    <GoogleButton>
+                        {errors.confirm_password && <p className="error-message">{errors.confirm_password}</p>}
+                    </div>
+                    <input type="submit" className="submit-button" value="Submit" />
+                    <button className="google-button">
                         <FaGoogle /> Sign up with Google
-                    </GoogleButton>
-                    <LoginLink onClick={() => navigate("/login")}>
+                    </button>
+                    <button className="login-link" onClick={() => navigate("/login")}>
                         Already have an account? Log In
-                    </LoginLink>
+                    </button>
                 </form>
-            </FormWrapper>
-        </Container>
-    );
+            </div>
+        </div>
+    );    
 };
 
 export default Signup;

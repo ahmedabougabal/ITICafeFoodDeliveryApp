@@ -1,47 +1,36 @@
 from rest_framework import serializers  # type:ignore
 from .models import User
 from django.contrib.auth import authenticate
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError  # type:ignore
+from rest_framework_simplejwt.tokens import RefreshToken,TokenError # type:ignore
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import smart_str, smart_bytes, force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode ,urlsafe_base64_encode
+from django.utils.encoding import smart_str , smart_bytes , force_bytes , force_str
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .utils import send_normal_email
 from rest_framework import status  # type:ignore
 from rest_framework.exceptions import AuthenticationFailed  # type:ignore
 from django.core.validators import MinLengthValidator
-from django.core.exceptions import ValidationError
-
-
-def validate_password_strength(password):
-    if len(password) < 8:
-        raise ValidationError("Password must be at least 8 characters long.")
-    if not any(char.isdigit() for char in password):
-        raise ValidationError("Password must contain at least one digit.")
-    if not any(char.isalpha() for char in password):
-        raise ValidationError("Password must contain at least one letter.")
-
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=60, write_only=True, validators=[MinLengthValidator(8)])
-    confirm_password = serializers.CharField(max_length=60, write_only=True)
-
+    password=serializers.CharField(max_length=60 , write_only=True, validators=[MinLengthValidator(8)] )
+    confirm_password=serializers.CharField(max_length=60 , write_only=True)
+    
     class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name', 'branch', 'phone_number', 'user_type', 'password',
-                  'confirm_password']
-
-    def validate(self, attrs):
-        password = attrs.get('password', '')
-        confirm_password = attrs.get('confirm_password', '')
-        if password != confirm_password:
+        model=User
+        fields=['email','first_name','last_name','branch','phone_number','user_type','password','confirm_password']
+        
+    def validate(self,attrs):
+        password=attrs.get('password','')
+        confirm_password=attrs.get('confirm_password','')
+        if password !=confirm_password:
             raise serializers.ValidationError("Passwords Does`nt Match")
         return super().validate(attrs)
-
-    def create(self, validated_data):
-        user = User.objects.create_user(
+    
+           
+    def create(self,validated_data):
+        user=User.objects.create_user(
             email=validated_data['email'],
             first_name=validated_data.get("first_name"),
             last_name=validated_data.get("last_name"),
@@ -49,40 +38,37 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             phone_number=validated_data.get('phone_number'),
             user_type=validated_data.get('user_type'),
             password=validated_data.get("password"),
-        )
-
+                                      )
+        
         return user
-
-
+    
+    
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=60)
-    password = serializers.CharField(max_length=60, write_only=True)
-    full_name = serializers.CharField(max_length=60, read_only=True)
+    password = serializers.CharField(max_length=60,write_only=True)
+    full_name = serializers.CharField(max_length=60,read_only=True)
     access_token = serializers.CharField(read_only=True)
     refresh_token = serializers.CharField(read_only=True)
-
     class Meta:
         model = User
-        fields = ['email', 'password', 'full_name', 'access_token', 'refresh_token']
+        fields = ['email', 'password', 'full_name', 'access_token','refresh_token']
 
     def validate(self, attrs):
         email = attrs.get('email')
         password = attrs.get('password')
-        request = self.context.get('request')
+        request=self.context.get('request')
         user = authenticate(request, email=email, password=password)
         if user is None:
             raise serializers.ValidationError('Invalid credentials.')
         if not user.is_verified:
             raise serializers.ValidationError('Email is Not Verified')
-        user_tokens = user.tokens()
+        user_tokens=user.tokens()
         return {
             'email': user.email,
             'full_name': user.get_full_name,
-            'access_token': str(user_tokens.get('access')),
-            'refresh_token': str(user_tokens.get('refresh')),
+            'access_token':str(user_tokens.get('access')),
+            'refresh_token':str(user_tokens.get('refresh')),
         }
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -95,17 +81,14 @@ class UserSerializer(serializers.ModelSerializer):
             'user_type',
             'date_joined',
             'last_login',
-        ]
-
+        ] 
 
 class ResetPasswordSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(max_length=60)
-
-    class Meta:
+     email = serializers.EmailField(max_length=60)
+     class Meta:
         model = User
         fields = ['email']
-
-    def validate_email(self, email):
+     def validate_email(self, email):
         if not User.objects.filter(email=email).exists():
             raise serializers.ValidationError("Email address does not exist.")
         if User.objects.filter(email=email).exists():
@@ -123,10 +106,9 @@ class ResetPasswordSerializer(serializers.ModelSerializer):
                 "to_email": user.email
             }
             send_normal_email(data)
-        return email
-
+        return email    
 class SetNewPasswordSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=60, write_only=True, validators=[MinLengthValidator(8)])
+    password = serializers.CharField(max_length=60, write_only=True ,validators=[MinLengthValidator(8)])
     confirm_password = serializers.CharField(max_length=60, write_only=True)
     uidb64 = serializers.CharField(write_only=True)
     token = serializers.CharField(write_only=True)
@@ -143,7 +125,7 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
 
         # Decode uidb64 to get user ID
         user_id = force_str(urlsafe_base64_decode(uidb64))
-
+        
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
@@ -157,8 +139,6 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
         if password != confirm_password:
             raise serializers.ValidationError("The two password fields didn't match.")
 
-        validate_password_strength(password)
-
         # Attach the user to attrs for later use
         attrs['user'] = user
         return attrs
@@ -171,27 +151,28 @@ class SetNewPasswordSerializer(serializers.ModelSerializer):
 
 
 class LogoutSerializer(serializers.Serializer):
-    refresh_token = serializers.CharField(write_only=True)
-    default_error_message = {
-        "Bad Token": ("Token is invalid or had Expired")
+    refresh_token= serializers.CharField(write_only=True)
+    default_error_message={
+        "Bad Token":("Token is invalid or had Expired")
     }
-
-    def validate(self, attrs):
-        self.token = attrs.get('refresh_token')
+    def validate(self,attrs):
+        self.token=attrs.get('refresh_token')
         return attrs
-
+    
     def save(self, **kwargs):
-        try:
-            token = RefreshToken(self.token)
-            token.blacklist()
-        except TokenError:
-            return self.fail("Bad Token")
-
+       try:
+           token=RefreshToken(self.token)
+           token.blacklist()
+       except TokenError:
+           return self.fail("Bad Token")        
+   
+    
+    
 
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'branch', 'phone_number', 'user_type']
+        fields = ['first_name', 'last_name', 'branch', 'phone_number','user_type']  # Include only the fields you want to allow editing
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
@@ -202,6 +183,65 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 # class SetNewPasswordSerializer(serializers.ModelSerializer):
 #     password=serializers.CharField(max_length=60 , write_only=True)
 #     confirm_password=serializers.CharField(max_length=60 , write_only=True)
