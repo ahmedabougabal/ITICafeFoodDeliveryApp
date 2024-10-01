@@ -1,0 +1,8 @@
+
+.tabs a:hover{
+    color: #ffbbbb ;
+}
+.tabs li:hover{
+    cursor: pointer;
+    
+}
