@@ -1,0 +1,125 @@
+/* Login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    /* Light grey background */
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Full viewport height */
+}
+
+.wrapper {
+    background-color: #fff;
+    /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    /* Soft shadow */
+    padding: 2rem;
+    /* Padding around the form */
+    width: 300px;
+    /* Fixed width for the form */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    /* Space below the heading */
+    color: #333;
+    /* Dark text color */
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    /* Space between form groups */
+}
+
+label {
+    display: block;
+    /* Make labels block elements */
+    margin-bottom: 0.5rem;
+    /* Space below the label */
+    color: #555;
+    /* Medium grey text color */
+}
+
+.email-form {
+    width: 100%;
+    /* Full width of the container */
+    padding: 0.5rem;
+    /* Padding inside the input fields */
+    border: 1px solid #ccc;
+    /* Light grey border */
+    border-radius: 4px;
+    /* Rounded corners */
+    box-sizing: border-box;
+    /* Include padding and border in element's total width and height */
+    font-size: 1rem;
+    /* Font size for inputs */
+}
+
+.email-form:focus {
+    border-color: #007BFF;
+    /* Blue border on focus */
+    outline: none;
+    /* Remove default outline */
+}
+
+.error-message {
+    color: red;
+    /* Red text for error messages */
+    font-size: 0.875rem;
+    /* Slightly smaller font for error messages */
+    margin-top: 0.25rem;
+    /* Space above the error message */
+}
+
+.submitButton {
+    width: 100%;
+    /* Full width for submit button */
+    padding: 0.5rem;
+    /* Padding inside button */
+    background-color: #007BFF;
+    /* Blue background */
+    color: white;
+    /* White text color */
+    border: none;
+    /* Remove default border */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 1rem;
+    /* Font size for the button */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.pass-link {
+    text-align: center;
+    /* Center the forgot password link */
+    margin-top: 1rem;
+    /* Space above the link */
+}
+
+.pass-link a {
+    color: #007BFF;
+    /* Blue link color */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.pass-link a:hover {
+    text-decoration: underline;
+    /* Underline on hover */
+}

@@ -1,8 +1,10 @@
 import React from 'react';
 import classes from './header.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
-import '../../App.css'
+import '../../App.css';
+import { toast } from 'react-toastify'; // Assuming you're using 'react-toastify' for notifications
+import AxiosInstance from '../../utils/AxiosInstance'; // Assuming AxiosInstance is configured for API requests
 
 interface User {
   full_name: string;
@@ -16,6 +18,22 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
   const { cart } = useCart();
+  const navigate = useNavigate();
+
+  // Logout handler function
+  const handleLogout = async () => {
+    try {
+      const refresh = JSON.parse(localStorage.getItem('refresh_token') || '{}');
+      await AxiosInstance.post('/logout', { 'refresh_token': refresh });
+      localStorage.removeItem('token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user');
+      navigate('/login');
+      toast.warn("Logout successful");
+    } catch (error) {
+      toast.error("Logout failed.");
+    }
+  };
 
   return (
     <header className={classes.header}>
@@ -30,7 +48,8 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
                 <Link to="/orders">Orders</Link>
-                <a onClick={onLogout} className={classes.logout}>
+                {/* Log Out link with handleLogout */}
+                <a onClick={handleLogout} className={classes.logout}>
                   Log Out
                 </a>
               </div>

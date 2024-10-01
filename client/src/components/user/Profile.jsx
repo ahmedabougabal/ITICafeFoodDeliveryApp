@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
@@ -52,7 +52,6 @@ const Profile = () => {
                     <p><strong>Email:</strong> {userData.email}</p>
                     <p><strong>Branch:</strong> {userData.branch}</p>
                     <p><strong>Phone Number:</strong> {userData.phone_number}</p>
-                    <p><strong>User Type:</strong> {userData.user_type}</p>
                 </div>
             ) : (
                 <p>Loading user data...</p>
