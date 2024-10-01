@@ -1,48 +1,51 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import AppRoutes from "./AppRoutes";
 import Header from "./components/Header/Header";
-// import Login from "./components/Login";
-// import Register from "./components/Register";
 import { authService } from './services/AuthService';
 import Profile from './components/user/Profile';
 import EditProfile from './components/user/EditProfile';
 import Signup from './components/user/Signup';
 import Login from './components/user/Login';
 import VerifyEmail from './components/user/VerifyEmail';
-// import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
+import { UserProvider, useUser } from './UserContext';
+import AuthMessage from './components/AuthMessage';
 
-function App() {
-  const [user, setUser] = useState(null);
+function AppContent() {
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
+  const [authMessage, setAuthMessage] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
   useEffect(() => {
     const currentUser = authService.getCurrentUser();
     if (currentUser) {
       setUser(currentUser);
     }
-  }, []);
-
+  }, [setUser]);
 
   const handleLogout = () => {
     authService.logout();
     setUser(null);
+    setAuthMessage({ message: 'Logged out successfully', type: 'success' });
     navigate('/login');
+  };
+
+  const handleLogin = (userData: any) => {
+    setUser(userData);
+    setAuthMessage({ message: 'Logged in successfully', type: 'success' });
   };
 
   return (
     <>
       <Header user={user} onLogout={handleLogout} />
+      {authMessage && <AuthMessage message={authMessage.message} type={authMessage.type} />}
       <Routes>
-        <Route
-          path="/*"
-          element={<AppRoutes />}
-        />
-         <Route path='/signup' element={<Signup/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path="/*" element={<AppRoutes />} />
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/login' element={<Login onLoginSuccess={handleLogin} />}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path="/profile/edit" element={<EditProfile />} />
         <Route path='/otp/verify' element={<VerifyEmail/>}/>
@@ -50,6 +53,14 @@ function App() {
         <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
       </Routes>
     </>
+  );
+}
+
+function App() {
+  return (
+    <UserProvider>
+      <AppContent />
+    </UserProvider>
   );
 }
 

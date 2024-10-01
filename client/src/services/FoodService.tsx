@@ -32,3 +32,13 @@ export const getById = async (foodId: string) => {
         throw error;
     }
 };
+
+export const checkAuthStatus = async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/api-auth/profile`);
+        return response.data;
+    } catch (error) {
+        console.error('Error checking auth status:', error);
+        throw error;
+    }
+};

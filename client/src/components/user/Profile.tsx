@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import './profile.css'; // Import your CSS file
+import './profile.css';
 
 const Profile = () => {
     const jwt = localStorage.getItem('token');
@@ -27,18 +27,15 @@ const Profile = () => {
         }
     };
 
-    const refresh = JSON.parse(localStorage.getItem('refresh_token'));
-
     const handleLogout = async () => {
         try {
-            const res = await AxiosInstance.post('/logout', { 'refresh_token': refresh });
-            if (res.status === 200) {
-                localStorage.removeItem('token');
-                localStorage.removeItem('refresh_token');
-                localStorage.removeItem('user');
-                navigate('/login');
-                toast.warn("Logout successful");
-            }
+            const refresh = JSON.parse(localStorage.getItem('refresh_token'));
+            await AxiosInstance.post('/logout', { 'refresh_token': refresh });
+            localStorage.removeItem('token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('user');
+            navigate('/login');
+            toast.warn("Logout successful");
         } catch (error) {
             toast.error("Logout failed.");
         }
@@ -55,16 +52,14 @@ const Profile = () => {
                     <p><strong>Email:</strong> {userData.email}</p>
                     <p><strong>Branch:</strong> {userData.branch}</p>
                     <p><strong>Phone Number:</strong> {userData.phone_number}</p>
+                    <p><strong>User Type:</strong> {userData.user_type}</p>
                 </div>
             ) : (
                 <p>Loading user data...</p>
             )}
             <button onClick={handleLogout} className='logout-btn'>Logout</button>
-            <button onClick={() => navigate('/profile/edit')} className="edit-button">
-                Edit Profile
-            </button>
+            <button onClick={() => navigate('/profile/edit')} className="edit-button">Edit Profile</button>
         </div>
-        
     );
 };
 
