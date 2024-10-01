@@ -1,0 +1,165 @@
+.
+├── index.html
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── project_structure.txt
+├── project_structure.txt~
+├── public
+│   ├── favicon.ico
+│   └── manifest.json
+├── README.md
+├── src
+│   ├── App.js
+│   ├── assets
+│   │   ├── brand
+│   │   │   ├── logo.js
+│   │   │   └── sygnet.js
+│   │   └── images
+│   │       ├── angular.jpg
+│   │       ├── avatars
+│   │       │   ├── 1.jpg
+│   │       │   ├── 2.jpg
+│   │       │   ├── 3.jpg
+│   │       │   ├── 4.jpg
+│   │       │   ├── 5.jpg
+│   │       │   ├── 6.jpg
+│   │       │   ├── 7.jpg
+│   │       │   ├── 8.jpg
+│   │       │   └── 9.jpg
+│   │       ├── react.jpg
+│   │       └── vue.jpg
+│   ├── components
+│   │   ├── AppBreadcrumb.js
+│   │   ├── AppContent.js
+│   │   ├── AppFooter.js
+│   │   ├── AppHeader.js
+│   │   ├── AppSidebar.js
+│   │   ├── AppSidebarNav.js
+│   │   ├── DocsCallout.js
+│   │   ├── DocsExample.js
+│   │   ├── DocsLink.js
+│   │   ├── header
+│   │   │   ├── AppHeaderDropdown.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── index.js
+│   ├── layout
+│   │   └── DefaultLayout.js
+│   ├── _nav.js
+│   ├── routes.js
+│   ├── scss
+│   │   ├── _custom.scss
+│   │   ├── examples.scss
+│   │   ├── style.scss
+│   │   ├── _theme.scss
+│   │   ├── _variables.scss
+│   │   └── vendors
+│   │       └── simplebar.scss
+│   ├── store.js
+│   └── views
+│       ├── base
+│       │   ├── accordion
+│       │   │   └── Accordion.js
+│       │   ├── breadcrumbs
+│       │   │   └── Breadcrumbs.js
+│       │   ├── cards
+│       │   │   └── Cards.js
+│       │   ├── carousels
+│       │   │   └── Carousels.js
+│       │   ├── collapses
+│       │   │   └── Collapses.js
+│       │   ├── index.js
+│       │   ├── jumbotrons
+│       │   │   └── Jumbotrons.js
+│       │   ├── list-groups
+│       │   │   └── ListGroups.js
+│       │   ├── navbars
+│       │   │   └── Navbars.js
+│       │   ├── navs
+│       │   │   └── Navs.js
+│       │   ├── paginations
+│       │   │   └── Paginations.js
+│       │   ├── placeholders
+│       │   │   └── Placeholders.js
+│       │   ├── popovers
+│       │   │   └── Popovers.js
+│       │   ├── progress
+│       │   │   └── Progress.js
+│       │   ├── spinners
+│       │   │   └── Spinners.js
+│       │   ├── tables
+│       │   │   └── Tables.js
+│       │   ├── tabs
+│       │   │   └── Tabs.js
+│       │   └── tooltips
+│       │       └── Tooltips.js
+│       ├── buttons
+│       │   ├── button-groups
+│       │   │   └── ButtonGroups.js
+│       │   ├── buttons
+│       │   │   └── Buttons.js
+│       │   ├── dropdowns
+│       │   │   └── Dropdowns.js
+│       │   └── index.js
+│       ├── charts
+│       │   └── Charts.js
+│       ├── dashboard
+│       │   ├── Dashboard.js
+│       │   └── MainChart.js
+│       ├── forms
+│       │   ├── checks-radios
+│       │   │   └── ChecksRadios.js
+│       │   ├── floating-labels
+│       │   │   └── FloatingLabels.js
+│       │   ├── form-control
+│       │   │   └── FormControl.js
+│       │   ├── input-group
+│       │   │   └── InputGroup.js
+│       │   ├── layout
+│       │   │   └── Layout.js
+│       │   ├── range
+│       │   │   └── Range.js
+│       │   ├── select
+│       │   │   └── Select.js
+│       │   └── validation
+│       │       └── Validation.js
+│       ├── icons
+│       │   ├── brands
+│       │   │   └── Brands.js
+│       │   ├── coreui-icons
+│       │   │   └── CoreUIIcons.js
+│       │   ├── flags
+│       │   │   └── Flags.js
+│       │   └── index.js
+│       ├── notifications
+│       │   ├── alerts
+│       │   │   └── Alerts.js
+│       │   ├── badges
+│       │   │   └── Badges.js
+│       │   ├── index.js
+│       │   ├── modals
+│       │   │   └── Modals.js
+│       │   └── toasts
+│       │       └── Toasts.js
+│       ├── pages
+│       │   ├── login
+│       │   │   └── Login.js
+│       │   ├── page404
+│       │   │   └── Page404.js
+│       │   ├── page500
+│       │   │   └── Page500.js
+│       │   └── register
+│       │       └── Register.js
+│       ├── theme
+│       │   ├── colors
+│       │   │   └── Colors.js
+│       │   └── typography
+│       │       └── Typography.js
+│       └── widgets
+│           ├── WidgetsBrand.js
+│           ├── WidgetsDropdown.js
+│           └── Widgets.js
+└── vite.config.mjs
+
+64 directories, 99 files

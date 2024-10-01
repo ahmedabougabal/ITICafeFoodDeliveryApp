@@ -1,0 +1,29 @@
+.list li{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.links a{
+    padding: .5rem 1rem;
+    color: white;
+    background-color: #e72929;
+    border-radius: 1rem;
+    text-align: center;
+    justify-self: center;
+    text-decoration: none;
+}
+
+.links a:hover{
+opacity: 0.8;
+    cursor: pointer;
+}
+
+.card{
+    min-width: 49%;
+    margin-bottom: 1rem;
+}

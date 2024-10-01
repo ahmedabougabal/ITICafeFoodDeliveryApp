@@ -1,0 +1,15 @@
+{
+  "short_name": "ITI Admin",
+  "name": "ITI-Admin Panel",
+  "icons": [
+    {
+      "src": "./assets/img/favicon.png",
+      "sizes": "100x100",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffbbbb",
+  "background_color": "#ffffff"
+}
