@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import './verify.css'; // Import the CSS file for styling
+import './user.css'; // Import the CSS file for styling
 
 const VerifyEmail = () => {
     const [otp, setOtp] = useState("");

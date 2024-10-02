@@ -19,7 +19,7 @@ export const authService = {
 
   register: async (username: string, email: string, password: string) => {
     try {
-      const response = await axios.post(`${API_URL}register/`, { username, email, password });
+      const response = await axios.post(`${API_URL}register`, { username, email, password });
       return response.data;
     } catch (error) {
       console.error('Registration error:', error);

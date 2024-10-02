@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import AxiosInstance from '../../utils/AxiosInstance';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-
+import './user.css'
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');

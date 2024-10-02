@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import './profile.css';
-
+import './user.css';
 const Profile = () => {
     const jwt = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
@@ -43,7 +42,6 @@ const Profile = () => {
 
     return (
         <div className='profile-container'>
-            <h2>Welcome, {user && user.full_name}</h2>
             <p>Welcome to your profile</p>
             {userData ? (
                 <div className="profile-info">
