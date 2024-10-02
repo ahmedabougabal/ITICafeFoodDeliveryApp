@@ -212,7 +212,10 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
-
+cors_allowed_origins = [
+    "http://localhost:5176",  # My React app's URL
+    "http://localhost:3000",
+]
 
 CORS_ALLOW_CREDENTIALS = True
 

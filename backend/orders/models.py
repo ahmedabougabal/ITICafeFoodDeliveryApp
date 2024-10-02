@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.db import models
-from django.db.models import DecimalField
+from django.utils import timezone
 from users.models import User
 from menu.models import MenuItem
 
@@ -12,10 +12,15 @@ class Order(models.Model):
         ('completed', 'Completed and Paid'),
         ('cancelled', 'Cancelled'),
     ]
+    PAYMENT_STATUS_CHOICES = [
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
     discounted_price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='unpaid')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     preparation_time = models.PositiveIntegerField(blank=True, null=True)  # In minutes

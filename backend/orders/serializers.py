@@ -21,7 +21,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'user', 'branch_name', 'items', 'total_price', 'discounted_price', 'discount', 'status',
-                  'created_at', 'updated_at', 'preparation_time', 'completed_at']
+                  'payment_status', 'created_at', 'updated_at', 'preparation_time', 'completed_at']
 
     @staticmethod
     def get_discount(obj: Order) -> float:
@@ -43,10 +43,8 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         items_data = validated_data.pop('items')
         user = self.context['request'].user
 
-        # Calculate total price
         total_price = sum(item_data['item'].price * item_data['quantity'] for item_data in items_data)
 
-        # Apply discount
         discount_rate = user.get_discount_rate()
         discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
 
