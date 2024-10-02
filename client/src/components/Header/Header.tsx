@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
         <ul>
           {user ? (
             <li className={classes.menu_container}>
-              <Link to="/profile">{user.full_name}</Link>
+              <Link to="#">{user.full_name}</Link>
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
                 <Link to="/orders">Orders</Link>

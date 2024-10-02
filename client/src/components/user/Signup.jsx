@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
-import './signup.css';
+import './user.css';
 
 const BRANCHES = {
     "New Capital": "NEW Capital",

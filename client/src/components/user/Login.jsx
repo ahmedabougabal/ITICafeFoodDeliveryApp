@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import './login.css'; // Import the CSS file for styling
+import './user.css'; // Import the CSS file for styling
 
 const Login = () => {
     const navigate = useNavigate();
