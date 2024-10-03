@@ -17,6 +17,7 @@ class Order(models.Model):
         ('paid', 'Paid'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # menu_items = models.ManyToManyField(MenuItem, through='OrderItem')
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
     discounted_price = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

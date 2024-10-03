@@ -6,19 +6,10 @@ import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import './user.css';
 
 const BRANCHES = {
-    "New Capital": "NEW Capital",
-    "Mansoura": "Mansoura",
-    "Cairo University": "Cairo University",
-    "Smart Village": "Smart Village",
-    "Aswan": "Aswan",
-    "Asuit": "Asuit",
-    "Qena": "Qena",
-    "Menia": "Menia",
-    "Menofia": "Menofia",
-    "Beni Suef": "Beni Suef",
-    "Sohag": "Sohag",
-    "Asmalilia": "Asmalilia",
-    "Alexandria": "Alexandria"
+    "1": "New Capital",
+    "2": "Mansoura",
+    "3": "Cairo University",
+    "4": "Assuit",
 };
 
 const Signup = () => {

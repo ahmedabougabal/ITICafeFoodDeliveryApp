@@ -13,6 +13,7 @@ import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
 import { UserProvider, useUser } from './UserContext';
 import AuthMessage from './components/AuthMessage';
+import CartProvider from "./hooks/useCart.tsx";
 
 function AppContent() {
   const { user, setUser } = useUser();
@@ -59,7 +60,9 @@ function AppContent() {
 function App() {
   return (
     <UserProvider>
-      <AppContent />
+      <CartProvider> {/* Wrap AppContent with CartProvider */}
+        <AppContent />
+      </CartProvider>
     </UserProvider>
   );
 }

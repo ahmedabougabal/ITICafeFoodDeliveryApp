@@ -19,6 +19,10 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+# import django.conf.urls.static as static
+from django.conf import settings
+from django.urls import re_path
+from django.views.static import serve
 
 schema_view = get_schema_view()
 open_api_info = openapi.Info(
@@ -40,3 +44,9 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('rooms/', include('rooms.urls')),
 ]
+if settings.DEBUG:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]

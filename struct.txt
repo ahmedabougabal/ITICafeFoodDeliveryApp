@@ -263,6 +263,7 @@
 │   │   │   ├── Header
 │   │   │   │   ├── header.module.css
 │   │   │   │   └── Header.tsx
+│   │   │   ├── PendingOrders.tsx
 │   │   │   ├── Price
 │   │   │   │   └── Price.tsx
 │   │   │   ├── Search
@@ -351,4 +352,4 @@
 ├── README.md
 └── struct.txt
 
-79 directories, 273 files
+79 directories, 274 files

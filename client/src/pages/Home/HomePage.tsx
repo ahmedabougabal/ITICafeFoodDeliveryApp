@@ -14,8 +14,28 @@ const HomePage = () => {
     const loadFoods = async () => {
       try {
         setLoading(true);
-        const loadedFoods = searchTerm ? await search(searchTerm) : await getAll();
-        setFoods(loadedFoods);
+        const result = searchTerm ? await search(searchTerm) : await getAll();
+        console.log('Received data:', result);
+
+        let foodsArray = [];
+        if (Array.isArray(result)) {
+          foodsArray = result;
+        } else if (typeof result === 'object' && result !== null) {
+          // Check for common API response structures
+          if (Array.isArray(result.data)) {
+            foodsArray = result.data;
+          } else if (Array.isArray(result.results)) {
+            foodsArray = result.results;
+          } else if (Array.isArray(result.items)) {
+            foodsArray = result.items;
+          } else {
+            throw new Error('Unexpected data structure');
+          }
+        } else {
+          throw new Error('Invalid data received from API');
+        }
+
+        setFoods(foodsArray);
         setError(null);
       } catch (err) {
         setError('Failed to load menu items. Please try again later.');
@@ -34,7 +54,11 @@ const HomePage = () => {
   return (
     <>
       <Search />
-      <Thumbnails foods={foods} />
+      {foods.length > 0 ? (
+        <Thumbnails foods={foods} />
+      ) : (
+        <div>No food items available</div>
+      )}
     </>
   )
 }
