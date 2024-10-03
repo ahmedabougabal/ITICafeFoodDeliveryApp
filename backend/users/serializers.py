@@ -172,14 +172,14 @@ class LogoutSerializer(serializers.Serializer):
 class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'branch', 'phone_number','user_type']  # Include only the fields you want to allow editing
+        fields = ['first_name', 'last_name', 'branch', 'phone_number']  # Include only the fields you want to allow editing
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.branch = validated_data.get('branch', instance.branch)
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)
-        instance.user_type = validated_data.get('user_type', instance.user_type)
+        # instance.user_type = validated_data.get('user_type', instance.user_type)
         instance.save()
         return instance
 

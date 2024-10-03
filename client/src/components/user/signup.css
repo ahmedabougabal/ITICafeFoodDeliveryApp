@@ -1,180 +1,128 @@
-/* Importing Google Fonts - Montserrat */
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
+body {
+    background-color: #f0f2f5;
+}
 
-/* body {
+.containers {
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.forms {
+    width: 30%;
+    max-height: 10%;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: #5F41E4;
-    /* Background color */
+    margin-left: 35%;
+}
 
-.container {
+.input-box {
     width: 100%;
-    padding: 0.6rem;
+    margin-bottom: 10px;
 }
 
-.form-wrapper {
-    margin: 0 auto;
-    max-width: 600px;
-    /* Increased max-width */
-    padding: 2rem 1.5rem;
-    border-radius: 0.5rem;
-    background: #fff;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+.input {
+    width: 100%;
+    /* Full width for inputs */
+    padding: 10px;
+    /* Add some padding */
+    border: 1px solid #ccc;
+    /* Border color */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Increase font size */
 }
 
-h2 {
-    text-align: center;
-    font-size: 1.37rem;
-    /* Match the font size */
-    font-weight: 600;
-    margin-bottom: 1.87rem;
-    /* Match the margin */
-    color: #5F41E4;
-}
-
-
-/* Form group styling */
-
-.form-group {
-    position: relative;
-    /* Position relative for the icon */
-    margin-bottom: 1.5rem;
-}
-
-.form-group label {
+.label {
     display: block;
+    /* Ensures labels are on a new line */
+    margin-bottom: 5px;
+    /* Space between label and input */
     font-weight: bold;
-    font-size: 0.85rem;
-    color: #053271;
+    /* Make labels bold */
 }
 
-
-/* Input field styles */
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    height: 54px;
-    /* Match the height of input fields */
-    outline: none;
-    font-size: 1.06rem;
-    /* Match font size */
-    border-radius: 0.31rem;
-    border: 1px solid #bfb3f2;
-    padding: 0px 1.25rem 0 3.12rem;
-    /* Padding for input */
-    transition: 0.2s ease;
+.password-box {
+    position: relative;
+    /* Position relative for the password visibility toggle */
 }
 
-.form-group input:focus {
-    border-color: #5F41E4;
-    /* Focus border color */
-}
-
-.form-group input::placeholder {
-    color: #9284c8;
-    /* Placeholder color */
-}
-
-
-/* Eye icon styling */
-
-.form-group .eye-icon {
+.password-toggle {
     position: absolute;
+    /* Position toggle inside the input box */
+    right: 10px;
+    /* Align to the right */
     top: 50%;
-    right: 0.93rem;
-    color: #917DE8;
-    cursor: pointer;
-    font-size: 1.25rem;
+    /* Center vertically */
     transform: translateY(-50%);
-    display: none;
-    /* Initially hidden */
-}
-
-.form-group input:valid~.eye-icon {
-    display: flex;
-    /* Show icon when input is valid */
-}
-
-
-/* Submit button styling */
-
-.submit-button {
-    border: none;
-    outline: none;
-    width: 100%;
-    height: 54px;
-    /* Match the height */
-    color: #fff;
-    font-size: 1.125rem;
-    /* Font size */
-    font-weight: 500;
+    /* Adjust for proper alignment */
     cursor: pointer;
-    margin-top: 2.19rem;
-    border-radius: 0.31rem;
-    background: #5F41E4;
-    transition: 0.3s ease;
+    /* Pointer cursor for toggling */
 }
 
-.submit-button:hover {
-    background: #4320df;
-    /* Hover effect */
-}
-
-
-/* Social button styling */
-
-.google-button {
-    display: flex;
-    gap: 0.81rem;
-    width: 100%;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    padding: 0.75rem 0;
-    border-radius: 0.31rem;
-    align-items: center;
-    justify-content: center;
-    background: #F9F8FF;
-    border: 1px solid #D5CBFF;
-    transition: 0.3s ease;
-}
-
-.google-button:hover {
-    border-color: #5F41E4;
-    background: #f1eff9;
-}
-
-
-/* Link styles */
-
-.login-link {
-    text-align: center;
-    font-size: 1.06rem;
-    font-weight: 500;
-    margin: 1.75rem 0 0.31rem;
-    color: #5F41E4;
-}
-
-.login-link:hover {
-    text-decoration: underline;
-}
-
-.error-message {
+.alert-danger {
     color: red;
     /* Red color for error messages */
-    font-size: 0.875rem;
-    /* Smaller font size */
-    margin-top: 0.25rem;
-    /* Space between input and error message */
+    font-size: 14px;
+    /* Font size for error messages */
+    margin-top: 5px;
+    /* Space above error messages */
+}
+
+.form-btn {
+    width: 100%;
+    /* Full width for the submit button */
+    padding: 10px;
+    background-color: #4CAF50;
+    /* Green background */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove default border */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Increase font size */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+.form-btn:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+}
+
+.sign-up-label {
+    margin-top: 15px;
+    /* Space above sign up label */
+    text-align: center;
+    /* Center the text */
+}
+
+.google-login-button {
+    display: flex;
+    align-items: center;
+    /* Center the icon and text */
+    margin-top: 10px;
+    /* Space above Google login button */
+    cursor: pointer;
+    /* Pointer cursor */
+}
+
+.google-icon {
+    margin-right: 8px;
+    /* Space between icon and text */
 }

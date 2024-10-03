@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
@@ -24,16 +24,27 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
   const handleLogout = async () => {
     try {
       const refresh = JSON.parse(localStorage.getItem('refresh_token') || '{}');
-      await AxiosInstance.post('/logout', { 'refresh_token': refresh });
+      await AxiosInstance.post('/logout', { refresh_token: refresh });
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
+      onLogout(); // Call the onLogout prop to update the user state
       navigate('/login');
       toast.warn("Logout successful");
     } catch (error) {
       toast.error("Logout failed.");
     }
   };
+
+  // Effect to handle user state changes
+  useEffect(() => {
+    // If user is not null, reload or fetch the user profile
+    if (user) {
+      // Implement your profile fetching logic here if needed
+      // For example, you could fetch user data from the server if it hasn't been loaded yet
+      console.log("User is logged in, fetch profile if necessary.");
+    }
+  }, [user]); // This effect will run when the user state changes
 
   return (
     <header className={classes.header}>
@@ -44,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
         <ul>
           {user ? (
             <li className={classes.menu_container}>
-              <Link to="/profile">{user.full_name}</Link>
+              <Link to="#">{user.full_name}</Link>
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
                 <Link to="/orders">Orders</Link>

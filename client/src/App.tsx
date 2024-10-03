@@ -13,6 +13,7 @@ import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
 import { UserProvider, useUser } from './UserContext';
 import AuthMessage from './components/AuthMessage';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppContent() {
   const { user, setUser } = useUser();
