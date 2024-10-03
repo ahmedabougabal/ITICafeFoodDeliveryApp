@@ -1,0 +1,355 @@
+.
+├── admin-panel
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── project_structure.txt~
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── faviconmm.ico
+│   │   └── manifest.json
+│   ├── README.md
+│   ├── src
+│   │   ├── App.js
+│   │   ├── assets
+│   │   │   ├── brand
+│   │   │   │   ├── logo.js
+│   │   │   │   └── sygnet.js
+│   │   │   └── images
+│   │   │       ├── angular.jpg
+│   │   │       ├── avatars
+│   │   │       │   ├── 1.jpg
+│   │   │       │   ├── 2.jpg
+│   │   │       │   ├── 3.jpg
+│   │   │       │   ├── 4.jpg
+│   │   │       │   ├── 5.jpg
+│   │   │       │   ├── 6.jpg
+│   │   │       │   ├── 7.jpg
+│   │   │       │   ├── 8.jpg
+│   │   │       │   └── 9.jpg
+│   │   │       ├── react.jpg
+│   │   │       └── vue.jpg
+│   │   ├── components
+│   │   │   ├── AppBreadcrumb.js
+│   │   │   ├── AppContent.js
+│   │   │   ├── AppFooter.js
+│   │   │   ├── AppHeader.js
+│   │   │   ├── AppSidebar.js
+│   │   │   ├── AppSidebarNav.js
+│   │   │   ├── Checkout
+│   │   │   │   └── CheckoutComponent.js
+│   │   │   ├── DetailsModal
+│   │   │   │   ├── DetailsModal.js
+│   │   │   │   └── detailsmodal.module.css
+│   │   │   ├── DocsCallout.js
+│   │   │   ├── DocsExample.js
+│   │   │   ├── DocsLink.js
+│   │   │   ├── header
+│   │   │   │   ├── AppHeaderDropdown.js
+│   │   │   │   └── index.js
+│   │   │   ├── index.js
+│   │   │   └── OrderComponent
+│   │   │       ├── OrderComponent.js
+│   │   │       ├── ordercomponent.module.css
+│   │   │       ├── OrderItem.js
+│   │   │       ├── OrderList.js
+│   │   │       └── PendingOrdersList.js
+│   │   ├── index.js
+│   │   ├── layout
+│   │   │   └── DefaultLayout.js
+│   │   ├── _nav.js
+│   │   ├── routes.js
+│   │   ├── scss
+│   │   │   ├── _custom.scss
+│   │   │   ├── examples.scss
+│   │   │   ├── style.scss
+│   │   │   ├── _theme.scss
+│   │   │   ├── _variables.scss
+│   │   │   └── vendors
+│   │   │       └── simplebar.scss
+│   │   ├── services
+│   │   │   ├── orderService.js
+│   │   │   └── websocketService.js
+│   │   ├── slices
+│   │   │   └── orderSlice.js
+│   │   ├── store.js
+│   │   └── views
+│   │       ├── dashboard
+│   │       │   ├── Dashboard.js
+│   │       │   └── MainChart.js
+│   │       └── orders
+│   │           ├── Orders.js
+│   │           └── orders.module.css
+│   └── vite.config.mjs
+├── backend
+│   ├── asgi.py
+│   ├── core
+│   │   ├── fixtures
+│   │   │   └── initial_branches.json
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── 0001_initial.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   └── models.cpython-312.pyc
+│   │   └── views.py
+│   ├── debug.log
+│   ├── __init__.py
+│   ├── iti_cafe
+│   │   ├── asgi.py
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── settings.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   └── wsgi.cpython-312.pyc
+│   │   ├── settings.py
+│   │   ├── urls.py
+│   │   └── wsgi.py
+│   ├── manage.py
+│   ├── menu
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── filters.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── 0001_initial.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── models.py
+│   │   ├── permissions.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── filters.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── permissions.cpython-312.pyc
+│   │   │   ├── serializers.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── menu_items
+│   │   ├── food-1.jpg
+│   │   └── food-4.jpg
+│   ├── notes.txt
+│   ├── orders
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── consumers.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── 0001_initial.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── models.py
+│   │   ├── permissions.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── permissions.cpython-312.pyc
+│   │   │   ├── serializers.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── Pipfile
+│   ├── Pipfile.lock
+│   ├── requirements.txt
+│   ├── rooms
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── consumers.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── 0002_message.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── 0001_initial.cpython-312.pyc
+│   │   │       ├── 0002_message.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── routing.py
+│   │   ├── templates
+│   │   │   └── room
+│   │   │       ├── room.html
+│   │   │       └── rooms.html
+│   │   ├── tests.py
+│   │   ├── todo_list.txt
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── test_db_connection.py
+│   ├── users
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── fixtures
+│   │   │   └── users.json
+│   │   ├── __init__.py
+│   │   ├── managers.py
+│   │   ├── migrations
+│   │   │   ├── 0001_initial.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── 0001_initial.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── managers.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── serializers.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   ├── utils.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   ├── utils.py
+│   │   └── views.py
+│   └── wsgi.py
+├── client
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── foods
+│   │   │   ├── food-1.jpg
+│   │   │   ├── food-2.jpg
+│   │   │   ├── food-3.jpg
+│   │   │   └── food-4.jpg
+│   │   ├── star-empty.svg
+│   │   ├── star-full.svg
+│   │   ├── star-half.svg
+│   │   └── vite.svg
+│   ├── README.md
+│   ├── src
+│   │   ├── admin
+│   │   │   └── pages
+│   │   │       └── Order
+│   │   │           └── Order.tsx
+│   │   ├── App.css
+│   │   ├── AppRoutes.tsx
+│   │   ├── App.tsx
+│   │   ├── assets
+│   │   │   └── react.svg
+│   │   ├── components
+│   │   │   ├── AuthMessage.tsx
+│   │   │   ├── Header
+│   │   │   │   ├── header.module.css
+│   │   │   │   └── Header.tsx
+│   │   │   ├── PendingOrders.tsx
+│   │   │   ├── Price
+│   │   │   │   └── Price.tsx
+│   │   │   ├── Search
+│   │   │   │   ├── search.module.css
+│   │   │   │   └── Search.tsx
+│   │   │   ├── StarRating
+│   │   │   │   └── StarRating.tsx
+│   │   │   ├── Thumbnails
+│   │   │   │   ├── thumbnails.module.css
+│   │   │   │   └── Thumbnails.tsx
+│   │   │   ├── Title
+│   │   │   │   ├── title.module.css
+│   │   │   │   └── Title.tsx
+│   │   │   └── user
+│   │   │       ├── EditProfile.jsx
+│   │   │       ├── Login.jsx
+│   │   │       ├── PasswordResetRequest.jsx
+│   │   │       ├── Profile.jsx
+│   │   │       ├── ResetPassword.jsx
+│   │   │       ├── Signup.jsx
+│   │   │       ├── user.css
+│   │   │       └── VerifyEmail.jsx
+│   │   ├── data.tsx
+│   │   ├── hooks
+│   │   │   └── useCart.tsx
+│   │   ├── index.css
+│   │   ├── main.tsx
+│   │   ├── pages
+│   │   │   ├── Cart
+│   │   │   │   ├── cartpage.module.css
+│   │   │   │   └── CartPage.tsx
+│   │   │   ├── Food
+│   │   │   │   ├── foodpage.module.css
+│   │   │   │   └── FoodPage.tsx
+│   │   │   └── Home
+│   │   │       └── HomePage.tsx
+│   │   ├── services
+│   │   │   ├── AuthService.ts
+│   │   │   ├── FoodService.tsx
+│   │   │   └── orderService.ts
+│   │   ├── types
+│   │   │   └── Food.tsx
+│   │   ├── UserContext.tsx
+│   │   ├── utils
+│   │   │   └── AxiosInstance.jsx
+│   │   └── vite-env.d.ts
+│   ├── tailwind.config.js
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts
+├── frontend auth
+│   └── auth-app
+│       ├── package.json
+│       ├── package-lock.json
+│       ├── public
+│       │   ├── favicon.ico
+│       │   ├── index.html
+│       │   ├── logo192.png
+│       │   ├── logo512.png
+│       │   ├── manifest.json
+│       │   └── robots.txt
+│       ├── README.md
+│       └── src
+│           ├── App.css
+│           ├── App.jsx
+│           ├── App.test.js
+│           ├── components
+│           │   ├── Dashboard.jsx
+│           │   ├── EditProfile.jsx
+│           │   ├── index.jsx
+│           │   ├── Login.jsx
+│           │   ├── PasswordResetRequest.jsx
+│           │   ├── profile.css
+│           │   ├── Profile.jsx
+│           │   ├── ResetPassword.jsx
+│           │   ├── Signup.jsx
+│           │   └── VerifyEmail.jsx
+│           ├── index.css
+│           ├── index.js
+│           ├── logo.svg
+│           ├── reportWebVitals.js
+│           ├── setupTests.js
+│           └── utils
+│               └── AxiosInstance.jsx
+├── README.md
+└── struct.txt
+
+79 directories, 274 files

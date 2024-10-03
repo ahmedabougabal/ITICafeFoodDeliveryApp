@@ -1,8 +1,12 @@
+import logging
 from rest_framework import serializers
 from menu.models import MenuItem
 from .models import Order, OrderItem
 from menu.serializers import MenuItemSerializer
 from decimal import Decimal
+
+# Initialize logger
+logger = logging.getLogger(__name__)
 
 class OrderItemSerializer(serializers.ModelSerializer):
     item = MenuItemSerializer(read_only=True)
@@ -21,7 +25,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'user', 'branch_name', 'items', 'total_price', 'discounted_price', 'discount', 'status',
-                  'created_at', 'updated_at', 'preparation_time', 'completed_at']
+                  'payment_status', 'created_at', 'updated_at', 'preparation_time', 'completed_at']
 
     @staticmethod
     def get_discount(obj: Order) -> float:
@@ -30,7 +34,9 @@ class OrderSerializer(serializers.ModelSerializer):
         return 0.0
 
     def get_branch_name(self, obj):
-        return obj.user.branch.name if obj.user.branch else None
+        branch_name = obj.user.branch.name if obj.user and obj.user.branch else None
+        logger.debug(f"Order ID: {obj.id}, Branch Name: {branch_name}")
+        return branch_name
 
 class OrderCreateSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
@@ -40,22 +46,25 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         fields = ['items', 'total_price']
 
     def create(self, validated_data):
-        items_data = validated_data.pop('items')
-        user = self.context['request'].user
+        try:
+            items_data = validated_data.pop('items')
+            user = self.context['request'].user
 
-        # Calculate total price
-        total_price = sum(item_data['item'].price * item_data['quantity'] for item_data in items_data)
+            total_price = sum(item_data['item'].price * item_data['quantity'] for item_data in items_data)
 
-        # Apply discount
-        discount_rate = user.get_discount_rate()
-        discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
+            discount_rate = user.get_discount_rate()
+            discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
 
-        order = Order.objects.create(user=user, total_price=total_price, discounted_price=discounted_price)
+            order = Order.objects.create(user=user, total_price=total_price, discounted_price=discounted_price)
 
-        for item_data in items_data:
-            OrderItem.objects.create(order=order, **item_data)
+            for item_data in items_data:
+                OrderItem.objects.create(order=order, **item_data)
 
-        return order
+            logger.debug(f"Order created successfully. Order ID: {order.id}, User ID: {user.id}, Total Price: {total_price}, Discounted Price: {discounted_price}")
+            return order
+        except Exception as e:
+            logger.error(f"Error creating order: {str(e)}", exc_info=True)
+            raise
 
     def to_representation(self, instance):
         return OrderSerializer(instance, context=self.context).data

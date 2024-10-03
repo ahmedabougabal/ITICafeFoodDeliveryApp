@@ -1,147 +1,146 @@
-import { CCardGroup, CNav, CNavItem, CNavLink, CRow } from '@coreui/react';
-import React, { useState, useEffect } from 'react';
-import Order from '../../components/OrderComponent/OrderComponent';
-import classes from './orders.module.css';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton, CForm, CFormInput } from '@coreui/react';
+import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
+import orderService from 'src/services/orderService';
 
 export default function Orders() {
-  // State to keep track of the active tab
+  const dispatch = useDispatch();
+  const pendingOrders = useSelector((state) => state.orders.pendingOrders || []);
+  const status = useSelector((state) => state.orders.status);
+  const error = useSelector((state) => state.orders.error);
+
   const [activeTab, setActiveTab] = useState('pending');
+  const [preparationTime, setPreparationTime] = useState('');
 
-  // State for orders
-  const [orders, setOrders] = useState([]);
-
-  // Sample orders in case localStorage doesn't have any
-  const sampleOrders = [
-    {
-      orderId: 333,
-      userName: 'Eslam',
-      totalPrice: 150,
-      finishedDate:'',
-      items: [
-        { name: 'crepe', quantity: 2 },
-        { name: 'sandwich', quantity: 2 },
-        { name: 'pizza', quantity: 3 },
-        { name: 'crepe', quantity: 4 }
-      ],
-      status: 'active'
-    },
-    {
-      orderId: 222,
-      userName: 'Ahmed',
-      totalPrice: 100,
-      finishedDate:'',
-      items: [
-        { name: 'crepe', quantity: 2 },
-        { name: 'sandwich', quantity: 2 },
-        { name: 'pizza', quantity: 3 },
-        { name: 'crepe', quantity: 4 }
-      ],
-      status: 'pending'
-    },
-    {
-      orderId: 111,
-      userName: 'Kareem',
-      totalPrice: 170,
-      finishedDate:'99',
-      items: [
-        { name: 'crepe', quantity: 2 },
-        { name: 'sandwich', quantity: 2 },
-        { name: 'pizza', quantity: 3 },
-        { name: 'crepe', quantity: 4 }
-      ],
-      status: 'history'
-    }
-  ];
-
-  
   useEffect(() => {
-    const storedOrders = localStorage.getItem('orders');
-    if (storedOrders) {
-      setOrders(JSON.parse(storedOrders));
-    } else {
-      setOrders(sampleOrders);
-    }
-  }, []); 
+    dispatch(fetchPendingOrders());
+  }, [dispatch]);
 
-  
   useEffect(() => {
-    localStorage.setItem('orders', JSON.stringify(orders));
-  }, [orders]); 
+    console.log('pendingOrders:', pendingOrders);
+  }, [pendingOrders]);
 
-  // Function to handle tab click
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
   };
 
-  // Function to handle action (accept/reject) on an order
-  const handleActionClick = (orderId, action) => {
-    let updatedOrders = orders
-    if (action === 'accept') {
-      updatedOrders = orders.map((order) => {
-        if (order.orderId === orderId) {
-          return { ...order, status: 'active' };
-        }
-        return order;
-      });
-      
+  const handleAcceptOrder = async (orderId) => {
+    if (!preparationTime) {
+      alert('Please enter a preparation time');
+      return;
     }
-    else if(action=='susbend'){
-      updatedOrders = orders.map((order) => {
-        if (order.orderId === orderId) {
-          return { ...order, status: 'pending' };
-        }
-        return order;
-      });
-
+    try {
+      await orderService.acceptOrder(orderId, parseInt(preparationTime));
+      dispatch(fetchPendingOrders());
+      setPreparationTime('');
+    } catch (error) {
+      console.error('Error accepting order:', error);
     }
-    else if(action=='finished'){
-      updatedOrders = orders.map((order) => {
-        if (order.orderId === orderId) {
-          return { ...order, status: 'history' };
-        }
-        return order;
-      });
-
-    }
-    setOrders([...updatedOrders]);
   };
 
-  return (
-    <>
-      <CNav className={classes.tabs} variant="tabs" style={{ marginBottom: '10px' }}>
-        <CNavItem>
-          <CNavLink
-            active={activeTab === 'pending'}
-            onClick={() => handleTabClick('pending')}
-          >
-            Pending
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink
-            active={activeTab === 'active'}
-            onClick={() => handleTabClick('active')}
-          >
-            Active
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink
-            active={activeTab === 'history'}
-            onClick={() => handleTabClick('history')}
-          >
-            History
-          </CNavLink>
-        </CNavItem>
-      </CNav>
+  const handleRejectOrder = async (orderId) => {
+    try {
+      await orderService.rejectOrder(orderId);
+      dispatch(fetchPendingOrders());
+    } catch (error) {
+      console.error('Error rejecting order:', error);
+    }
+  };
 
-      <CRow>
-        {orders
-          .filter((order) => order.status === activeTab)
-          .map((order) => (
-            <Order key={order.orderId} order={order} actionHandler={handleActionClick} />
-          ))}
-      </CRow>
-    </>
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'failed') {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <CRow>
+      <CCol xs={12}>
+        <CCard className="mb-4">
+          <CCardHeader>
+            <strong>Orders</strong>
+          </CCardHeader>
+          <CCardBody>
+            <CRow>
+              <CCol xs={12}>
+                <CButton
+                  color={activeTab === 'pending' ? 'primary' : 'secondary'}
+                  onClick={() => handleTabClick('pending')}
+                  className="me-2"
+                >
+                  Pending
+                </CButton>
+                <CButton
+                  color={activeTab === 'preparing' ? 'primary' : 'secondary'}
+                  onClick={() => handleTabClick('preparing')}
+                  className="me-2"
+                >
+                  Preparing
+                </CButton>
+                <CButton
+                  color={activeTab === 'completed' ? 'primary' : 'secondary'}
+                  onClick={() => handleTabClick('completed')}
+                >
+                  Completed
+                </CButton>
+              </CCol>
+            </CRow>
+            <CRow className="mt-3">
+              {Array.isArray(pendingOrders) ? (
+                pendingOrders.length > 0 ? (
+                  pendingOrders.map((order) => (
+                    <CCol xs={12} md={6} xl={4} key={order.id}>
+                      <CCard className="mb-4">
+                        <CCardHeader>Order #{order.id}</CCardHeader>
+                        <CCardBody>
+                          <p><strong>Total Price:</strong> ${order.total_price}</p>
+                          <p><strong>Status:</strong> {order.status}</p>
+                          <p><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</p>
+                          <CForm>
+                            <CFormInput
+                              type="number"
+                              id={`preparationTime-${order.id}`}
+                              label="Preparation Time (minutes)"
+                              value={preparationTime}
+                              onChange={(e) => setPreparationTime(e.target.value)}
+                              required
+                            />
+                            <CButton
+                              color="success"
+                              onClick={() => handleAcceptOrder(order.id)}
+                              className="me-2 mt-2"
+                            >
+                              Accept
+                            </CButton>
+                            <CButton
+                              color="danger"
+                              onClick={() => handleRejectOrder(order.id)}
+                              className="mt-2"
+                            >
+                              Reject
+                            </CButton>
+                          </CForm>
+                        </CCardBody>
+                      </CCard>
+                    </CCol>
+                  ))
+                ) : (
+                  <CCol>
+                    <p>No pending orders at the moment.</p>
+                  </CCol>
+                )
+              ) : (
+                <CCol>
+                  <p>Error: Pending orders data is not in the expected format.</p>
+                </CCol>
+              )}
+            </CRow>
+          </CCardBody>
+        </CCard>
+      </CCol>
+    </CRow>
   );
 }

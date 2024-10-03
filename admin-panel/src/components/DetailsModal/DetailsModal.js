@@ -1,36 +1,33 @@
-import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle } from '@coreui/react'
-import React, { useState } from 'react'
-import classes from './detailsmodal.module.css'
-export default function DetailsModal({items,orderId}) {
-    const [visible, setVisible] = useState(false)
-    return (
-      <>
-        <CButton onClick={() => setVisible(!visible)}>Order Details</CButton>
-        <CModal
-          visible={visible}
-          onClose={() => setVisible(false)}
-          aria-labelledby="OrderDetailsLabel"
-        >
-          <CModalHeader>
-            <CModalTitle id="OrderDetailsLabel">Order ID:# {orderId}</CModalTitle>
-          </CModalHeader>
-          <CModalBody>
-            <ul>
-                {items.map((item)=>(
-                    <li className={classes.item}>
-                        <div>{item.name}</div>
-                        <div>{item.quantity}</div>
-                    </li>
-                ))}
-            </ul>
-          </CModalBody>
-          <CModalFooter>
-            <CButton color="secondary" onClick={() => setVisible(false)}>
-              Close
-            </CButton>
-            
-          </CModalFooter>
-        </CModal>
-      </>
-    )
+import React from 'react'
+import { CModal, CModalHeader, CModalTitle, CModalBody, CModalFooter, CButton } from '@coreui/react'
+
+const DetailsModal = ({ items, orderId }) => {
+  const [visible, setVisible] = React.useState(false)
+
+  return (
+    <>
+      <CButton onClick={() => setVisible(!visible)}>View Details</CButton>
+      <CModal visible={visible} onClose={() => setVisible(false)}>
+        <CModalHeader>
+          <CModalTitle>Order #{orderId} Details</CModalTitle>
+        </CModalHeader>
+        <CModalBody>
+          <ul>
+            {items.map((item, index) => (
+              <li key={`${orderId}-item-${index}`}>
+                {item.name} - Quantity: {item.quantity} - Price: ${item.price}
+              </li>
+            ))}
+          </ul>
+        </CModalBody>
+        <CModalFooter>
+          <CButton color="secondary" onClick={() => setVisible(false)}>
+            Close
+          </CButton>
+        </CModalFooter>
+      </CModal>
+    </>
+  )
 }
+
+export default DetailsModal

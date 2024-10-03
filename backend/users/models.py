@@ -1,15 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser , PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-from .managers import  UserManager   # type:ignore
+
+from core.models import Branch
+from .managers import  CustomUserManager   # type:ignore
 from rest_framework_simplejwt.tokens import RefreshToken    # type:ignore
 from django.core.validators import RegexValidator
 # Create your models here.
 class User(AbstractBaseUser, PermissionsMixin):
     BRANCHES = {
-    "New Capital": "NEW Capital","Mansoura": "Mansoura","Cairo University": "Cairo University","Smart Village": "Smart Village",
-    "Aswan": "Aswan","Asuit": "Asuit","Qena": "Qena","Menia": "Menia","Menofia": "Menofia","Beni Suef": "Beni Suef","Sohag": "Sohag",
-    "Asmalilia": "Asmalilia","Alexendria":"Alexendria"}
+        "1": "New Capital",
+        "2": "Mansoura",
+        "3": "Cairo University",
+        "4": "Assuit",
+    }
     USER_TYPE_CHOICES = [
         ('user', 'User'),
         ('instructor', 'Instructor'),
@@ -21,18 +25,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=13,
         validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be in the format: '+999999999'. Up to 15 digits allowed.")],
     )
-    branch=models.CharField(max_length=30,choices=BRANCHES)
+    # branch=models.CharField(max_length=30,choices=BRANCHES)
+    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='user')
     is_active = models.BooleanField(default=True)
     is_superuser=models.BooleanField(default=False)
     is_verified=models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    last_login=models.DateTimeField(auto_now=True)
-    
+    last_login=models.DateTimeField(null=True, blank=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name","last_name","branch","phone_number"]
-    objects = UserManager()
+    objects = CustomUserManager()
     
     
     def __str__(self):
