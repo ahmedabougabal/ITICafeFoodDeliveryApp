@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import './user.css';
+import './EditProfile.css';
 const BRANCHES = {
     "New Capital": "NEW Capital",
     "Mansoura": "Mansoura",
@@ -100,56 +100,91 @@ const EditProfile = () => {
     };
 
     return (
-        <div className='form-container'>
-            <div className='wrapper'>
-                <form onSubmit={handleSubmit}>
-                    <h2>Edit Profile</h2>
-                    <div className='form-group'>
-                        <label>First Name:</label>
-                        <input 
-                            type="text" 
-                            name="first_name" 
-                            value={profileData.first_name} 
-                            onChange={handleChange} 
-                        />
-                        {errorMessages.first_name && <div className="error-message">{errorMessages.first_name}</div>} {/* Display error */}
+        <div className="container-xl px-4 mt-4">
+            <hr className="mt-0 mb-4" />
+            <div className="row">
+                <div className="col-xl-4">
+                    {/* Profile picture card */}
+                    <div className="card mb-4 mb-xl-0">
+                        <div className="card-header">Profile Picture</div>
+                        <div className="card-body text-center">
+                            <img className="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="" />
+                        </div>
                     </div>
-                    <div className='form-group'>
-                        <label>Last Name:</label>
-                        <input 
-                            type="text" 
-                            name="last_name" 
-                            value={profileData.last_name} 
-                            onChange={handleChange} 
-                        />
-                        {errorMessages.last_name && <div className="error-message">{errorMessages.last_name}</div>} {/* Display error */}
+                </div>
+                <div className="col-xl-8">
+                    {/* Account details card */}
+                    <div className="card mb-4">
+                        <div className="card-header">Account Details</div>
+                        <div className="card-body">
+                            <form onSubmit={handleSubmit}>
+                                <div className="form-group">
+                                    <label>First Name:</label>
+                                    <input 
+                                        type="text" 
+                                        name="first_name" 
+                                        value={profileData.first_name} 
+                                        onChange={handleChange} 
+                                        className="form-control"
+                                    />
+                                    {errorMessages.first_name && <div className="error-message text-danger">{errorMessages.first_name}</div>}
+                                </div>
+                                <div className="form-group">
+                                    <label>Last Name:</label>
+                                    <input 
+                                        type="text" 
+                                        name="last_name" 
+                                        value={profileData.last_name} 
+                                        onChange={handleChange} 
+                                        className="form-control"
+                                    />
+                                    {errorMessages.last_name && <div className="error-message text-danger">{errorMessages.last_name}</div>}
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Email Address:</label>
+                                    <input 
+                                        type="email" 
+                                        name="email" 
+                                        value={profileData.email} 
+                                        disabled 
+                                        className="form-control"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Branch:</label>
+                                    <select 
+                                        name="branch" 
+                                        value={profileData.branch} 
+                                        onChange={handleChange} 
+                                        className="form-control"
+                                    >
+                                        <option value="">Select a branch</option>
+                                        {Object.keys(BRANCHES).map(branchName => (
+                                            <option key={branchName} value={branchName}>{BRANCHES[branchName]}</option>
+                                        ))}
+                                    </select>
+                                    {errorMessages.branch && <div className="error-message text-danger">{errorMessages.branch}</div>}
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Phone Number:</label>
+                                    <input 
+                                        type="text" 
+                                        name="phone_number" 
+                                        value={profileData.phone_number} 
+                                        onChange={handleChange} 
+                                        className="form-control"
+                                    />
+                                    {errorMessages.phone_number && <div className="error-message text-danger">{errorMessages.phone_number}</div>}
+                                </div>
+
+                                <input type="submit" value="Update" className="btn btn-primary mt-3" />
+                            </form>
+                        </div>
                     </div>
-                    <div className='form-group'>
-                        <label>Email Address:</label>
-                        <input type="email" name="email" value={profileData.email} disabled />
-                    </div>
-                    <div className='form-group'>
-                        <label>Branch:</label>
-                        <select name="branch" value={profileData.branch} onChange={handleChange}>
-                            <option value="">Select a branch</option>
-                            {Object.keys(BRANCHES).map(branchName => (
-                                <option key={branchName} value={branchName}>{BRANCHES[branchName]}</option>
-                            ))}
-                        </select>
-                        {errorMessages.branch && <div className="error-message">{errorMessages.branch}</div>} {/* Display error */}
-                    </div>
-                    <div className='form-group'>
-                        <label>Phone Number:</label>
-                        <input 
-                            type="text" 
-                            name="phone_number" 
-                            value={profileData.phone_number} 
-                            onChange={handleChange} 
-                        />
-                        {errorMessages.phone_number && <div className="error-message">{errorMessages.phone_number}</div>} {/* Display error */}
-                    </div>
-                    <input type="submit" value="Update" className="submitButton" />
-                </form>
+                </div>
             </div>
         </div>
     );

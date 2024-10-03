@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import AxiosInstance from '../../utils/AxiosInstance';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './user.css'
+import './passwordRequest.css'
 const PasswordResetRequest = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -53,27 +53,62 @@ const PasswordResetRequest = () => {
   };
 
   return (
-    <div>
-      <h2>Enter your registered email</h2>
-      <div className="wrapper">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email Address:</label>
-            <input
-              type="text"
-              className={`email-form ${error ? 'is-invalid' : ''}`} // Optional styling for invalid input
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {/* Display error message under the field */}
-            {error && <p className="error-message" style={{ color: 'red', marginTop: '5px' }}>{error}</p>}
-          </div>
-          <button className="vbtn">Send</button>
-        </form>
+<div class="form-container">
+      <div class="logo-container">
+        Forgot Password
       </div>
+      <form class="form" onSubmit={handleSubmit}>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email"  placeholder="Enter your email" required=""
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          />
+          {error && (
+            <p className="error-message text-danger mt-2">
+                {error}
+            </p>
+        )}
+
+        </div>
+
+        <button class="form-submit-btn" type="submit">Send Email</button>
+      </form>
+
+      <p class="signup-link">
+        Don't have an account?
+        <a href="/" class="signup-link link"> Sign up now</a>
+      </p>
     </div>
+   
   );
 };
 
 export default PasswordResetRequest;
+
+
+
+
+
+
+// {/* <div>
+// <h2>Enter your registered email</h2>
+// <div className="wrapper">
+//   <form onSubmit={handleSubmit}>
+//     <div className="form-group">
+//       <label htmlFor="email">Email Address:</label>
+//       <input
+//         type="text"
+//         className={`email-form ${error ? 'is-invalid' : ''}`} // Optional styling for invalid input
+//         name="email"
+//         value={email}
+//         onChange={(e) => setEmail(e.target.value)}
+//       />
+//       {/* Display error message under the field */}
+//       {error && <p className="error-message" style={{ color: 'red', marginTop: '5px' }}>{error}</p>}
+//     </div>
+//     <button className="vbtn">Send</button>
+//   </form>
+// </div>
+// </div> */}

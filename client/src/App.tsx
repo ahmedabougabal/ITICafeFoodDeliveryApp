@@ -14,6 +14,7 @@ import ResetPassword from './components/user/ResetPassword';
 import { UserProvider, useUser } from './UserContext';
 import AuthMessage from './components/AuthMessage';
 import CartProvider from "./hooks/useCart.tsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AppContent() {
   const { user, setUser } = useUser();

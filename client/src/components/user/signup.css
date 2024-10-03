@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+}
+
+.containers {
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.forms {
+    width: 30%;
+    max-height: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 35%;
+}
+
+.input-box {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 100%;
+    /* Full width for inputs */
+    padding: 10px;
+    /* Add some padding */
+    border: 1px solid #ccc;
+    /* Border color */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Increase font size */
+}
+
+.label {
+    display: block;
+    /* Ensures labels are on a new line */
+    margin-bottom: 5px;
+    /* Space between label and input */
+    font-weight: bold;
+    /* Make labels bold */
+}
+
+.password-box {
+    position: relative;
+    /* Position relative for the password visibility toggle */
+}
+
+.password-toggle {
+    position: absolute;
+    /* Position toggle inside the input box */
+    right: 10px;
+    /* Align to the right */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    /* Adjust for proper alignment */
+    cursor: pointer;
+    /* Pointer cursor for toggling */
+}
+
+.alert-danger {
+    color: red;
+    /* Red color for error messages */
+    font-size: 14px;
+    /* Font size for error messages */
+    margin-top: 5px;
+    /* Space above error messages */
+}
+
+.form-btn {
+    width: 100%;
+    /* Full width for the submit button */
+    padding: 10px;
+    background-color: #4CAF50;
+    /* Green background */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove default border */
+    border-radius: 4px;
+    /* Rounded corners */
+    font-size: 16px;
+    /* Increase font size */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+.form-btn:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+}
+
+.sign-up-label {
+    margin-top: 15px;
+    /* Space above sign up label */
+    text-align: center;
+    /* Center the text */
+}
+
+.google-login-button {
+    display: flex;
+    align-items: center;
+    /* Center the icon and text */
+    margin-top: 10px;
+    /* Space above Google login button */
+    cursor: pointer;
+    /* Pointer cursor */
+}
+
+.google-icon {
+    margin-right: 8px;
+    /* Space between icon and text */
+}
