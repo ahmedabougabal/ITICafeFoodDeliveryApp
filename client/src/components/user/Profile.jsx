@@ -4,6 +4,13 @@ import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance"; // Ensure this is correctly set up
 import './profile.css';
 
+const BRANCHES = {
+    "1": "New Capital",
+    "2": "Mansoura",
+    "3": "Cairo University",
+    "4": "Assuit"
+};
+
 const Profile = () => {
     const jwt = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user'));
@@ -80,7 +87,9 @@ const Profile = () => {
                                         <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Branch</h6>
                                         <div className="row">
                                             <div className="col-12">
-                                                <h6 className="text-muted f-w-400">{userData ? userData.branch : "Loading..."}</h6>
+                                                <h6 className="text-muted f-w-400">
+                                                    {userData ? BRANCHES[userData.branch] || "Unknown" : "Loading..."}
+                                                </h6>
                                             </div>
                                         </div>
                                         <h6 className="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">User Type</h6>
@@ -93,7 +102,7 @@ const Profile = () => {
                                             <button onClick={handleLogout} className='btn btn-danger'>Logout</button>
                                             <button onClick={() => navigate('/profile/edit')} className="btn btn-primary">Edit Profile</button>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
