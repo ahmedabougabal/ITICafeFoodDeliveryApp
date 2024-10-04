@@ -1480,3 +1480,108 @@ Internal Server Error: /api/menu/items/
 "GET /api/menu/items/ HTTP/1.1" 500 65
 Internal Server Error: /api/menu/items/
 "GET /api/menu/items/ HTTP/1.1" 500 65
+Internal Server Error: /api-auth/register
+Traceback (most recent call last):
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+psycopg2.errors.UndefinedColumn: column "branch_id" of relation "users_user" does not exist
+LINE 1: ...mail", "first_name", "last_name", "phone_number", "branch_id...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/home/moataz/ab/ITICafeFoodDeliveryApp/backend/users/views.py", line 19, in post
+    serializer.save()
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/rest_framework/serializers.py", line 208, in save
+    self.instance = self.create(validated_data)
+  File "/home/moataz/ab/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 33, in create
+    user=User.objects.create_user(
+  File "/home/moataz/ab/ITICafeFoodDeliveryApp/backend/users/managers.py", line 24, in create_user
+    user.save(using=self._db)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/contrib/auth/base_user.py", line 62, in save
+    super().save(*args, **kwargs)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/base.py", line 891, in save
+    self.save_base(
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/base.py", line 997, in save_base
+    updated = self._save_table(
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/base.py", line 1160, in _save_table
+    results = self._do_insert(
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/base.py", line 1201, in _do_insert
+    return manager._insert(
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+    cursor.execute(sql, params)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+django.db.utils.ProgrammingError: column "branch_id" of relation "users_user" does not exist
+LINE 1: ...mail", "first_name", "last_name", "phone_number", "branch_id...
+                                                             ^
+
+"POST /api-auth/register HTTP/1.1" 500 198261
+Internal Server Error: /api-auth/google
+Traceback (most recent call last):
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/utils/deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to 127.0.0.1:8000/api-auth/google/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+"POST /api-auth/google HTTP/1.1" 500 75148
+Internal Server Error: /api-auth/google
+Traceback (most recent call last):
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/utils/deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api-auth/google/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+"POST /api-auth/google HTTP/1.1" 500 75195
+Internal Server Error: /api-auth/google
+Traceback (most recent call last):
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/utils/deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 108, in process_response
+    return self.response_redirect_class(self.get_full_path_with_slash(request))
+  File "/home/moataz/.local/share/virtualenvs/backend-wOuHsFYT/lib/python3.10/site-packages/django/middleware/common.py", line 87, in get_full_path_with_slash
+    raise RuntimeError(
+RuntimeError: You called this URL via POST, but the URL doesn't end in a slash and you have APPEND_SLASH set. Django can't redirect to the slash URL while maintaining POST data. Change your form to point to localhost:8000/api-auth/google/ (note the trailing slash), or set APPEND_SLASH=False in your Django settings.
+"POST /api-auth/google HTTP/1.1" 500 75792

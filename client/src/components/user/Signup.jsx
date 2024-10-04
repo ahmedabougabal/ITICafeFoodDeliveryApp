@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate, Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
+import { useNavigate, Link , useSearchParams} from 'react-router-dom';
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from 'react-icons/fa';
 import './signup.css';
+import AxiosInstance from '../../utils/AxiosInstance';
 
 const BRANCHES = {
     "1": "New Capital",
@@ -20,6 +21,7 @@ const USER_TYPE_CHOICES = [
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [searchparams]=useSearchParams()
     const [formData, setFormData] = useState({
         email: '',
         first_name: '',
@@ -30,6 +32,40 @@ const Signup = () => {
         confirm_password: '',
         user_type: ''
     });
+
+    const handleSignInWithGoogle = async (response) => {
+        try {
+            const payload = response.credential; // Google token is available in response.credential
+            const server_res = await axios.post("http://localhost:8000/api-auth/google", {"access_token": payload});
+            console.log(server_res); // Log the server response
+            const user = {
+                'full_name': server_res.full_name,
+                'email': server_res.email
+            };
+
+            if (server_res.status === 200) {
+                localStorage.setItem('token', JSON.stringify(server_res.access_token));
+                localStorage.setItem('refresh_token', JSON.stringify(server_res.refresh_token));
+                localStorage.setItem('user', JSON.stringify(user));
+                await navigate('/');
+                toast.success('Login successful');
+            }
+        } catch (error) {
+            console.error("Error during Google sign-in:", error);
+        }
+    };
+    
+
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback: handleSignInWithGoogle,  // Pass the correct callback
+        });
+        google.accounts.id.renderButton(
+            document.getElementById('signinDiv'),
+            { theme: 'outline', size: 'large' }
+        );
+    }, []);
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -151,6 +187,46 @@ const Signup = () => {
             }
         }
     };
+
+    const handleSignInWthGithub = ()=> {
+        window.location.assign(`https://github.com/login/oauth/authorize/?client_id=${import.meta.env.VITE_GITHUB_ID}`)
+    }
+
+    
+    const send_code_to_backend= async()=> {
+        if (searchparams){
+            try {
+                const qcode = searchparams.get('code')
+                const response = await AxiosInstance.post("/auth/github/", {"code":qcode})
+                const result = response.data
+                console.log(result)
+                if (response.status === 200) {
+                    const user = {
+                        'full_name': result.full_name,
+                        'email': result.email
+                    };
+        
+                    if (response.status === 200) {
+                        localStorage.setItem('token', JSON.stringify(result.access_token));
+                        localStorage.setItem('refresh_token', JSON.stringify(result.refresh_token));
+                        localStorage.setItem('user', JSON.stringify(user));
+                        await navigate('/');
+                        toast.success('Login successful');
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+    }
+
+    let code = searchparams.get('code')
+    useEffect(()=> {
+        if (code) {
+            send_code_to_backend()
+        }
+    }, [code])
 
     return (
         <div className="containers">
@@ -283,13 +359,20 @@ const Signup = () => {
                 <div className="sign-up-label">
                     Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
                 </div>
-
-                <div className="buttons-container">
+                <div className="buttons-container" id='signinDiv'>
                     <div className="google-login-button">
                         <FaGoogle className="google-icon" /> Sign Up with Google
                     </div>
                 </div>
+                <hr></hr>
+                <div className="buttons-container">
+                    <div className="google-login-button" onClick={handleSignInWthGithub}>
+                        <FaGithub className="google-icon" /> Sign Up with Github
+                    </div>
+                </div>
+                
             </form>
+            
         </div>
     );
 };

@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'rooms',
-    'channels'
+    'channels',
+    'social_users',
 ]
 
 
@@ -268,3 +269,11 @@ DEFAULT_FROM_EMAIL="iticofe@gmail.com"
 #DEFAULT_FROM_EMAIL="info@mahmoud.com"
 #EMAIL_PORT = '2525'
 #EMAIL_USE_TLS= True
+
+
+# add this
+GOOGLE_CLIENT_ID=env('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET=env('GOOGLE_CLIENT_SECRET')
+GITHUB_CLIENT_ID=env('GITHUB_CLIENT_ID')
+GITHUB_CKIENT_SECRET=env('GITHUB_CKIENT_SECRET')
+SOCIAL_AUTH_PASSWORD=env('SOCIAL_PASSWORD')

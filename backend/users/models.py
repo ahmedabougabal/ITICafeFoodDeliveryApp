@@ -7,6 +7,15 @@ from .managers import  CustomUserManager   # type:ignore
 from rest_framework_simplejwt.tokens import RefreshToken    # type:ignore
 from django.core.validators import RegexValidator
 # Create your models here.
+
+# add this
+# AUTH_PROVIDERS = {
+#     'email':'email',
+#     'google':'google',
+#     'github':'github',
+#     'facebook':'facebook',
+# }
+
 class User(AbstractBaseUser, PermissionsMixin):
     BRANCHES = {
         "1": "New Capital",
@@ -25,8 +34,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=13,
         validators=[RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be in the format: '+999999999'. Up to 15 digits allowed.")],
     )
-    # branch=models.CharField(max_length=30,choices=BRANCHES)
-    branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
+    branch=models.CharField(max_length=30,choices=BRANCHES )
+    # branch=models.CharField(max_length=30,choices=BRANCHES, null=False, default='New Capital')
+    # branch = models.ForeignKey(Branch, on_delete=models.SET_NULL, null=True)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='user')
     is_active = models.BooleanField(default=True)
     is_superuser=models.BooleanField(default=False)
@@ -34,6 +44,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login=models.DateTimeField(null=True, blank=True)
+    # auth_provider = models.CharField(max_length=50, default=AUTH_PROVIDERS.get("email"), blank=True, null=True) # add this
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name","last_name","branch","phone_number"]
     objects = CustomUserManager()
