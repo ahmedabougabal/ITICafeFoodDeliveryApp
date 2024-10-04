@@ -12,6 +12,12 @@ const BRANCHES = {
     "4": "Assuit",
 };
 
+
+const USER_TYPE_CHOICES = [
+    ['user', 'User'],
+    ['instructor', 'Instructor'],
+];
+
 const Signup = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -30,8 +36,11 @@ const Signup = () => {
     const [errors, setErrors] = useState({});
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-        setErrors({ ...errors, [e.target.name]: '' });
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     };
 
     const validateForm = () => {
@@ -39,28 +48,63 @@ const Signup = () => {
         let newErrors = {};
         let isValid = true;
 
-        if (!email) newErrors.email = 'Email is required.';
-        if (!first_name) newErrors.first_name = 'First name is required.';
-        if (!last_name) newErrors.last_name = 'Last name is required.';
-        if (!branch) newErrors.branch = 'Branch is required.';
-        if (!phone_number) newErrors.phone_number = 'Phone number is required.';
-        if (!password) newErrors.password = 'Password is required.';
-        if (!confirm_password) newErrors.confirm_password = 'Confirm password is required.';
-        if (!user_type) newErrors.user_type = 'User type is required.';
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (email && !emailRegex.test(email)) {
-            newErrors.email = 'Invalid email address.';
+        // Email validation
+        if (!email) {
+            newErrors.email = 'Email is required.';
+            isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Email is invalid.';
             isValid = false;
         }
 
-        if (password && (password.length < 8 || !/\d/.test(password))) {
-            newErrors.password = 'Password must be at least 8 characters long and contain digits.';
+        // First name validation
+        if (!first_name) {
+            newErrors.first_name = 'First name is required.';
             isValid = false;
         }
 
-        if (password !== confirm_password) {
+        // Last name validation
+        if (!last_name) {
+            newErrors.last_name = 'Last name is required.';
+            isValid = false;
+        }
+
+        // Branch validation
+        if (!branch) {
+            newErrors.branch = 'Branch is required.';
+            isValid = false;
+        }
+
+        // Phone number validation
+        if (!phone_number) {
+            newErrors.phone_number = 'Phone number is required.';
+            isValid = false;
+        }
+
+        // Password validation
+        if (!password) {
+            newErrors.password = 'Password is required.';
+            isValid = false;
+        } else if (password.length < 6) {
+            newErrors.password = 'Password must be at least 6 characters long.';
+            isValid = false;
+        }
+
+        // Confirm password validation
+        if (!confirm_password) {
+            newErrors.confirm_password = 'Confirm password is required.';
+            isValid = false;
+        } else if (confirm_password !== password) {
             newErrors.confirm_password = 'Passwords do not match.';
+            isValid = false;
+        }
+
+        // User type validation
+        if (!user_type) {
+            newErrors.user_type = 'User type is required.';
+            isValid = false;
+        } else if (!USER_TYPE_CHOICES.some(([value]) => value === user_type)) {
+            newErrors.user_type = 'Invalid user type selected.';
             isValid = false;
         }
 
@@ -77,14 +121,31 @@ const Signup = () => {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api-auth/register', formData);
+            const apiData = { ...formData };
+            if (apiData.branch) {
+                apiData.branch = parseInt(apiData.branch);
+            }
+
+            console.log('Sending data to backend:', apiData); // For debugging
+
+            const response = await axios.post('http://127.0.0.1:8000/api-auth/register', apiData);
             if (response.status === 201) {
                 toast.success('SignUp Successful. Verify Your Email');
                 navigate('/otp/verify');
             }
         } catch (error) {
-            if (error.response && error.response.status === 400) {
-                setErrors(prevErrors => ({ ...prevErrors, email: 'Email already exists.' }));
+            console.error('Registration error:', error.response?.data); // For debugging
+
+            if (error.response?.data) {
+                const backendErrors = error.response.data;
+                const newErrors = {};
+
+                Object.entries(backendErrors).forEach(([key, value]) => {
+                    newErrors[key] = Array.isArray(value) ? value[0] : value;
+                });
+
+                setErrors(newErrors);
+                toast.error('Please correct the errors in the form.');
             } else {
                 toast.error('An unexpected error occurred.');
             }
@@ -94,7 +155,7 @@ const Signup = () => {
     return (
         <div className="containers">
             <form className="forms" onSubmit={handleSubmit}>
-            <header>Create Account</header>
+                <header>Create Account</header>
                 <div className="input-box">
                     <label>First Name</label>
                     <input
@@ -172,8 +233,8 @@ const Signup = () => {
                         onChange={handleChange}
                     >
                         <option value="">Select User Type</option>
-                        {Object.entries(USER_TYPES).map(([key, label]) => (
-                            <option key={key} value={key}>{label}</option>
+                        {USER_TYPE_CHOICES.map(([value, label]) => (
+                            <option key={value} value={value}>{label}</option>
                         ))}
                     </select>
                     {errors.user_type && <p className="alert-danger">{errors.user_type}</p>}
