@@ -1,26 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from './header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
+import {useUser} from '../../UserContext';
 import '../../App.css';
-import { toast } from 'react-toastify'; // Assuming you're using 'react-toastify' for notifications
-import AxiosInstance from '../../utils/AxiosInstance'; // Assuming AxiosInstance is configured for API requests
+import { toast } from 'react-toastify';
+// client/src/utils/AxiosInstance.jsx
+import AxiosInstance from "../../utils/AxiosInstance";
 
-interface User {
-  full_name: string;
-  email: string;
-}
-
-interface HeaderProps {
-  user: User | null;
-  onLogout: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
+const Header: React.FC = () => {
   const { cart } = useCart();
   const navigate = useNavigate();
+  const { user, setUser } = useUser(); // Use the user and setUser from context
 
-  // Logout handler function
   const handleLogout = async () => {
     try {
       const refresh = JSON.parse(localStorage.getItem('refresh_token') || '{}');
@@ -28,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
-      onLogout(); // Call the onLogout prop to update the user state
+      setUser(null); // Update the user in context
       navigate('/login');
       toast.warn("Logout successful");
     } catch (error) {
@@ -36,15 +28,6 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
     }
   };
 
-  // Effect to handle user state changes
-  useEffect(() => {
-    // If user is not null, reload or fetch the user profile
-    if (user) {
-      // Implement your profile fetching logic here if needed
-      // For example, you could fetch user data from the server if it hasn't been loaded yet
-      console.log("User is logged in, fetch profile if necessary.");
-    }
-  }, [user]); // This effect will run when the user state changes
 
   return (
     <header className={classes.header}>
@@ -59,7 +42,6 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout }) => {
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
                 <Link to="/orders">Orders</Link>
-                {/* Log Out link with handleLogout */}
                 <a onClick={handleLogout} className={classes.logout}>
                   Log Out
                 </a>
