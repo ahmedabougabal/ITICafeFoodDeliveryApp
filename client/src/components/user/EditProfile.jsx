@@ -2,25 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
+//client/src/UserContext.tsx
+import {useUser} from '../../UserContext';
 import './EditProfile.css';
+
 const BRANCHES = {
-    "New Capital": "NEW Capital",
-    "Mansoura": "Mansoura",
-    "Cairo University": "Cairo University",
-    "Smart Village": "Smart Village",
-    "Aswan": "Aswan",
-    "Asuit": "Asuit",
-    "Qena": "Qena",
-    "Menia": "Menia",
-    "Menofia": "Menofia",
-    "Beni Suef": "Beni Suef",
-    "Sohag": "Sohag",
-    "Asmalilia": "Asmalilia",
-    "Alexandria": "Alexandria"
+    "1": "New Capital",
+    "2": "Mansoura",
+    "3": "Cairo University",
+    "4": "Assuit"
 };
 
 const EditProfile = () => {
     const navigate = useNavigate();
+    const { setUser } = useUser(); // Use setUser from context
     const [profileData, setProfileData] = useState({
         first_name: '',
         last_name: '',
@@ -28,12 +23,7 @@ const EditProfile = () => {
         phone_number: ''
     });
 
-    const [errorMessages, setErrorMessages] = useState({
-        first_name: "",
-        last_name: "",
-        branch: "",
-        phone_number: ""
-    });
+    const [errorMessages, setErrorMessages] = useState({});
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -48,54 +38,57 @@ const EditProfile = () => {
     }, []);
 
     const handleChange = (e) => {
-        setProfileData({ ...profileData, [e.target.name]: e.target.value });
-        setErrorMessages({ ...errorMessages, [e.target.name]: "" }); // Clear error message on change
+        const { name, value } = e.target;
+        setProfileData(prev => ({
+            ...prev,
+            [name]: name === 'branch' ? value : value
+        }));
+        setErrorMessages(prev => ({ ...prev, [name]: '' }));
     };
 
     const validateForm = () => {
-        let isValid = true;
-        const newErrors = { first_name: "", last_name: "", branch: "", phone_number: "" };
-
-        // Validate first name
-        if (!profileData.first_name) {
-            newErrors.first_name = 'First name is required';
-            isValid = false;
-        }
-
-        // Validate last name
-        if (!profileData.last_name) {
-            newErrors.last_name = 'Last name is required';
-            isValid = false;
-        }
-
-        // Validate branch
-        if (!profileData.branch) {
-            newErrors.branch = 'Branch is required';
-            isValid = false;
-        }
-
-        // Validate phone number
-        const phoneRegex = /^[0-9]{11}$/; // Example: Must be 10 digits
-        if (!phoneRegex.test(profileData.phone_number)) {
+        const newErrors = {};
+        if (!profileData.first_name) newErrors.first_name = 'First name is required';
+        if (!profileData.last_name) newErrors.last_name = 'Last name is required';
+        if (!profileData.branch) newErrors.branch = 'Branch is required';
+        if (!/^[0-9]{11}$/.test(profileData.phone_number)) {
             newErrors.phone_number = 'Phone number must be 11 digits';
-            isValid = false;
         }
-
         setErrorMessages(newErrors);
-        return isValid;
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (!validateForm()) return; // Prevent submission if validation fails
+        if (!validateForm()) return;
 
         try {
-            await AxiosInstance.put('/profile/update', profileData);
+            const apiData = { ...profileData };
+            if (apiData.branch) {
+                apiData.branch = parseInt(apiData.branch);
+            }
+            const response = await AxiosInstance.put('/profile/update', apiData);
+
+            // Update the user context with the new data
+            setUser({
+                full_name: `${apiData.first_name} ${apiData.last_name}`,
+                email: response.data.email // Assuming the email is returned in the response
+            });
+
             toast.success('Profile updated successfully');
             navigate('/profile');
         } catch (error) {
-            toast.error('Failed to update profile');
+            if (error.response?.data) {
+                const backendErrors = error.response.data;
+                const newErrors = {};
+                Object.entries(backendErrors).forEach(([key, value]) => {
+                    newErrors[key] = Array.isArray(value) ? value[0] : value;
+                });
+                setErrorMessages(newErrors);
+                toast.error('Please correct the errors in the form.');
+            } else {
+                toast.error('Failed to update profile');
+            }
         }
     };
 
@@ -120,66 +113,62 @@ const EditProfile = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label>First Name:</label>
-                                    <input 
-                                        type="text" 
-                                        name="first_name" 
-                                        value={profileData.first_name} 
-                                        onChange={handleChange} 
+                                    <input
+                                        type="text"
+                                        name="first_name"
+                                        value={profileData.first_name}
+                                        onChange={handleChange}
                                         className="form-control"
                                     />
                                     {errorMessages.first_name && <div className="error-message text-danger">{errorMessages.first_name}</div>}
                                 </div>
                                 <div className="form-group">
                                     <label>Last Name:</label>
-                                    <input 
-                                        type="text" 
-                                        name="last_name" 
-                                        value={profileData.last_name} 
-                                        onChange={handleChange} 
+                                    <input
+                                        type="text"
+                                        name="last_name"
+                                        value={profileData.last_name}
+                                        onChange={handleChange}
                                         className="form-control"
                                     />
                                     {errorMessages.last_name && <div className="error-message text-danger">{errorMessages.last_name}</div>}
                                 </div>
-
                                 <div className="form-group">
                                     <label>Email Address:</label>
-                                    <input 
-                                        type="email" 
-                                        name="email" 
-                                        value={profileData.email} 
-                                        disabled 
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={profileData.email}
+                                        disabled
                                         className="form-control"
                                     />
                                 </div>
-
                                 <div className="form-group">
                                     <label>Branch:</label>
-                                    <select 
-                                        name="branch" 
-                                        value={profileData.branch} 
-                                        onChange={handleChange} 
+                                    <select
+                                        name="branch"
+                                        value={profileData.branch}
+                                        onChange={handleChange}
                                         className="form-control"
                                     >
                                         <option value="">Select a branch</option>
-                                        {Object.keys(BRANCHES).map(branchName => (
-                                            <option key={branchName} value={branchName}>{BRANCHES[branchName]}</option>
+                                        {Object.entries(BRANCHES).map(([key, value]) => (
+                                            <option key={key} value={key}>{value}</option>
                                         ))}
                                     </select>
                                     {errorMessages.branch && <div className="error-message text-danger">{errorMessages.branch}</div>}
                                 </div>
-
                                 <div className="form-group">
                                     <label>Phone Number:</label>
-                                    <input 
-                                        type="text" 
-                                        name="phone_number" 
-                                        value={profileData.phone_number} 
-                                        onChange={handleChange} 
+                                    <input
+                                        type="text"
+                                        name="phone_number"
+                                        value={profileData.phone_number}
+                                        onChange={handleChange}
                                         className="form-control"
                                     />
                                     {errorMessages.phone_number && <div className="error-message text-danger">{errorMessages.phone_number}</div>}
                                 </div>
-
                                 <input type="submit" value="Update" className="btn btn-primary mt-3" />
                             </form>
                         </div>
