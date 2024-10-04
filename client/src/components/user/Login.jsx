@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import './login.css'; // Import the CSS file for styling
+// client/src/UserContext.tsx
+import {useUser} from '../../UserContext';
+import './login.css';
+
 const Login = () => {
     const navigate = useNavigate();
+    const { setUser } = useUser(); // Use the setUser function from context
     const [logindata, setLogindata] = useState({
         email: "",
         password: ""
@@ -46,7 +50,7 @@ const Login = () => {
 
         if (!valid) return; 
 
-        try {
+         try {
             const res = await AxiosInstance.post('/login', logindata);
             const response = res.data;
             const user = {
@@ -58,6 +62,7 @@ const Login = () => {
                 localStorage.setItem('token', JSON.stringify(response.access_token));
                 localStorage.setItem('refresh_token', JSON.stringify(response.refresh_token));
                 localStorage.setItem('user', JSON.stringify(user));
+                setUser(user); // Update the user in context
                 await navigate('/');
                 toast.success('Login successful');
             }
