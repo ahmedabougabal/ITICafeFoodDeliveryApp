@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { getAll, search } from '../../services/FoodService';
-import Thumbnails from '../../components/Thumbnails/Thumbnails';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {useUser} from "../../UserContext.tsx";
+import { getAll, search } from '../../services/FoodService';
 import Search from '../../components/Search/Search';
+import Thumbnails from '../../components/Thumbnails/Thumbnails';
+import styles from './HomePage.module.css';
 
 const HomePage = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { searchTerm } = useParams();
+  const { user } = useUser();
 
   useEffect(() => {
     const loadFoods = async () => {
@@ -21,7 +24,6 @@ const HomePage = () => {
         if (Array.isArray(result)) {
           foodsArray = result;
         } else if (typeof result === 'object' && result !== null) {
-          // Check for common API response structures
           if (Array.isArray(result.data)) {
             foodsArray = result.data;
           } else if (Array.isArray(result.results)) {
@@ -45,8 +47,29 @@ const HomePage = () => {
       }
     };
 
-    loadFoods();
-  }, [searchTerm]);
+    if (user) {
+      loadFoods();
+    }
+  }, [searchTerm, user]);
+
+  if (!user) {
+    return (
+      <div className={styles.loginContainer}>
+        <div className={styles.overlay}></div>
+        <div className={styles.loginContent}>
+          <h1 className={styles.title}>Welcome to ITIFoods</h1>
+          <p className={styles.subtitle}>We develop People and Food too!</p>
+          <div className={styles.messageBox}>
+            <p>Please login or register to order your favorite food from the branch nearest to you.</p>
+            <div className={styles.buttonContainer}>
+              <button onClick={() => window.location.href = '/login'} className={styles.loginButton}>Log In</button>
+              <button onClick={() => window.location.href = '/signup'} className={styles.registerButton}>Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -60,7 +83,7 @@ const HomePage = () => {
         <div>No food items available</div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
