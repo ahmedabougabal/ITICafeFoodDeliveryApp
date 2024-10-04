@@ -13,33 +13,63 @@ from rest_framework import status  # type:ignore
 from rest_framework.exceptions import AuthenticationFailed  # type:ignore
 from django.core.validators import MinLengthValidator
 
+from rest_framework import serializers
+from .models import User
+from django.core.validators import MinLengthValidator
+
+
 class UserRegisterSerializer(serializers.ModelSerializer):
-    password=serializers.CharField(max_length=60 , write_only=True, validators=[MinLengthValidator(8)] )
-    confirm_password=serializers.CharField(max_length=60 , write_only=True)
-    
+    password = serializers.CharField(
+        max_length=60,
+        write_only=True,
+        validators=[MinLengthValidator(8)]
+    )
+    confirm_password = serializers.CharField(max_length=60, write_only=True)
+
     class Meta:
-        model=User
-        fields=['email','first_name','last_name','branch','phone_number','user_type','password','confirm_password']
-        
-    def validate(self,attrs):
-        password=attrs.get('password','')
-        confirm_password=attrs.get('confirm_password','')
-        if password !=confirm_password:
-            raise serializers.ValidationError("Passwords Does`nt Match")
-        return super().validate(attrs)
-    
-           
-    def create(self,validated_data):
-        user=User.objects.create_user(
+        model = User
+        fields = [
+            'email',
+            'first_name',
+            'last_name',
+            'branch',
+            'phone_number',
+            'user_type',
+            'password',
+            'confirm_password'
+        ]
+        extra_kwargs = {
+            'user_type': {'required': True},
+        }
+
+    def validate(self, attrs):
+        password = attrs.get('password', '')
+        confirm_password = attrs.get('confirm_password', '')
+
+        if password != confirm_password:
+            raise serializers.ValidationError({"password": "Passwords do not match"})
+
+        # Validate user_type
+        user_type = attrs.get('user_type')
+        if user_type not in dict(User.USER_TYPE_CHOICES):
+            raise serializers.ValidationError({"user_type": "Invalid user type"})
+
+        return attrs
+
+    def create(self, validated_data):
+        # Remove confirm_password from validated_data
+        validated_data.pop('confirm_password', None)
+
+        user = User.objects.create_user(
             email=validated_data['email'],
-            first_name=validated_data.get("first_name"),
-            last_name=validated_data.get("last_name"),
+            first_name=validated_data.get('first_name'),
+            last_name=validated_data.get('last_name'),
             branch=validated_data.get('branch'),
             phone_number=validated_data.get('phone_number'),
             user_type=validated_data.get('user_type'),
-            password=validated_data.get("password"),
-                                      )
-        
+            password=validated_data.get('password'),
+        )
+
         return user
     
     
