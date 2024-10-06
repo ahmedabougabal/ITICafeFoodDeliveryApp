@@ -1,20 +1,18 @@
-from django.shortcuts import render
-from .models import Room
+from django.shortcuts import render, redirect
+from .models import Message
 
-
-# Create your views here.
-def rooms(request):
-    all_rooms = Room.objects.all()
-    return render(request, template_name='room/rooms.html', context={
-        'all_rooms': all_rooms
-    })
-
-def room(request, slug):
-    room = Room.objects.get(slug=slug)
-    messages = room.messages.all()
-    return render(request, template_name='room/room.html', context={
-        'room': room,
-        'messages': messages
+def room(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        # Get the currently logged-in user
+        first_name = request.user.first_name 
+        last_name = request.user.last_name 
+        
+    
+    messages = Message.objects.all()
+    return render(request, 'room/chat.html', context={
+        'messages': messages,
     })
 
 
