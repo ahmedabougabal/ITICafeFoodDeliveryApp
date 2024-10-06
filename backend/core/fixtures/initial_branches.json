@@ -3,8 +3,8 @@
     "model": "core.branch",
     "pk": 1,
     "fields": {
-      "name": "NEW Capital",
-      "address": "New Administrative Capital, Egypt"
+      "name": "New Capital",
+      "address": "ITI New Capital, Egypt"
     }
   },
   {
@@ -19,8 +19,80 @@
     "model": "core.branch",
     "pk": 3,
     "fields": {
-      "name": "Cairo University",
-      "address": "Cairo University Campus, Giza, Egypt"
+      "name": "Mansoura",
+      "address": "ITI Mansoura, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 4,
+    "fields": {
+      "name": "Alexandria",
+      "address": "ITI Alexandria, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 5,
+    "fields": {
+      "name": "Beni Sweif",
+      "address": "ITI Beni Sweif, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 6,
+    "fields": {
+      "name": "Assuit",
+      "address": "ITI Assuit, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 7,
+    "fields": {
+      "name": "Cairo",
+      "address": "ITI Cairo, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 8,
+    "fields": {
+      "name": "Giza",
+      "address": "ITI Giza, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 9,
+    "fields": {
+      "name": "Port Said",
+      "address": "ITI Port Said, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 10,
+    "fields": {
+      "name": "Aswan",
+      "address": "ITI Aswan, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 11,
+    "fields": {
+      "name": "El Minya",
+      "address": "ITI El Minya, Egypt"
+    }
+  },
+  {
+    "model": "core.branch",
+    "pk": 12,
+    "fields": {
+      "name": "Sohag",
+      "address": "ITI Sohag, Egypt"
     }
   }
 ]
