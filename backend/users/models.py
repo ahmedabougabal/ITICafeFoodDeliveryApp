@@ -5,7 +5,8 @@ from core.models import Branch
 from .managers import CustomUserManager
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.validators import RegexValidator
-
+# Create your models here.
+AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google', 'twitter': 'twitter', 'email': 'email'}
 class User(AbstractBaseUser, PermissionsMixin):
     BRANCHES = {
         "1": "New Capital",
@@ -31,8 +32,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(null=True, blank=True)
-
+    last_login=models.DateTimeField(null=True, blank=True)
+    auth_provider = models.CharField(
+        max_length=255, blank=False,
+        null=False, default=AUTH_PROVIDERS.get('email'))
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name", "last_name", "branch", "phone_number"]
 
