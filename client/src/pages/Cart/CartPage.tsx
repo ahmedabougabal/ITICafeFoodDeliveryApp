@@ -1,20 +1,17 @@
-import classes from './cartpage.module.css'
+import classes from './cartpage.module.css';
 import { useCart } from '../../hooks/useCart';
 import { Title } from '../../components/Title/Title';
 import { ConfigProvider, InputNumber, message } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Price from '../../components/Price/Price';
 
 export const CartPage = () => {
     const { cart, createOrder, changeQuantity, removeFromCart } = useCart();
-    const navigate = useNavigate();
 
     const handleCheckout = async () => {
         try {
-            const order = await createOrder();
-            console.log('Order created successfully:', order);
+            await createOrder();
             message.success('Order placed successfully!');
-            navigate('/orders');
         } catch (error: any) {
             console.error('Checkout error:', error);
             message.error(`Failed to place order: ${error.response?.data?.detail || error.message}`);
@@ -82,5 +79,5 @@ export const CartPage = () => {
                 </div>
             )}
         </ConfigProvider>
-    )
-}
+    );
+};
