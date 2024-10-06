@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from 'react-router-dom';
@@ -152,6 +152,55 @@ const Signup = () => {
         }
     };
 
+
+    const handleSignInWithGoogle = async (response) => {
+        try {
+            const access_token = response.credential; // Google token
+            console.log("Google payload: ", access_token);
+    
+            // Check if access_token is an array or a string
+            console.log("Type of access_token: ", typeof access_token);
+            console.log("Access Token Value: ", access_token);
+    
+            // Send token to the backend
+            const server_res = await axios.post(
+                "http://127.0.0.1:8000/social-auth/google/", 
+                { auth_token: access_token }, // Ensure you send the token in the correct format
+                { headers: { "Content-Type": "application/json" } }
+            );
+    
+            console.log("Server Response: ", server_res.data);
+    
+            if (server_res.status === 200) {
+                const { access, refresh } = server_res.data.tokens; // Adjust according to your server response
+                const user = {
+                    full_name: server_res.data.first_name + " " + server_res.data.last_name,
+                    email: server_res.data.email
+                };
+                localStorage.setItem('token', JSON.stringify(access));
+                localStorage.setItem('refresh_token', JSON.stringify(refresh));
+                localStorage.setItem('user', JSON.stringify(user));
+                await navigate('/'); // Redirect after successful login
+                toast.success('Login successful');
+            }
+        } catch (error) {
+            console.error("Error during Google sign-in:", error); // Log full error
+            toast.error('Login failed. Please try again.'); // Notify user of error
+        }
+    };
+
+        
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback: handleSignInWithGoogle,  // Pass the correct callback
+        });
+        google.accounts.id.renderButton(
+            document.getElementById('signinDiv'),
+            { theme: 'outline', size: 'large' }
+        );
+    }, []);
+
     return (
         <div className="containers">
             <form className="forms" onSubmit={handleSubmit}>
@@ -284,9 +333,9 @@ const Signup = () => {
                     Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
                 </div>
 
-                <div className="buttons-container">
-                    <div className="google-login-button">
-                        <FaGoogle className="google-icon" /> Sign Up with Google
+                <div className="buttons-container" id='signinDiv'>
+                    <div className="google-login-button" >
+                        <FaGoogle className="google-icon" /> Continue with Google
                     </div>
                 </div>
             </form>

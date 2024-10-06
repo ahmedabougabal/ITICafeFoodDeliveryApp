@@ -38,6 +38,7 @@ open_api_info = openapi.Info(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/',include('users.urls')),
+    path('social-auth/',include('social_users.urls')),
     path('api/orders/', include('orders.urls')),
     path('api/menu/', include('menu.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
