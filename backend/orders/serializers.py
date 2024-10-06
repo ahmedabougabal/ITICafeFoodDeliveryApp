@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 class OrderItemSerializer(serializers.ModelSerializer):
     item = MenuItemSerializer(read_only=True)
     item_id = serializers.PrimaryKeyRelatedField(queryset=MenuItem.objects.all(), write_only=True, source='item')
+    price_at_time_of_order = serializers.DecimalField(max_digits=6, decimal_places=2, write_only=True)
 
     class Meta:
         model = OrderItem
@@ -45,12 +46,42 @@ class OrderCreateSerializer(serializers.ModelSerializer):
         model = Order
         fields = ['items', 'total_price']
 
+    def validate(self, data):
+        logger.info(f"Validating order data: {data}")
+
+        items_data = data.get('items', [])
+        total_price = data.get('total_price', 0)
+
+        # Calculate the total price from the items
+        calculated_total_price = sum(
+            Decimal(str(item_data['price_at_time_of_order'])) * item_data['quantity']
+            for item_data in items_data
+        )
+
+        # Validate that the total price matches the sum of the item prices (allowing for small discrepancies)
+        if abs(Decimal(str(total_price)) - calculated_total_price) > Decimal('0.01'):
+            raise serializers.ValidationError("Total price does not match the sum of the item prices.")
+
+        # Ensure that the quantity of each item is greater than zero
+        for item_data in items_data:
+            if item_data['quantity'] <= 0:
+                raise serializers.ValidationError(
+                    f"Quantity for item {item_data['item'].name} must be greater than zero.")
+
+        # Validate that the items in the order exist and are available
+        for item_data in items_data:
+            item = item_data['item']
+            if not item.is_available:
+                raise serializers.ValidationError(f"Item {item.name} is not available.")
+
+        return data
+
     def create(self, validated_data):
         try:
             items_data = validated_data.pop('items')
             user = self.context['request'].user
 
-            total_price = sum(item_data['item'].price * item_data['quantity'] for item_data in items_data)
+            total_price = Decimal(str(validated_data['total_price']))
 
             discount_rate = user.get_discount_rate()
             discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
@@ -58,7 +89,12 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             order = Order.objects.create(user=user, total_price=total_price, discounted_price=discounted_price)
 
             for item_data in items_data:
-                OrderItem.objects.create(order=order, **item_data)
+                OrderItem.objects.create(
+                    order=order,
+                    item=item_data['item'],
+                    quantity=item_data['quantity'],
+                    price_at_time_of_order=item_data['price_at_time_of_order']
+                )
 
             logger.debug(f"Order created successfully. Order ID: {order.id}, User ID: {user.id}, Total Price: {total_price}, Discounted Price: {discounted_price}")
             return order
