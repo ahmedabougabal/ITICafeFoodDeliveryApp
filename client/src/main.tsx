@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import CartProvider from './hooks/useCart.tsx';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 createRoot(document.getElementById('root')!).render(
   
   <StrictMode>

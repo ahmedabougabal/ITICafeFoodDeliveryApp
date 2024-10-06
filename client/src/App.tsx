@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AppRoutes from "./AppRoutes";
 import Header from "./components/Header/Header";
+import  Footer  from './components/Footer/Footer';
 import { authService } from './services/AuthService';
 import Profile from './components/user/Profile';
 import EditProfile from './components/user/EditProfile';
@@ -16,6 +17,8 @@ import AuthMessage from './components/AuthMessage';
 import CartProvider from "./hooks/useCart.tsx";
 import ChatRoom from './components/Chat/ChatRoom.tsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function AppContent() {
   const { user, setUser } = useUser();
@@ -55,6 +58,7 @@ function AppContent() {
         <Route path='/forget-password' element={<PasswordResetRequest/>}/>
         <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
       </Routes>
+      <Footer/>
     </>
   );
 }
