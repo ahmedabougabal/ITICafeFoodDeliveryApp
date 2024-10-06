@@ -1,19 +1,23 @@
 import logging
 from django.utils import timezone
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from .models import Order
-from .permissions import IsAuthenticatedAndHasBranch
+from .permissions import IsAuthenticatedAndHasBranch, CanCreateOrder
 from .serializers import OrderSerializer, OrderCreateSerializer, OrderUpdateSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Initialize logger
 logger = logging.getLogger(__name__)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -28,7 +32,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        logger.debug(f"User ID: {user.id}, Branch: {user.branch}, Branch Name: {user.branch.name if user.branch else 'None'}")
+        logger.debug(
+            f"User ID: {user.id}, Branch: {user.branch}, Branch Name: {user.branch.name if user.branch else 'None'}")
         if user.is_superuser:
             return Order.objects.all()
         return Order.objects.filter(user__branch=user.branch)
@@ -47,7 +52,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return super().list(request, *args, **kwargs)
         except Exception as e:
             logger.error(f"Error listing orders: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while listing orders."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while listing orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to retrieve specific order by ID
     @swagger_auto_schema(
@@ -60,21 +66,46 @@ class OrderViewSet(viewsets.ModelViewSet):
             return super().retrieve(request, *args, **kwargs)
         except Exception as e:
             logger.error(f"Error retrieving order with ID: {kwargs['pk']}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while retrieving the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while retrieving the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to create new order
     @swagger_auto_schema(
-        operation_description="Create a new order. The user is automatically set.",
+        operation_description="Create a new order with items.",
         request_body=OrderCreateSerializer,
         responses={201: OrderSerializer()}
     )
-    def create(self, request, *args, **kwargs):
+    @action(detail=False, methods=['post'])
+    def create_order(self, request):
+        self.permission_classes = [permissions.IsAuthenticated, CanCreateOrder]
+        self.check_permissions(request)
+
         try:
-            logger.info("Creating a new order")
-            return super().create(request, *args, **kwargs)
+            logger.info(f"Received order data: {request.data}")
+            serializer = OrderCreateSerializer(data=request.data, context={'request': request})
+            if serializer.is_valid():
+                try:
+                    order = serializer.save(user=request.user)
+                    logger.info(f"Order created successfully. Order ID: {order.id}")
+                    return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
+                except Exception as e:
+                    logger.exception(f"Error saving order: {str(e)}")
+                    return Response({
+                        "error": "An unexpected error occurred while saving the order.",
+                        "details": str(e)
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                logger.error(f"Serializer validation failed. Errors: {serializer.errors}")
+                return Response({
+                    "error": "Invalid data provided",
+                    "details": serializer.errors
+                }, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            logger.error(f"Error creating order: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while creating the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logger.exception(f"Unexpected error in create_order: {str(e)}")
+            return Response({
+                "error": "An unexpected error occurred while creating the order.",
+                "details": str(e)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to update an order
     @swagger_auto_schema(
@@ -88,7 +119,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return super().update(request, *args, **kwargs)
         except Exception as e:
             logger.error(f"Error updating order with ID: {kwargs['pk']}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while updating the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while updating the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to partially update an order
     @swagger_auto_schema(
@@ -102,7 +134,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return super().partial_update(request, *args, **kwargs)
         except Exception as e:
             logger.error(f"Error partially updating order with ID: {kwargs['pk']}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while partially updating the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while partially updating the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Complete and pay for an order
     @swagger_auto_schema(
@@ -124,7 +157,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(OrderSerializer(order).data)
         except Exception as e:
             logger.error(f"Error completing and paying for order with ID: {pk}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while completing and paying for the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while completing and paying for the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to retrieve user's past orders
     @swagger_auto_schema(
@@ -144,7 +178,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Exception as e:
             logger.error(f"Error retrieving past orders for user with ID: {request.user.id}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while retrieving past orders."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while retrieving past orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to retrieve user's active orders
     @swagger_auto_schema(
@@ -155,12 +190,14 @@ class OrderViewSet(viewsets.ModelViewSet):
     def active_orders(self, request):
         try:
             logger.info(f"Retrieving active orders for user with ID: {request.user.id}")
-            active_orders = self.get_queryset().filter(user=request.user).exclude(status='completed').order_by('-created_at')
+            active_orders = self.get_queryset().filter(user=request.user).exclude(status='completed').order_by(
+                '-created_at')
             serializer = self.get_serializer(active_orders, many=True)
             return Response(serializer.data)
         except Exception as e:
             logger.error(f"Error retrieving active orders for user with ID: {request.user.id}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while retrieving active orders."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while retrieving active orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Accept a pending order and set preparation time
     @swagger_auto_schema(
@@ -168,7 +205,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                'preparation_time': openapi.Schema(type=openapi.TYPE_INTEGER, description='Preparation time in minutes'),
+                'preparation_time': openapi.Schema(type=openapi.TYPE_INTEGER,
+                                                   description='Preparation time in minutes'),
             }
         ),
         responses={200: OrderSerializer()}
@@ -203,7 +241,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(OrderSerializer(order).data)
         except Exception as e:
             logger.error(f"Error accepting order with ID: {pk}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while accepting the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while accepting the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Reject a pending order
     @swagger_auto_schema(
@@ -234,7 +273,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(OrderSerializer(order).data)
         except Exception as e:
             logger.error(f"Error rejecting order with ID: {pk}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while rejecting the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while rejecting the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # List all pending orders
     @swagger_auto_schema(
@@ -250,7 +290,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Exception as e:
             logger.error(f"Error listing pending orders: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while listing pending orders."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while listing pending orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Mark a ready order as completed and paid
     @swagger_auto_schema(
@@ -283,23 +324,5 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(OrderSerializer(order).data)
         except Exception as e:
             logger.error(f"Error completing order with ID: {pk}: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while completing the order."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-    # Create a new order with items
-    @swagger_auto_schema(
-        operation_description="Create a new order with items.",
-        request_body=OrderCreateSerializer,
-        responses={201: OrderSerializer()}
-    )
-    @action(detail=False, methods=['post'])
-    def create_order(self, request):
-        try:
-            logger.info("Creating a new order with items")
-            serializer = OrderCreateSerializer(data=request.data)
-            if serializer.is_valid():
-                order = serializer.save(user=request.user)
-                return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"Error creating order with items: {str(e)}", exc_info=True)
-            return Response({"error": "An unexpected error occurred while creating the order with items."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"error": "An unexpected error occurred while completing the order."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
