@@ -4,12 +4,13 @@ import { toast } from "react-toastify";
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import './signup.css';
-
+import './signup/css/style.css'
+import './signup/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'
 const BRANCHES = {
     "1": "New Capital",
     "2": "Mansoura",
     "3": "Cairo University",
-    "4": "Assuit",
+    "4": "Alexendria",
 };
 
 
@@ -202,136 +203,278 @@ const Signup = () => {
     }, []);
 
     return (
-        <div className="containers">
-            <form className="forms" onSubmit={handleSubmit}>
-                <header>Create Account</header>
-                <div className="input-box">
-                    <label>First Name</label>
+        <div
+        className="wrapper"
+        style={{ backgroundImage: `url('/images/pg.jpg')` }}
+    >
+        <div className="inner">
+            <div className="image-holder">
+                <img src="/images/registration-form-1.jpg" alt="" />
+            </div>
+            <form onSubmit={handleSubmit}>
+                <h3>Registration Form</h3>
+                <div className="form-group">
                     <input
                         type="text"
-                        className="input"
-                        name="first_name"
                         placeholder="First Name"
+                        className="form-control"
+                        name="first_name"
                         value={formData.first_name}
                         onChange={handleChange}
                     />
                     {errors.first_name && <p className="alert-danger">{errors.first_name}</p>}
-                </div>
-
-                <div className="input-box">
-                    <label>Last Name</label>
                     <input
                         type="text"
-                        className="input"
-                        name="last_name"
                         placeholder="Last Name"
+                        className="form-control"
+                        name="last_name"
                         value={formData.last_name}
                         onChange={handleChange}
                     />
                     {errors.last_name && <p className="alert-danger">{errors.last_name}</p>}
                 </div>
-
-                <div className="input-box">
-                    <label>Email</label>
+                <div className="form-wrapper">
                     <input
-                        type="email"
-                        className="input"
+                        type="text"
+                        placeholder="Email Address"
+                        className="form-control"
                         name="email"
-                        placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
                     />
+                    <i className="zmdi zmdi-email"></i>
                     {errors.email && <p className="alert-danger">{errors.email}</p>}
                 </div>
-
-                <div className="input-box">
-                    <label>Phone Number</label>
+                <div className="form-wrapper">
                     <input
                         type="text"
-                        className="input"
-                        name="phone_number"
                         placeholder="Phone Number"
+                        className="form-control"
+                        name="phone_number"
                         value={formData.phone_number}
                         onChange={handleChange}
                     />
+                    <i className="zmdi zmdi-account"></i>
                     {errors.phone_number && <p className="alert-danger">{errors.phone_number}</p>}
                 </div>
-
-                <div className="input-box">
-                    <label>Branch</label>
+                <div className="form-wrapper">
                     <select
+                        className="form-control"
                         name="branch"
-                        className="input"
                         value={formData.branch}
                         onChange={handleChange}
                     >
                         <option value="">Select Branch</option>
                         {Object.entries(BRANCHES).map(([key, label]) => (
-                            <option key={key} value={key}>{label}</option>
+                            <option key={key} value={key}>
+                                {label}
+                            </option>
                         ))}
                     </select>
+                    <i className="zmdi zmdi-caret-down" style={{ fontSize: '17px' }}></i>
                     {errors.branch && <p className="alert-danger">{errors.branch}</p>}
                 </div>
-
-                <div className="input-box">
-                    <label>User Type</label>
+                <div className="form-wrapper">
                     <select
+                        className="form-control"
                         name="user_type"
-                        className="input"
                         value={formData.user_type}
                         onChange={handleChange}
                     >
                         <option value="">Select User Type</option>
                         {USER_TYPE_CHOICES.map(([value, label]) => (
-                            <option key={value} value={value}>{label}</option>
+                            <option key={value} value={value}>
+                                {label}
+                            </option>
                         ))}
                     </select>
+                    <i className="zmdi zmdi-caret-down" style={{ fontSize: '17px' }}></i>
                     {errors.user_type && <p className="alert-danger">{errors.user_type}</p>}
                 </div>
-
-                <div className="input-box password-box">
-                    <label>Password</label>
+                <div className="form-wrapper">
                     <input
+                        className="form-control"
                         type={showPassword ? 'text' : 'password'}
-                        className="input"
                         name="password"
                         placeholder="Password"
                         value={formData.password}
                         onChange={handleChange}
                     />
-                    <span
-                        className="password-toggle"
-                        onClick={() => setShowPassword(!showPassword)}
-                    >
+                    <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
+                    {/* <i className="zmdi zmdi-lock"></i> */}
                     {errors.password && <p className="alert-danger">{errors.password}</p>}
                 </div>
-
-                <div className="input-box password-box">
-                    <label>Confirm Password</label>
+                <div className="form-wrapper">
                     <input
+                        className="form-control"
                         type={showConfirmPassword ? 'text' : 'password'}
-                        className="input"
                         name="confirm_password"
                         placeholder="Confirm Password"
                         value={formData.confirm_password}
                         onChange={handleChange}
                     />
-                    <span
-                        className="password-toggle"
-                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    >
+                    <span className="password-toggle" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                         {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                     </span>
+                    {/* <i className="zmdi zmdi-lock"></i> */}
                     {errors.confirm_password && <p className="alert-danger">{errors.confirm_password}</p>}
                 </div>
+                {/* <button type="submit" className="btn btn-danger custom-red-btn">Register</button> */}
 
                 <button type="submit" className="form-btn">Sign Up</button>
 
-                <div className="sign-up-label">
-                    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
-                </div>
+<div className="sign-up-label">
+    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
+</div>
+                           </form>
+        </div>
+    </div>       
+    );
+};
+
+export default Signup;
+
+
+
+
+
+
+
+
+
+
+{/* <div className="containers">
+<form className="forms" onSubmit={handleSubmit}>
+    <header>Create Account</header>
+    <div className="input-box">
+        <label>First Name</label>
+        <input
+            type="text"
+            className="input"
+            name="first_name"
+            placeholder="First Name"
+            value={formData.first_name}
+            onChange={handleChange}
+        />
+        {errors.first_name && <p className="alert-danger">{errors.first_name}</p>}
+    </div>
+
+    <div className="input-box">
+        <label>Last Name</label>
+        <input
+            type="text"
+            className="input"
+            name="last_name"
+            placeholder="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+        />
+        {errors.last_name && <p className="alert-danger">{errors.last_name}</p>}
+    </div>
+
+    <div className="input-box">
+        <label>Email</label>
+        <input
+            type="email"
+            className="input"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+        />
+        {errors.email && <p className="alert-danger">{errors.email}</p>}
+    </div>
+
+    <div className="input-box">
+        <label>Phone Number</label>
+        <input
+            type="text"
+            className="input"
+            name="phone_number"
+            placeholder="Phone Number"
+            value={formData.phone_number}
+            onChange={handleChange}
+        />
+        {errors.phone_number && <p className="alert-danger">{errors.phone_number}</p>}
+    </div>
+
+    <div className="input-box">
+        <label>Branch</label>
+        <select
+            name="branch"
+            className="input"
+            value={formData.branch}
+            onChange={handleChange}
+        >
+            <option value="">Select Branch</option>
+            {Object.entries(BRANCHES).map(([key, label]) => (
+                <option key={key} value={key}>{label}</option>
+            ))}
+        </select>
+        {errors.branch && <p className="alert-danger">{errors.branch}</p>}
+    </div>
+
+    <div className="input-box">
+        <label>User Type</label>
+        <select
+            name="user_type"
+            className="input"
+            value={formData.user_type}
+            onChange={handleChange}
+        >
+            <option value="">Select User Type</option>
+            {USER_TYPE_CHOICES.map(([value, label]) => (
+                <option key={value} value={value}>{label}</option>
+            ))}
+        </select>
+        {errors.user_type && <p className="alert-danger">{errors.user_type}</p>}
+    </div>
+
+    <div className="input-box password-box">
+        <label>Password</label>
+        <input
+            type={showPassword ? 'text' : 'password'}
+            className="input"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+        />
+        <span
+            className="password-toggle"
+            onClick={() => setShowPassword(!showPassword)}
+        >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+        {errors.password && <p className="alert-danger">{errors.password}</p>}
+    </div>
+
+    <div className="input-box password-box">
+        <label>Confirm Password</label>
+        <input
+            type={showConfirmPassword ? 'text' : 'password'}
+            className="input"
+            name="confirm_password"
+            placeholder="Confirm Password"
+            value={formData.confirm_password}
+            onChange={handleChange}
+        />
+        <span
+            className="password-toggle"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+        >
+            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+        {errors.confirm_password && <p className="alert-danger">{errors.confirm_password}</p>}
+    </div>
+
+    <button type="submit" className="form-btn">Sign Up</button>
+
+    <div className="sign-up-label">
+        Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
+    </div>
 
                 <div className="buttons-container" id='signinDiv'>
                     <div className="google-login-button" >

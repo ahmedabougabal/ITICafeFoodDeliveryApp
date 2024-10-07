@@ -7,7 +7,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.utils import timezone
 from django.db.models import Count
 from django.core.exceptions import ValidationError
-
 from core.models import Branch
 from .models import MenuItem, Category
 from .serializers import (
@@ -187,3 +186,5 @@ class MenuItemViewSet(viewsets.ModelViewSet):
             logger.error(f"Error in MenuItemViewSet.all_items: {str(e)}", exc_info=True)
             return Response({"error": "An unexpected error occurred while fetching all items."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+
