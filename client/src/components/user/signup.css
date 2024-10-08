@@ -112,17 +112,14 @@ body {
     /* Center the text */
 }
 
-.google-login-button {
+.google-login-button, .facebook-login-button {
     display: flex;
     align-items: center;
-    /* Center the icon and text */
     margin-top: 10px;
-    /* Space above Google login button */
     cursor: pointer;
-    /* Pointer cursor */
 }
 
-.google-icon {
+.google-icon, .facebook-icon {
     margin-right: 8px;
-    /* Space between icon and text */
 }
+

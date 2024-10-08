@@ -69,6 +69,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',        #add middleware for corsheader; it should be above common middleware
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # Add this line
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -280,6 +281,16 @@ DEFAULT_FROM_EMAIL="iticofe@gmail.com"
 GOOGLE_CLIENT_ID=env('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET=env('GOOGLE_CLIENT_SECRET')
 SOCIAL_SECRET=env('SOCIAL_SECRET')
-# GITHUB_CLIENT_ID=env('GITHUB_CLIENT_ID')
-# GITHUB_CLIENT_SECRET=env('GITHUB_CLIENT_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
+ 
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
