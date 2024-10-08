@@ -325,11 +325,13 @@ const Signup = () => {
                 {/* <button type="submit" className="btn btn-danger custom-red-btn">Register</button> */}
 
                 <button type="submit" className="form-btn">Sign Up</button>
-
-<div className="sign-up-label">
-    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
-</div>
-                           </form>
+                <div className="sign-up-label">
+                    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
+                </div>
+                <div className="google-login-button" id='signinDiv'>
+                    <FaGoogle className="google-icon" /> Continue with Google
+                </div>
+            </form>
         </div>
     </div>       
     );
@@ -487,4 +489,4 @@ export default Signup;
     );
 };
 
-export default Signup;
+export default Signup;*/}
