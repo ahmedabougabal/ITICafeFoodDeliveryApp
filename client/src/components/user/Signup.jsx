@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle, FaFacebook } from 'react-icons/fa';
 import './signup.css';
 import './signup/css/style.css'
 import './signup/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'
@@ -182,6 +182,7 @@ const Signup = () => {
                 localStorage.setItem('refresh_token', JSON.stringify(refresh));
                 localStorage.setItem('user', JSON.stringify(user));
                 await navigate('/'); // Redirect after successful login
+                window.location.reload();
                 toast.success('Login successful');
             }
         } catch (error) {
@@ -190,15 +191,15 @@ const Signup = () => {
         }
     };
 
-        
     useEffect(() => {
+        // Load Google SDK
         google.accounts.id.initialize({
             client_id: import.meta.env.VITE_CLIENT_ID,
-            callback: handleSignInWithGoogle,  // Pass the correct callback
+            callback: handleSignInWithGoogle,
         });
         google.accounts.id.renderButton(
             document.getElementById('signinDiv'),
-            { theme: 'outline', size: 'large' }
+            { theme: 'filled_blue', size: 'large' }
         );
     }, []);
 
@@ -324,11 +325,13 @@ const Signup = () => {
                 {/* <button type="submit" className="btn btn-danger custom-red-btn">Register</button> */}
 
                 <button type="submit" className="form-btn">Sign Up</button>
-
-<div className="sign-up-label">
-    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
-</div>
-                           </form>
+                <div className="sign-up-label">
+                    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
+                </div>
+                <div className="google-login-button" id='signinDiv'>
+                    <FaGoogle className="google-icon" /> Continue with Google
+                </div>
+            </form>
         </div>
     </div>       
     );
@@ -486,4 +489,4 @@ export default Signup;
     );
 };
 
-export default Signup;
+export default Signup;*/}

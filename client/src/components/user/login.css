@@ -134,3 +134,14 @@
     padding: 8px 15px;
     border-radius: 20px;
 }
+
+.google-login-button, .facebook-login-button {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.google-icon, .facebook-icon {
+    margin-right: 8px;
+}
