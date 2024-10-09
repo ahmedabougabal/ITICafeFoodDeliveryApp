@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './AdminChat.module.css';
 
 interface AdminChatProps {
@@ -8,11 +8,9 @@ interface AdminChatProps {
 
 const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
   console.log("User Email:", selectedChat);
-  
-  // Reference to the WebSocket
+
+  const [messages, setMessages] = useState<{ message: string; sender: string }[]>([]);
   const ws = useRef<WebSocket | null>(null);
-  
-  // Reference to the chat messages div (for scrolling and updating)
   const messagesRef = useRef<HTMLDivElement>(null);
 
   // Function to append message to chat
@@ -20,7 +18,7 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     const messageElement = document.createElement('div');
     messageElement.textContent = message;
     messageElement.className = isOwnMessage ? classes.ownMessage : classes.otherMessage;
-    
+
     // Append to the chat messages container
     messagesRef.current?.appendChild(messageElement);
 
@@ -30,19 +28,36 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     }
   };
 
-  // Declare unique room for each user
-  const sanitizedUserEmail = selectedChat.replace(/@/g, '_'); // Replace '@' with '_'
-  const sanitizedAdminEmail = 'admin@gmail.com'.replace(/@/g, '_'); // Same replacement for admin email
-  const roomName = `${sanitizedUserEmail}_${sanitizedAdminEmail}`; // Channel's Group_name must contain only ascii letters
+  // Sanitize user email to create a room name
+  const sanitizedUserEmail = selectedChat.replace(/@/g, '_');
+  const sanitizedAdminEmail = 'admin@gmail.com'.replace(/@/g, '_');
+  const roomName = `${sanitizedUserEmail}_${sanitizedAdminEmail}`;
 
   useEffect(() => {
+    // Fetch existing messages when the component mounts
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/messages/${selectedChat}/admin@gmail.com/`);
+        const data = await response.json();
+        setMessages(data); // Set fetched messages to state
+
+        // Append each fetched message to the chat UI
+        data.forEach((msg: { content: string; sender: string }) => {
+          appendMessage(msg.content, msg.sender === 'admin@gmail.com'); // Assuming admin's email is used for identification
+        });
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+
+    fetchMessages();
+
     // WebSocket connection on mount
     ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`);
 
     ws.current.onmessage = (event) => {
-      console.log("WebSocket Onmessage!");  
       const data = JSON.parse(event.data);
-      appendMessage(data.message); // Append incoming message
+      appendMessage(data.message, data.sender === 'admin@gmail.com'); // Check if the sender is admin
     };
 
     ws.current.onclose = () => {
@@ -56,7 +71,7 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
         ws.current = null; // Clear the reference
       }
     };
-  }, [roomName]); // Re-run if roomName changes
+  }, [roomName, selectedChat]);
 
   // Handle send message
   const handleSendMessage = () => {
@@ -64,7 +79,14 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     const message = inputElement?.value.trim();
 
     if (message && ws.current?.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify({ message })); // Send message to the WebSocket server
+      // Construct the message object to include sender and receiver
+      const messageData = {
+        message,
+        sender: 'admin@gmail.com',
+        receiver: selectedChat
+      };
+
+      ws.current.send(JSON.stringify(messageData)); // Send message to the WebSocket server
       appendMessage(message, true); // Append own message
       inputElement.value = ''; // Clear input
     }
@@ -74,13 +96,11 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     <div className={classes.chatWindow}>
       <div className={classes.chatHeader}>
         <h2>{selectedChat}</h2>
-        <button onClick={() => { 
-          onClose(); 
-        }} className={classes.closeButton}>
+        <button onClick={onClose} className={classes.closeButton}>
           &times;
         </button>
       </div>
-      <div id='chat_messages' ref={messagesRef} className={classes.chatContent}></div>
+      <div ref={messagesRef} className={classes.chatContent}></div>
       {/* Chat input area with Send button */}
       <div className={classes.chatInputContainer}>
         <input
