@@ -8,6 +8,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('menu', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -23,6 +25,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('preparation_time', models.PositiveIntegerField(blank=True, null=True)),
                 ('completed_at', models.DateTimeField(blank=True, null=True)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -31,6 +34,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField(default=1)),
                 ('price_at_time_of_order', models.DecimalField(decimal_places=2, max_digits=6)),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='menu.menuitem')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='orders.order')),
             ],
         ),
     ]
