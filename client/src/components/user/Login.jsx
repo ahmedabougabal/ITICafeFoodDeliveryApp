@@ -149,7 +149,7 @@ const Login = () => {
             name="email"
             onChange={handleOnchange}/>
    {errorMessages.email && (
-    <div className="alert alert-danger" role="alert">
+    <div classNameName="alert alert-danger" role="alert">
         {errorMessages.email}
     </div>
 )}
