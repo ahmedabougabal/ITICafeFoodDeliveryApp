@@ -11,6 +11,9 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str , smart_bytes ,DjangoUnicodeDecodeError
 import logging
 
+# Global list to keep track of logged-in users
+logged_in_users = set()  # Using a set to avoid duplicates
+
 logger = logging.getLogger(__name__)
 class RegisterUserView(GenericAPIView):
     serializer_class = UserRegisterSerializer
@@ -61,6 +64,10 @@ class LoginUser(GenericAPIView):
     def post(self,request):
         serializer = self.serializer_class(data=request.data, context={"request":request})
         if serializer.is_valid():
+            logged_email = serializer.validated_data['email']
+            if not logged_email == 'admin@gmail.com':
+                # Get the user from validated data
+                logged_in_users.add(logged_email)
             return Response(serializer.data,status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -122,12 +129,17 @@ class Logout(GenericAPIView):
     permission_classes = [IsAuthenticated]
     
     def post(self,request):
+        user_email = request.user.email
         serializer=self.serializer_class(data=request.data)
         if serializer.is_valid():
+            logged_in_users.discard(user_email)
             serializer.save()
             return Response({"message":("LogOut")}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
 
 
+class LoggedInUsersView(GenericAPIView):
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        return Response({"logged_in_users": list(logged_in_users)}, status=status.HTTP_200_OK)

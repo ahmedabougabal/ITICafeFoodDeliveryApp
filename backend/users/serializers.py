@@ -99,6 +99,7 @@ class LoginSerializer(serializers.ModelSerializer):
             'access_token':str(user_tokens.get('access')),
             'refresh_token':str(user_tokens.get('refresh')),
         }
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
