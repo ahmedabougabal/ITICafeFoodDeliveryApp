@@ -1,0 +1,2017 @@
+Internal Server Error: /api-auth/login
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 70, in post
+    if user.is_superuser or user.is_verified:
+       ^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'is_superuser'
+Internal Server Error: /api-auth/login
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 67, in post
+    logged_email = request.user.email
+                   ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'email'
+Internal Server Error: /api-auth/login
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 67, in post
+    logged_email = request.user.email
+                   ^^^^^^^^^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'email'
+Internal Server Error: /api-auth/login
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 68, in post
+    logged_email = user.email
+                   ^^^^^^^^^^
+AttributeError: 'AnonymousUser' object has no attribute 'email'
+Internal Server Error: /api-auth/login
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 67, in post
+    user = serializer.validated_data['user']  # Get the user from validated data
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+KeyError: 'user'
+Internal Server Error: /rooms
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 720, in url_patterns
+    iter(patterns)
+TypeError: 'module' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 147, in __acall__
+    response = await sync_to_async(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/middleware/common.py", line 107, in process_response
+    if response.status_code == 404 and self.should_redirect_with_slash(request):
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/middleware/common.py", line 70, in should_redirect_with_slash
+    match = is_valid_path("%s/" % request.path_info, urlconf)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/base.py", line 155, in is_valid_path
+    return resolve(path, urlconf)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/base.py", line 24, in resolve
+    return get_resolver(urlconf).resolve(path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 668, in resolve
+    sub_match = pattern.resolve(new_path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 666, in resolve
+    for pattern in self.url_patterns:
+                   ^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 728, in url_patterns
+    raise ImproperlyConfigured(msg.format(name=self.urlconf_name)) from e
+django.core.exceptions.ImproperlyConfigured: The included URLconf '<module 'rooms.urls' from '/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/rooms/urls.py'>' does not appear to have any patterns in it. If you see the 'urlpatterns' variable with valid patterns in the file then the issue is probably caused by a circular import.
+Internal Server Error: /api-auth/logged-in-users/
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 720, in url_patterns
+    iter(patterns)
+TypeError: 'module' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 284, in _get_response_async
+    response = await sync_to_async(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/response.py", line 74, in rendered_content
+    ret = renderer.render(self.data, accepted_media_type, context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/renderers.py", line 728, in render
+    ret = template.render(context, request=renderer_context['request'])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 1008, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/base.py", line 969, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/template/library.py", line 237, in render
+    output = self.func(*resolved_args, **resolved_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/templatetags/rest_framework.py", line 95, in optional_login
+    login_url = reverse('rest_framework:login')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/base.py", line 54, in reverse
+    app_list = resolver.app_dict[ns]
+               ^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 637, in app_dict
+    self._populate()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 574, in _populate
+    url_pattern._populate()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 548, in _populate
+    for url_pattern in reversed(self.url_patterns):
+                                ^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/utils/functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/urls/resolvers.py", line 728, in url_patterns
+    raise ImproperlyConfigured(msg.format(name=self.urlconf_name)) from e
+django.core.exceptions.ImproperlyConfigured: The included URLconf '<module 'rooms.urls' from '/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/rooms/urls.py'>' does not appear to have any patterns in it. If you see the 'urlpatterns' variable with valid patterns in the file then the issue is probably caused by a circular import.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 132, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 132, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'email'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 267, in validated_data
+    raise AssertionError(msg)
+AssertionError: You must call `.is_valid()` before accessing `.validated_data`.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    logged_email = serializer.validated_data['email']  # Get the email from validated data
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 267, in validated_data
+    raise AssertionError(msg)
+AssertionError: You must call `.is_valid()` before accessing `.validated_data`.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 192, in validate
+    return {
+           ^
+TypeError: unhashable type: 'dict'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 192, in validate
+    return {
+           ^
+TypeError: unhashable type: 'dict'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    if serializer.is_valid():
+       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 192, in validate
+    return {
+           ^
+TypeError: unhashable type: 'dict'
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 136, in post
+    "user_email": user_email
+                  ^^^^^^^^^^
+NameError: name 'user_email' is not defined
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 198, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 201, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 198, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 201, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 198, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 201, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 196, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 199, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 195, in save
+    token=RefreshToken(self.token)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 595, in fail
+    msg = self.error_messages[key]
+          ~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'Bad Token'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 135, in post
+    serializer.save()
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/serializers.py", line 198, in save
+    return self.fail("Bad Token")
+    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/fields.py", line 599, in fail
+    raise AssertionError(msg)
+AssertionError: ValidationError raised by `LogoutSerializer`, but error key `Bad Token` does not exist in the `error_messages` dictionary.
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    print(Serializer_data.get('email'))
+          ^^^^^^^^^^^^^^^
+NameError: name 'Serializer_data' is not defined
+Internal Server Error: /api-auth/logout
+Traceback (most recent call last):
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/.venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ahmedfadl/ITICafeFoodDeliveryApp/backend/users/views.py", line 134, in post
+    print(Serializer_data.get('email'))
+          ^^^^^^^^^^^^^^^
+NameError: name 'Serializer_data' is not defined
