@@ -43,13 +43,13 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
 
     // Append the message element to the chat content
     messagesRef.current?.appendChild(messageElement);
-  
+
     // Scroll to the bottom to show the latest message
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   };
-    
+
   // Fetch existing messages when the component mounts
   useEffect(() => {
     const fetchMessages = async () => {
@@ -117,7 +117,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
   return (
     <div className={classes.chatWindow}>
       <div className={classes.chatHeader}>
-      <h1>ITI Cafe Is Here!</h1>
+        <h1>ITI Cafe Is Here!</h1>
         <button onClick={onClose} className={classes.closeButton}>
           &times;
         </button>
