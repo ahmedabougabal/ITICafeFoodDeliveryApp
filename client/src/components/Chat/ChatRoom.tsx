@@ -1,5 +1,4 @@
-// src/components/ChatRoom.tsx
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './chatRoom.module.css';
 
 interface ChatRoomProps {
@@ -8,12 +7,8 @@ interface ChatRoomProps {
 }
 
 const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
-
-  console.log("User Email:", userEmail);
-  // Reference to the WebSocket
+  const [messages, setMessages] = useState<{ message: string; sender: string }[]>([]);
   const ws = useRef<WebSocket | null>(null);
-
-  // Reference to the chat messages div (for scrolling and updating)
   const messagesRef = useRef<HTMLDivElement>(null);
 
   // Function to append message to chat
@@ -21,7 +16,7 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
     const messageElement = document.createElement('div');
     messageElement.textContent = message;
     messageElement.className = isOwnMessage ? classes.ownMessage : classes.otherMessage;
-    
+
     // Append to the chat messages container
     messagesRef.current?.appendChild(messageElement);
 
@@ -31,24 +26,42 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
     }
   };
 
-  // Declare unique room for each user
-  const roomName = `${userEmail}_admin@gmail.com`
-  // WebSocket connection on first render
-  if (!ws.current) {
+  // Fetch existing messages when the component mounts
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/messages/${userEmail}/admin@gmail.com/`);
+        const data = await response.json();
+        setMessages(data); // Set fetched messages to state
 
-    // Use a relative URL instead of hardcoding localhost and ports
-    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`); // Or simply: ws://localhost:5173/ws/rooms/cafe/
-    
-    ws.current.onmessage = (event) => {
-      console.log("WebSocket Onmessage!");  
-      const data = JSON.parse(event.data);
-      appendMessage(data.message); // Append incoming message
+        // Append each fetched message to the chat UI
+        data.forEach((msg: { content: string; sender: string }) => {
+          appendMessage(msg.content, msg.sender === userEmail);
+        });
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
     };
-  
+
+    fetchMessages();
+
+    // WebSocket connection on first render
+    const roomName = `${userEmail}_admin@gmail.com`;
+    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`);
+
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      appendMessage(data.message, data.sender === userEmail);
+    };
+
     ws.current.onclose = () => {
       console.log("WebSocket connection closed");
     };
-  }
+
+    return () => {
+      ws.current?.close(); // Cleanup WebSocket connection on component unmount
+    };
+  }, [userEmail]);
 
   // Handle send message
   const handleSendMessage = () => {
@@ -56,8 +69,9 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
     const message = inputElement?.value.trim();
 
     if (message && ws.current?.readyState === WebSocket.OPEN) {
-      ws.current.send(JSON.stringify({ message })); // Send message to the WebSocket server
-      appendMessage(message, true); // Append own message
+      const receiverEmail = 'admin@gmail.com'; // Specify receiver
+      ws.current.send(JSON.stringify({ message, sender: userEmail, receiver: receiverEmail }));
+      appendMessage(message, true);
       inputElement.value = ''; // Clear input
     }
   };
@@ -66,14 +80,11 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
     <div className={classes.chatWindow}>
       <div className={classes.chatHeader}>
         <h2>ITI Cafe</h2>
-        <button onClick={() => { 
-          onClose(); 
-        }} className={classes.closeButton}>
+        <button onClick={onClose} className={classes.closeButton}>
           &times;
         </button>
       </div>
-      <div id='chat_messages' ref={messagesRef} className={classes.chatContent}></div>
-      {/* Chat input area with Send button */}
+      <div ref={messagesRef} className={classes.chatContent}></div>
       <div className={classes.chatInputContainer}>
         <input
           type="text"
