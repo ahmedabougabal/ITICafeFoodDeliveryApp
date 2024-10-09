@@ -67,3 +67,50 @@
 .cart-icon path {
     fill: white;
 }
+
+/* header.module.css */
+
+.chatButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chatButton:hover {
+    background-color: #0056b3;
+  }
+  
+
+/* header.module.css */
+.loggedInUsers {
+    position: fixed; /* To position it relative to the header */
+    bottom: 20px;
+    right: 20px; 
+    background-color: #5dd3fb; /* Background color for contrast */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;/* Width of the user list */
+  }
+  
+  .loggedInUsers li {
+    padding: 10px;
+    margin: 2px;
+    background-color: #007bff;
+    border-radius: 10px; /* Padding for each user */
+    border-bottom: 1px solid #eeeeee; /* Divider between users */
+    color: #fffefe; /* Text color */
+  }
+  
+  .loggedInUsers li:hover {
+    background-color: #1796fff1; /* Highlight on hover */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  

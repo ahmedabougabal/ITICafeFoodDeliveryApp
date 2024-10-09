@@ -1,0 +1,76 @@
+/* chatRoom.module.css */
+
+.chatWindow {
+    position: fixed;
+    bottom: 6.25rem; /* 100px */
+    right: 1.25rem; /* 20px */
+    width: 25rem; /* 300px */
+    height: 15rem; /* 400px */
+    background-color: white;
+    border: 0.0625rem solid #ccc; /* 1px */
+    border-radius: 0.625rem; /* 10px */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .chatHeader {
+    background-color: #007bff;
+    color: white;
+    padding: 0.625rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+  
+  .chatContent {
+    padding: 0.625rem;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  
+  .chatInputContainer {
+    display: flex;
+    padding: 0.625rem;
+    border-top: 0.0625rem solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  .chatInput {
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 1rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.3125rem;
+    outline: none;
+    box-sizing: border-box;
+  }
+  
+  /* Styling for the Send button */
+  .sendButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.625rem 1.25rem;
+    margin-left: 0.625rem; /* Adds space between input and button */
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sendButton:hover {
+    background-color: #0056b3;
+  }
+  
