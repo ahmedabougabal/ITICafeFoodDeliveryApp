@@ -1,0 +1,90 @@
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1s ease-in-out;
+  }
+  
+  .background-image-enter {
+    opacity: 0;
+  }
+  
+  .background-image-enter-active {
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .background-image-exit {
+    opacity: 1;
+  }
+  
+  .background-image-exit-active {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .admin-login-form {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .login-button:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
