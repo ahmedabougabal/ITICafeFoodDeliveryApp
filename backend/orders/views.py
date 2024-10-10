@@ -6,6 +6,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+from rest_framework.views import APIView
+
 from .models import Order
 from .permissions import IsAuthenticatedAndHasBranch, CanCreateOrder
 from .serializers import OrderSerializer, OrderCreateSerializer, OrderUpdateSerializer
@@ -22,12 +24,17 @@ import json
 # Initialize logger
 logger = logging.getLogger(__name__)
 
-
 @method_decorator(csrf_exempt, name='dispatch')
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [IsAuthenticatedAndHasBranch]
+
+    @action(detail=False, methods=['get'])
+    def pending_orders(self, request):
+        pending_orders = self.get_queryset().filter(status='pending').order_by('-created_at')
+        serializer = self.get_serializer(pending_orders, many=True)
+        return Response(serializer.data)
 
     def get_serializer_class(self):
         if self.action == 'create':
@@ -93,6 +100,29 @@ class OrderViewSet(viewsets.ModelViewSet):
                 try:
                     order = serializer.save(user=request.user)
                     logger.info(f"Order created successfully. Order ID: {order.id}")
+
+                    # Send WebSocket notification to admin_orders group
+                    channel_layer = get_channel_layer()
+                    async_to_sync(channel_layer.group_send)(
+                        "admin_orders",
+                        {
+                            "type": "order_notification",
+                            "order": {
+                                "id": order.id,
+                                "total_price": str(order.total_price),
+                                "items": [
+                                    {
+                                        "item_id": item.item.id,
+                                        "name": item.item.name,
+                                        "quantity": item.quantity,
+                                        "price": str(item.price_at_time_of_order)
+                                    }
+                                    for item in order.items.all()
+                                ]
+                            }
+                        }
+                    )
+
                     return Response(OrderSerializer(order).data, status=status.HTTP_201_CREATED)
                 except Exception as e:
                     logger.exception(f"Error saving order: {str(e)}")
@@ -235,6 +265,9 @@ class OrderViewSet(viewsets.ModelViewSet):
             order.preparation_time = preparation_time
             order.save()
 
+            # Send email notification
+            send_order_notification(order.user.email, order.id, "accepted", preparation_time)
+
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
                 f"user_{order.user.id}",
@@ -266,6 +299,9 @@ class OrderViewSet(viewsets.ModelViewSet):
 
             order.status = 'cancelled'
             order.save()
+
+            # Send email notification
+            send_order_notification(order.user.email, order.id, "rejected")
 
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
@@ -317,6 +353,9 @@ class OrderViewSet(viewsets.ModelViewSet):
             order.completed_at = timezone.now()
             order.payment_status = 'paid'
             order.save()
+
+            # Send email notification
+            send_order_notification(order.user.email, order.id, "completed and paid")
 
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.group_send)(
