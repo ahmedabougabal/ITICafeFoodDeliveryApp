@@ -1,59 +1,87 @@
-import { CCard, CCardBody, CCardLink, CCardText, CCardTitle, CListGroup, CListGroupItem } from '@coreui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { CCard, CCardBody, CCardLink, CCardTitle, CListGroup, CListGroupItem, CButton, CForm, CFormInput } from '@coreui/react'
 import classes from './ordercomponent.module.css'
 import DetailsModal from '../DetailsModal/DetailsModal'
 
-export default function OrderComponent({ order, actionHandler }) {
-  const { orderId,userName,totalPrice,items,status,finishedDate } = order
+export default function OrderComponent({ order, actionHandler, handleRefresh }) {
+  const {
+    id,
+    total_price,
+    discounted_price,
+    discount,
+    status,
+    payment_status,
+    created_at,
+    completed_at,
+    items,
+    branch_name,
+    user,
+  } = order
+
+  const [preparationTime, setPreparationTime] = useState('')
+
+  useEffect(() => {
+    console.log('Order details:', order);
+  }, [order]);
+
+  const handleAction = (action, prepTime = null) => {
+    if (actionHandler) {
+      actionHandler(id, action, prepTime);
+    } else {
+      console.error('actionHandler is not defined');
+    }
+  }
+
   return (
-
-    <>
-      {
-
-        order ? (
-
-          <CCard className={classes.card} style={{ width: '30rem' }}>
-            <CCardBody>
-              <CCardTitle>OrderID:#{orderId}</CCardTitle>
-              
-            </CCardBody>
-            <CListGroup flush className={classes.list}>
-              <CListGroupItem><div>Price</div><div>{totalPrice}</div></CListGroupItem>
-              <CListGroupItem><div>Discount</div><div>50%</div></CListGroupItem>
-              <CListGroupItem><div>User Name</div><div>{userName}</div></CListGroupItem>
-              <CListGroupItem style={{visibility:finishedDate}}><div>finished in</div><div>{finishedDate}</div></CListGroupItem>
-            </CListGroup>
-            <CCardBody className={classes.links}>
-              <div>
-                <DetailsModal items={items} orderId={orderId} />
-              </div>
-              <div className={classes.actions}>
-              {
-                status==='pending'?(
-                <>
-                <CCardLink onClick={()=>{actionHandler(orderId,'accept')}}>Accept</CCardLink>
-                <CCardLink onClick={()=>{actionHandler(orderId,'reject')}}>Reject</CCardLink>
-                </>):status ==='active'?(
-                  <>
-                  <CCardLink onClick={()=>{actionHandler(orderId,'finished')}}>finished</CCardLink>
-                  <CCardLink onClick={()=>{actionHandler(orderId,'susbend')}}>susbend</CCardLink>
-
-                  </>
-                ):(
-                  <>
-                  <CCardLink>Remove</CCardLink>
-                  </>
-                )
-              }
-              
-                
-              </div>
-
-            </CCardBody>
-          </CCard>
-        ) : (<></>)
-
-      }
-    </>
+    <CCard className={classes.card} style={{ width: '30rem' }}>
+      <CCardBody>
+        <CCardTitle>OrderID: #{id}</CCardTitle>
+      </CCardBody>
+      <CListGroup flush className={classes.list}>
+        <CListGroupItem key="price"><div>Price</div><div>${total_price}</div></CListGroupItem>
+        {discounted_price && <CListGroupItem key="discounted_price"><div>Discounted Price</div><div>${discounted_price}</div></CListGroupItem>}
+        <CListGroupItem key="discount"><div>Discount</div><div>{discount}%</div></CListGroupItem>
+        <CListGroupItem key="branch"><div>Branch</div><div>{branch_name}</div></CListGroupItem>
+        <CListGroupItem key="status"><div>Status</div><div>{status}</div></CListGroupItem>
+        <CListGroupItem key="payment_status"><div>Payment Status</div><div>{payment_status}</div></CListGroupItem>
+        <CListGroupItem key="created_at"><div>Created At</div><div>{new Date(created_at).toLocaleString()}</div></CListGroupItem>
+        {completed_at && <CListGroupItem key="completed_at"><div>Completed At</div><div>{new Date(completed_at).toLocaleString()}</div></CListGroupItem>}
+      </CListGroup>
+      <CCardBody className={classes.links}>
+        <div>
+          <DetailsModal items={items} orderId={id} />
+        </div>
+        <div className={classes.actions}>
+          {actionHandler && status === 'pending' && (
+            <>
+              <CForm className="mt-3">
+                <CFormInput
+                  type="number"
+                  placeholder="Preparation time (minutes)"
+                  value={preparationTime}
+                  onChange={(e) => setPreparationTime(e.target.value)}
+                />
+                <CButton color="success" onClick={() => handleAction('accept', preparationTime)}>
+                  Accept with Preparation Time
+                </CButton>
+              </CForm>
+              <CCardLink onClick={() => handleAction('reject')}>Reject</CCardLink>
+            </>
+          )}
+          {actionHandler && status === 'preparing' && (
+            <CCardLink onClick={() => handleAction('ready')}>Mark as Ready</CCardLink>
+          )}
+          {actionHandler && status === 'ready' && (
+            <CCardLink onClick={() => handleAction('complete')}>Complete & Pay</CCardLink>
+          )}
+          {actionHandler && (status === 'completed' || status === 'cancelled') && (
+            <CCardLink onClick={() => handleAction('remove')}>Remove</CCardLink>
+          )}
+        </div>
+        <div>
+          <CButton onClick={handleRefresh} color="primary">Refresh Orders</CButton>
+        </div>
+      </CCardBody>
+    </CCard>
   )
 }
