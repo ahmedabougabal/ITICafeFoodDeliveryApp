@@ -1,78 +1,154 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000/api/orders/';
-
-const getAuthToken = () => localStorage.getItem('authToken');
+const API_URL = 'http://localhost:8000/api';
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
-  },
+    'Accept': 'application/json'
+  }
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  const token = getAuthToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Add an interceptor to include the auth token
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 const orderService = {
-  getAllOrders: async () => {
-    const response = await axiosInstance.get('');
-    return response.data;
+  getActiveOrders: async () => {
+    try {
+      const response = await axiosInstance.get('/orders/active_orders/');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching active orders:', error.response || error);
+      throw error;
+    }
   },
 
   getOrder: async (id) => {
-    const response = await axiosInstance.get(`${id}/`);
-    return response.data;
+    try {
+      const response = await axiosInstance.get(`/orders/${id}/`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching order:', error.response || error);
+      throw error;
+    }
   },
 
   createOrder: async (orderData) => {
-    const response = await axiosInstance.post('', orderData);
-    return response.data;
+    try {
+      const response = await axiosInstance.post('/orders/', orderData);
+      return response.data;
+    } catch (error) {
+      console.error('Error creating order:', error.response || error);
+      throw error;
+    }
   },
 
   updateOrder: async (id, orderData) => {
-    const response = await axiosInstance.patch(`${id}/`, orderData);
-    return response.data;
+    try {
+      const response = await axiosInstance.patch(`/orders/${id}/`, orderData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating order:', error.response || error);
+      throw error;
+    }
   },
 
   completeAndPayOrder: async (id) => {
-    const response = await axiosInstance.post(`${id}/complete_and_pay/`);
-    return response.data;
+    try {
+      const response = await axiosInstance.post(`/orders/${id}/complete_and_pay/`);
+      return response.data;
+    } catch (error) {
+      console.error('Error completing and paying order:', error.response || error);
+      throw error;
+    }
   },
 
   getPastOrders: async () => {
-    const response = await axiosInstance.get('past-orders/');
-    return response.data;
+    try {
+      const response = await axiosInstance.get('/orders/past-orders/');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching past orders:', error.response || error);
+      throw error;
+    }
   },
 
   getActiveOrders: async () => {
-    const response = await axiosInstance.get('active-orders/');
-    return response.data;
+    try {
+      const response = await axiosInstance.get('/orders/active-orders/');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching active orders:', error.response || error);
+      throw error;
+    }
   },
 
-  acceptOrder: async (id, preparationTime) => {
-    const response = await axiosInstance.post(`${id}/accept/`, { preparation_time: preparationTime });
-    return response.data;
+  acceptOrder: async (orderId, preparationTime) => {
+    try {
+      const response = await axiosInstance.post(`/orders/${orderId}/accept/`, {preparation_time: preparationTime});
+      return response.data;
+    } catch (error) {
+      console.error('Error accepting order:', error.response || error);
+      throw error;
+    }
   },
 
-  rejectOrder: async (id) => {
-    const response = await axiosInstance.post(`${id}/reject/`);
-    return response.data;
+  rejectOrder: async (orderId) => {
+    try {
+      const response = await axiosInstance.post(`/orders/${orderId}/reject/`);
+      return response.data;
+    } catch (error) {
+      console.error('Error rejecting order:', error.response || error);
+      throw error;
+    }
   },
 
   getPendingOrders: async () => {
-    const response = await axiosInstance.get('pending/');
-    return response.data;
+    try {
+      const response = await axiosInstance.get('/orders/pending-orders/');
+      console.log('API Response:', response);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching pending orders:', error.response ? error.response.data : error.message);
+      throw error;
+    }
   },
 
   markAsCompleted: async (id) => {
-    const response = await axiosInstance.post(`${id}/complete/`);
-    return response.data;
+    try {
+      const response = await axiosInstance.post(`/orders/${id}/complete/`);
+      return response.data;
+    } catch (error) {
+      console.error('Error marking order as completed:', error.response || error);
+      throw error;
+    }
+  },
+
+  connectToOrderUpdates: (onMessageCallback) => {
+    const ws = new WebSocket('ws://localhost:8000/ws/orders/');
+
+    ws.onopen = () => {
+      console.log('Connected to orders WebSocket');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'order_notification') {
+        onMessageCallback(data.order);
+      }
+    };
+
+    return ws;
   },
 };
 
