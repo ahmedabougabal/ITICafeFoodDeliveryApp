@@ -15,7 +15,7 @@ const DetailsModal = ({ items, orderId }) => {
           <ul>
             {items.map((item, index) => (
               <li key={`${orderId}-item-${index}`}>
-                {item.name} - Quantity: {item.quantity} - Price: ${item.price}
+                {item.item.name} - Quantity: {item.quantity} - Price: ${item.price_at_time_of_order}
               </li>
             ))}
           </ul>
