@@ -71,7 +71,6 @@ class OneTimePassword(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     can_create_order = models.BooleanField(default=True)
-    # Add other user-specific fields here
 
     def __str__(self):
         return self.user.username

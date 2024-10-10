@@ -13,23 +13,9 @@
 │   │   ├── App.js
 │   │   ├── assets
 │   │   │   ├── brand
-│   │   │   │   ├── logo.js
-│   │   │   │   └── sygnet.js
 │   │   │   └── images
-│   │   │       ├── angular.jpg
-│   │   │       ├── avatars
-│   │   │       │   ├── 1.jpg
-│   │   │       │   ├── 2.jpg
-│   │   │       │   ├── 3.jpg
-│   │   │       │   ├── 4.jpg
-│   │   │       │   ├── 5.jpg
-│   │   │       │   ├── 6.jpg
-│   │   │       │   ├── 7.jpg
-│   │   │       │   ├── 8.jpg
-│   │   │       │   └── 9.jpg
-│   │   │       ├── react.jpg
-│   │   │       └── vue.jpg
 │   │   ├── components
+│   │   │   ├── admin
 │   │   │   ├── AppBreadcrumb.js
 │   │   │   ├── AppContent.js
 │   │   │   ├── AppFooter.js
@@ -37,23 +23,13 @@
 │   │   │   ├── AppSidebar.js
 │   │   │   ├── AppSidebarNav.js
 │   │   │   ├── Checkout
-│   │   │   │   └── CheckoutComponent.js
 │   │   │   ├── DetailsModal
-│   │   │   │   ├── DetailsModal.js
-│   │   │   │   └── detailsmodal.module.css
 │   │   │   ├── DocsCallout.js
 │   │   │   ├── DocsExample.js
 │   │   │   ├── DocsLink.js
 │   │   │   ├── header
-│   │   │   │   ├── AppHeaderDropdown.js
-│   │   │   │   └── index.js
 │   │   │   ├── index.js
 │   │   │   └── OrderComponent
-│   │   │       ├── OrderComponent.js
-│   │   │       ├── ordercomponent.module.css
-│   │   │       ├── OrderItem.js
-│   │   │       ├── OrderList.js
-│   │   │       └── PendingOrdersList.js
 │   │   ├── index.js
 │   │   ├── layout
 │   │   │   └── DefaultLayout.js
@@ -66,22 +42,38 @@
 │   │   │   ├── _theme.scss
 │   │   │   ├── _variables.scss
 │   │   │   └── vendors
-│   │   │       └── simplebar.scss
 │   │   ├── services
+│   │   │   ├── api.js
 │   │   │   ├── orderService.js
 │   │   │   └── websocketService.js
 │   │   ├── slices
 │   │   │   └── orderSlice.js
 │   │   ├── store.js
+│   │   ├── utils
+│   │   │   └── withAuth.js
 │   │   └── views
 │   │       ├── dashboard
-│   │       │   ├── Dashboard.js
-│   │       │   └── MainChart.js
 │   │       └── orders
-│   │           ├── Orders.js
-│   │           └── orders.module.css
 │   └── vite.config.mjs
 ├── backend
+│   ├── admin_auth
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
 │   ├── asgi.py
 │   ├── core
 │   │   ├── fixtures
@@ -90,8 +82,6 @@
 │   │   │   ├── 0001_initial.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       ├── 0001_initial.cpython-312.pyc
-│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── models.py
 │   │   ├── __pycache__
 │   │   │   └── models.cpython-312.pyc
@@ -102,6 +92,7 @@
 │   │   ├── asgi.py
 │   │   ├── __init__.py
 │   │   ├── __pycache__
+│   │   │   ├── asgi.cpython-312.pyc
 │   │   │   ├── __init__.cpython-312.pyc
 │   │   │   ├── settings.cpython-312.pyc
 │   │   │   ├── urls.cpython-312.pyc
@@ -110,6 +101,19 @@
 │   │   ├── urls.py
 │   │   └── wsgi.py
 │   ├── manage.py
+│   ├── media
+│   │   └── menu_items
+│   │       ├── coffe.jpg
+│   │       ├── food-1.jpg
+│   │       ├── food-1_RhWtXI4_a7vF7XH.jpg
+│   │       ├── food-1_RhWtXI4.jpg
+│   │       ├── food-4.jpg
+│   │       ├── food-4_PWDcTeD.jpg
+│   │       ├── licensed-image.jpeg
+│   │       ├── licensed-image_p29TbA2_IAXlOmz.jpeg
+│   │       ├── licensed-image_p29TbA2.jpeg
+│   │       ├── protein_oxdYVow.webp
+│   │       └── protein.webp
 │   ├── menu
 │   │   ├── admin.py
 │   │   ├── apps.py
@@ -119,8 +123,6 @@
 │   │   │   ├── 0001_initial.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       ├── 0001_initial.cpython-312.pyc
-│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── models.py
 │   │   ├── permissions.py
 │   │   ├── __pycache__
@@ -138,8 +140,13 @@
 │   │   ├── urls.py
 │   │   └── views.py
 │   ├── menu_items
+│   │   ├── coffe.jpg
 │   │   ├── food-1.jpg
-│   │   └── food-4.jpg
+│   │   ├── food-1_RhWtXI4.jpg
+│   │   ├── food-4.jpg
+│   │   ├── licensed-image.jpeg
+│   │   ├── licensed-image_p29TbA2.jpeg
+│   │   └── protein.webp
 │   ├── notes.txt
 │   ├── orders
 │   │   ├── admin.py
@@ -148,15 +155,15 @@
 │   │   ├── __init__.py
 │   │   ├── migrations
 │   │   │   ├── 0001_initial.py
+│   │   │   ├── 0002_initial.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       ├── 0001_initial.cpython-312.pyc
-│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── models.py
 │   │   ├── permissions.py
 │   │   ├── __pycache__
 │   │   │   ├── admin.cpython-312.pyc
 │   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── consumers.cpython-312.pyc
 │   │   │   ├── __init__.cpython-312.pyc
 │   │   │   ├── models.cpython-312.pyc
 │   │   │   ├── permissions.cpython-312.pyc
@@ -177,12 +184,8 @@
 │   │   ├── __init__.py
 │   │   ├── migrations
 │   │   │   ├── 0001_initial.py
-│   │   │   ├── 0002_message.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       ├── 0001_initial.cpython-312.pyc
-│   │   │       ├── 0002_message.cpython-312.pyc
-│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── models.py
 │   │   ├── __pycache__
 │   │   │   ├── admin.cpython-312.pyc
@@ -194,12 +197,63 @@
 │   │   ├── routing.py
 │   │   ├── templates
 │   │   │   └── room
-│   │   │       ├── room.html
-│   │   │       └── rooms.html
 │   │   ├── tests.py
 │   │   ├── todo_list.txt
 │   │   ├── urls.py
 │   │   └── views.py
+│   ├── social_users
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── google.py
+│   │   ├── __init__.py
+│   │   ├── migrations
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── admin.cpython-312.pyc
+│   │   │   ├── apps.cpython-312.pyc
+│   │   │   ├── github.cpython-312.pyc
+│   │   │   ├── google.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── register.cpython-312.pyc
+│   │   │   ├── serializers.cpython-312.pyc
+│   │   │   ├── urls.cpython-312.pyc
+│   │   │   ├── utils.cpython-312.pyc
+│   │   │   └── views.cpython-312.pyc
+│   │   ├── register.py
+│   │   ├── serializers.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── staticfiles
+│   │   ├── admin
+│   │   │   ├── css
+│   │   │   ├── img
+│   │   │   └── js
+│   │   ├── django_extensions
+│   │   │   ├── css
+│   │   │   ├── img
+│   │   │   └── js
+│   │   ├── drf-yasg
+│   │   │   ├── immutable.js
+│   │   │   ├── immutable.min.js
+│   │   │   ├── insQ.js
+│   │   │   ├── insQ.min.js
+│   │   │   ├── README
+│   │   │   ├── redoc
+│   │   │   ├── redoc-init.js
+│   │   │   ├── redoc-old
+│   │   │   ├── style.css
+│   │   │   ├── swagger-ui-dist
+│   │   │   └── swagger-ui-init.js
+│   │   └── rest_framework
+│   │       ├── css
+│   │       ├── docs
+│   │       ├── fonts
+│   │       ├── img
+│   │       └── js
 │   ├── test_db_connection.py
 │   ├── users
 │   │   ├── admin.py
@@ -210,10 +264,9 @@
 │   │   ├── managers.py
 │   │   ├── migrations
 │   │   │   ├── 0001_initial.py
+│   │   │   ├── 0002_user_auth_provider.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       ├── 0001_initial.cpython-312.pyc
-│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── models.py
 │   │   ├── __pycache__
 │   │   │   ├── admin.cpython-312.pyc
@@ -230,6 +283,12 @@
 │   │   ├── urls.py
 │   │   ├── utils.py
 │   │   └── views.py
+│   ├── utils
+│   │   ├── email_utils.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── email_utils.cpython-312.pyc
+│   │       └── __init__.cpython-312.pyc
 │   └── wsgi.py
 ├── client
 │   ├── eslint.config.js
@@ -251,8 +310,6 @@
 │   ├── src
 │   │   ├── admin
 │   │   │   └── pages
-│   │   │       └── Order
-│   │   │           └── Order.tsx
 │   │   ├── App.css
 │   │   ├── AppRoutes.tsx
 │   │   ├── App.tsx
@@ -261,31 +318,13 @@
 │   │   ├── components
 │   │   │   ├── AuthMessage.tsx
 │   │   │   ├── Header
-│   │   │   │   ├── header.module.css
-│   │   │   │   └── Header.tsx
 │   │   │   ├── PendingOrders.tsx
 │   │   │   ├── Price
-│   │   │   │   └── Price.tsx
 │   │   │   ├── Search
-│   │   │   │   ├── search.module.css
-│   │   │   │   └── Search.tsx
 │   │   │   ├── StarRating
-│   │   │   │   └── StarRating.tsx
 │   │   │   ├── Thumbnails
-│   │   │   │   ├── thumbnails.module.css
-│   │   │   │   └── Thumbnails.tsx
 │   │   │   ├── Title
-│   │   │   │   ├── title.module.css
-│   │   │   │   └── Title.tsx
 │   │   │   └── user
-│   │   │       ├── EditProfile.jsx
-│   │   │       ├── Login.jsx
-│   │   │       ├── PasswordResetRequest.jsx
-│   │   │       ├── Profile.jsx
-│   │   │       ├── ResetPassword.jsx
-│   │   │       ├── Signup.jsx
-│   │   │       ├── user.css
-│   │   │       └── VerifyEmail.jsx
 │   │   ├── data.tsx
 │   │   ├── hooks
 │   │   │   └── useCart.tsx
@@ -293,13 +332,10 @@
 │   │   ├── main.tsx
 │   │   ├── pages
 │   │   │   ├── Cart
-│   │   │   │   ├── cartpage.module.css
-│   │   │   │   └── CartPage.tsx
 │   │   │   ├── Food
-│   │   │   │   ├── foodpage.module.css
-│   │   │   │   └── FoodPage.tsx
-│   │   │   └── Home
-│   │   │       └── HomePage.tsx
+│   │   │   ├── Home
+│   │   │   ├── orderSuccessPage.module.css
+│   │   │   └── OrderSuccessPage.tsx
 │   │   ├── services
 │   │   │   ├── AuthService.ts
 │   │   │   ├── FoodService.tsx
@@ -332,24 +368,13 @@
 │           ├── App.jsx
 │           ├── App.test.js
 │           ├── components
-│           │   ├── Dashboard.jsx
-│           │   ├── EditProfile.jsx
-│           │   ├── index.jsx
-│           │   ├── Login.jsx
-│           │   ├── PasswordResetRequest.jsx
-│           │   ├── profile.css
-│           │   ├── Profile.jsx
-│           │   ├── ResetPassword.jsx
-│           │   ├── Signup.jsx
-│           │   └── VerifyEmail.jsx
 │           ├── index.css
 │           ├── index.js
 │           ├── logo.svg
 │           ├── reportWebVitals.js
 │           ├── setupTests.js
 │           └── utils
-│               └── AxiosInstance.jsx
 ├── README.md
 └── struct.txt
 
-79 directories, 274 files
+110 directories, 268 files

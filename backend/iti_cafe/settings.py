@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'rooms',
     'channels',
     'social_users',
+    'admin_auth'
 ]
 
 
@@ -220,10 +221,13 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
-cors_allowed_origins = [
-    "http://localhost:5176",  # My React app's URL
-    "http://localhost:3000",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React dev server
+    "http://localhost:3000",  # Admin panel
+    "http://127.0.0.1:5173",  # React dev server (alternative URL)
+    "http://127.0.0.1:3000",  # Admin panel (alternative URL)
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -265,7 +269,7 @@ EMAIL_PORT=587
 EMAIL_HOST_USER="mahmoudwafi33@gmail.com"
 EMAIL_HOST_PASSWORD="egjv ffdo kaxm pest"
 EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL="iticofe@gmail.com"
+DEFAULT_FROM_EMAIL="iticafe@gmail.com"
 
 
 
