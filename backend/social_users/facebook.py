@@ -1,7 +1,6 @@
 
 import facebook
 
-
 class Facebook:
     """
     Facebook class to fetch the user info and return it
