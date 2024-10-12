@@ -17,7 +17,7 @@ import AuthMessage from './components/AuthMessage';
 import CartProvider from "./hooks/useCart.tsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import ActiveOrders from './pages/Order/ActiveOrder.tsx';
 
 function AppContent() {
   const { user, setUser } = useUser();
@@ -56,6 +56,7 @@ function AppContent() {
         <Route path='/otp/verify' element={<VerifyEmail/>}/>
         <Route path='/forget-password' element={<PasswordResetRequest/>}/>
         <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
+        <Route path="/active-orders" element={<ActiveOrders/>} />
       </Routes>
       <Footer/>
     </>

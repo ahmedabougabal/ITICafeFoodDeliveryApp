@@ -366,9 +366,6 @@ class OrderViewSet(viewsets.ModelViewSet):
             logger.error(f"Error completing order with ID: {pk}: {str(e)}", exc_info=True)
             return Response({"error": "An unexpected error occurred while completing the order."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-
 class OrderDetailView(APIView):
     def get(self, request, order_id):
         try:
@@ -377,3 +374,6 @@ class OrderDetailView(APIView):
             return Response(serializer.data)
         except Order.DoesNotExist:
             return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+        

@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rooms',
     'channels',
     'social_users',
-    'admin_auth'
+    'admin_auth',
+    'social_django',
 ]
 
 
