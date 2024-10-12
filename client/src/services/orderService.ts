@@ -87,6 +87,18 @@ export const orderService = {
       throw error;
     }
   },
+  ActiveOrders: async () => {
+  try {
+    console.log('Fetching active orders...');
+    const response = await axiosInstance.get(`${API_URL}active-orders/`);
+    console.log('Server response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching active orders:', error.response?.data || error.message);
+    throw error;
+  }
+},
+
 
   rejectOrder: async (orderId) => {
     try {
