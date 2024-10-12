@@ -6323,3 +6323,303 @@ Traceback (most recent call last):
     assert isinstance(request, HttpRequest), (
 AssertionError: The `request` argument must be an instance of `django.http.HttpRequest`, not `social_users.views.GoogleSocialAuthView`.
 "POST /social-auth/google/ HTTP/1.1" 500 117724
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+Not Found: /
+"GET / HTTP/1.1" 404 3584
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 3635
+"GET /admin/ HTTP/1.1" 302 0
+"GET /admin/login/?next=/admin/ HTTP/1.1" 200 4165
+"GET /static/admin/css/base.css HTTP/1.1" 304 0
+"GET /static/admin/css/login.css HTTP/1.1" 304 0
+"GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+"GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+"GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+"GET /static/admin/js/theme.js HTTP/1.1" 304 0
+"GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4341
+"POST /admin/login/?next=/admin/ HTTP/1.1" 200 4343
+"POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+"GET /admin/ HTTP/1.1" 200 14117
+"GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+"GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+"GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+"OPTIONS /api-auth/login HTTP/1.1" 200 0
+"POST /api-auth/login HTTP/1.1" 200 562
+"OPTIONS /api/menu/items/ HTTP/1.1" 200 0
+"OPTIONS /api/menu/items/ HTTP/1.1" 200 0
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"GET /media/menu_items/licensed-image_p29TbA2_IAXlOmz.jpeg HTTP/1.1" 200 374348
+"GET /media/menu_items/protein_oxdYVow.webp HTTP/1.1" 200 79896
+"OPTIONS /api-auth/profile HTTP/1.1" 200 0
+"OPTIONS /api-auth/profile HTTP/1.1" 200 0
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"GET /api-auth/profile HTTP/1.1" 200 204
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"OPTIONS /api-auth/logout HTTP/1.1" 200 0
+"POST /api-auth/logout HTTP/1.1" 200 20
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+"POST /api-auth/login HTTP/1.1" 200 562
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"OPTIONS /api/orders/create-order/ HTTP/1.1" 200 0
+Received order data: {'items': [{'item_id': 1, 'quantity': 4, 'price_at_time_of_order': 25}, {'item_id': 2, 'quantity': 2, 'price_at_time_of_order': 50}], 'total_price': 200}
+Validating order data: {'items': [{'item': <MenuItem: Syrian potatoes - New Capital>, 'quantity': 4, 'price_at_time_of_order': Decimal('25.00')}, {'item': <MenuItem: Protein Bar - New Capital>, 'quantity': 2, 'price_at_time_of_order': Decimal('50.00')}], 'total_price': Decimal('200.00')}
+Order created successfully. Order ID: 52, User ID: 1, Total Price: 200.00, Discounted Price: None
+Order created successfully. Order ID: 52
+Using selector: EpollSelector
+Order ID: 52, Branch Name: New Capital
+"POST /api/orders/create-order/ HTTP/1.1" 201 1140
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+"GET /api-auth/profile HTTP/1.1" 200 204
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+"OPTIONS /api-auth/login HTTP/1.1" 200 0
+"POST /api-auth/login HTTP/1.1" 200 562
+"OPTIONS /api/menu/items/ HTTP/1.1" 200 0
+"OPTIONS /api/menu/items/ HTTP/1.1" 200 0
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+"GET /media/menu_items/licensed-image_p29TbA2_IAXlOmz.jpeg HTTP/1.1" 200 374348
+"GET /media/menu_items/protein_oxdYVow.webp HTTP/1.1" 200 79896
+"OPTIONS /api/orders/create-order/ HTTP/1.1" 200 0
+Received order data: {'items': [{'item_id': 2, 'quantity': 5, 'price_at_time_of_order': 50}, {'item_id': 1, 'quantity': 2, 'price_at_time_of_order': 25}], 'total_price': 300}
+Validating order data: {'items': [{'item': <MenuItem: Protein Bar - New Capital>, 'quantity': 5, 'price_at_time_of_order': Decimal('50.00')}, {'item': <MenuItem: Syrian potatoes - New Capital>, 'quantity': 2, 'price_at_time_of_order': Decimal('25.00')}], 'total_price': Decimal('300.00')}
+Order created successfully. Order ID: 53, User ID: 1, Total Price: 300.00, Discounted Price: None
+Order created successfully. Order ID: 53
+Using selector: EpollSelector
+Order ID: 53, Branch Name: New Capital
+"POST /api/orders/create-order/ HTTP/1.1" 201 1140
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+User ID: 1, Branch: New Capital, Branch Name: New Capital
+"GET /api/menu/items/ HTTP/1.1" 200 880
+/home/abougabal/graduationProject_ITI/backend/orders/urls.py changed, reloading.
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
+/home/abougabal/graduationProject_ITI/backend/orders/urls.py changed, reloading.
+Watching for file changes with StatReloader
+URL patterns: [<URLResolver <module 'users.urls' from '/home/abougabal/graduationProject_ITI/backend/users/urls.py'> (None:None) 'api-auth/'>, <URLResolver <module 'social_users.urls' from '/home/abougabal/graduationProject_ITI/backend/social_users/urls.py'> (None:None) 'social-auth/'>, <URLResolver <module 'orders.urls' from '/home/abougabal/graduationProject_ITI/backend/orders/urls.py'> (None:None) 'api/orders/'>, <URLResolver <module 'menu.urls' from '/home/abougabal/graduationProject_ITI/backend/menu/urls.py'> (None:None) 'api/menu/'>, <URLPattern 'swagger/' [name='schema-swagger-ui']>, <URLPattern 'redoc/' [name='schema-redoc']>, <URLResolver <module 'rooms.urls' from '/home/abougabal/graduationProject_ITI/backend/rooms/urls.py'> (rooms:rooms) 'rooms/'>, <URLResolver <URLPattern list> (admin:admin) 'admin/'>, <URLResolver <module 'admin_auth.urls' from '/home/abougabal/graduationProject_ITI/backend/admin_auth/urls.py'> (None:None) 'api/'>, <URLPattern '^media/(?P<path>.*)$'>]
