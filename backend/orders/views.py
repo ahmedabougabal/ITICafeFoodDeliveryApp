@@ -1,3 +1,4 @@
+
 import logging
 from django.utils import timezone
 from rest_framework import viewsets, status, permissions
@@ -15,6 +16,11 @@ from drf_yasg import openapi
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from utils.email_utils import send_order_notification
+
+# email notification imports
+from django.core.mail import send_mail
+from django.conf import settings
+import json
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -366,6 +372,40 @@ class OrderViewSet(viewsets.ModelViewSet):
             logger.error(f"Error completing order with ID: {pk}: {str(e)}", exc_info=True)
             return Response({"error": "An unexpected error occurred while completing the order."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            
+    # notify user with message by email
+    @swagger_auto_schema(
+        operation_description="Notify user with massage by email.",
+        responses={200: "message sent"}
+    )
+    @action(detail=False, methods=['post'])
+    def notifyUser(self,request):
+        if request.method== 'POST':
+            try:
+                data=json.loads(request.body)
+                subject=data.get('subject')
+                message=data.get('message')
+                recipient_email=data.get('emailto')
+                if not subject or not message or not recipient_email:
+                    return Response({"error": "Missing required fields."},status=status.HTTP_400_BAD_REQUEST)
+                # Send the email
+                send_mail(
+                    subject, 
+                    message, 
+                    settings.DEFAULT_FROM_EMAIL, 
+                [recipient_email], 
+                fail_silently=False,
+                )
+                return Response({'success': 'Email sent successfully'},status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
+                
+
+    
+
 class OrderDetailView(APIView):
     def get(self, request, order_id):
         try:
@@ -377,3 +417,4 @@ class OrderDetailView(APIView):
         
         
         
+
