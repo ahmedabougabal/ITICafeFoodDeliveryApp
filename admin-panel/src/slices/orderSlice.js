@@ -1,120 +1,124 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import orderService from '../services/orderService';
 
-// Fetch all orders
-export const fetchOrders = createAsyncThunk('orders/fetchOrders', async () => {
-  const response = await axios.get('/api/orders/');
-  return response.data;
-});
-
-// Update order status
-export const updateOrderStatus = createAsyncThunk(
-  'orders/updateOrderStatus',
-  async ({id, action}) => {
-    const response = await axios.post(`/api/orders/${id}/${action}/`);
-    return response.data;
+// Fetch active orders
+export const fetchActiveOrders = createAsyncThunk(
+  'orders/fetchActive',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await orderService.getActiveOrders();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || error.message);
+    }
   }
 );
 
 // Create a new order
 export const createOrder = createAsyncThunk(
   'orders/createOrder',
-  async (orderData) => {
-    const response = await axios.post('/api/create-order/', orderData);
-    return response.data;
+  async (orderData, { rejectWithValue }) => {
+    try {
+      const response = await orderService.createOrder(orderData);
+      console.log('API Response for creating order:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
 // Accept an order
 export const acceptOrder = createAsyncThunk(
   'orders/acceptOrder',
-  async ({id, preparationTime}) => {
-    const response = await axios.post(`/api/orders/${id}/accept/`, {preparation_time: preparationTime});
-    return response.data;
+  async ({ id, preparationTime }, { rejectWithValue }) => {
+    try {
+      const response = await orderService.acceptOrder(id, preparationTime);
+      console.log('API Response for accepting order:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
 // Reject an order
 export const rejectOrder = createAsyncThunk(
   'orders/rejectOrder',
-  async (id) => {
-    const response = await axios.post(`/api/orders/${id}/reject/`)
-    return response.data
-  })
-
-// Fetch pending orders
-export const fetchPendingOrders = createAsyncThunk(
-  'orders/fetchPendingOrders',
-  async () => {
-    const response = await axios.get('/api/orders/pending/')
-    return response.data;
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await orderService.rejectOrder(id);
+      console.log('API Response for rejecting order:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
-// Mark an order as completed
-export const markOrderAsCompleted = createAsyncThunk(
-  'orders/markOrderAsCompleted',
-  async (id) => {
-    const response = await axios.post(`/api/orders/${id}/complete/`);
-    return response.data;
+// Fetch pending orders
+export const fetchPendingOrders = createAsyncThunk(
+  'orders/fetchPending',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await orderService.getPendingOrders();
+      console.log('API Response for pending orders:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+// Complete an order
+export const completeOrder = createAsyncThunk(
+  'orders/completeOrder',
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await orderService.markAsCompleted(id);
+      console.log('API Response for completing order:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
   }
 );
 
 const orderSlice = createSlice({
   name: 'orders',
   initialState: {
-    orders: [],
+    allOrders: [],
     pendingOrders: [],
     status: 'idle',
     error: null,
   },
-  reducers: {},
+  reducers: {
+    // Add a new reducer to clear pending orders
+    clearPendingOrders: (state) => {
+      state.pendingOrders = [];
+      console.log('Cleared pending orders');
+    },
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrders.pending, (state) => {
+      .addCase(fetchActiveOrders.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
+        console.log('Fetching active orders...');
       })
-      .addCase(fetchOrders.fulfilled, (state, action) => {
+      .addCase(fetchActiveOrders.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.orders = action.payload;
+        state.allOrders = action.payload;
+        state.error = null;
+        console.log('Fetched active orders:', action.payload);
       })
-      .addCase(fetchPendingOrders.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.payload || 'Could not fetch pending orders';
-        state.pendingOrders = []
+      .addCase(fetchActiveOrders.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Unknown error occurred';
+        console.error('Error fetching active orders:', action.payload);
       })
-      .addCase(updateOrderStatus.fulfilled, (state, action) => {
-        const index = state.orders.findIndex((order) => order.id === action.payload.id);
-        if (index !== -1) {
-          state.orders[index] = action.payload;
-        }
-      })
-      .addCase(createOrder.fulfilled, (state, action) => {
-        state.orders.push(action.payload);
-      })
-      .addCase(acceptOrder.fulfilled, (state, action) => {
-        const index = state.orders.findIndex((order) => order.id === action.payload.id);
-        if (index !== -1) {
-          state.orders[index] = action.payload;
-        }
-      })
-      .addCase(rejectOrder.fulfilled, (state, action) => {
-        const index = state.orders.findIndex((order) => order.id === action.payload.id);
-        if (index !== -1) {
-          state.orders[index] = action.payload;
-        }
-      })
-      .addCase(fetchPendingOrders.fulfilled, (state, action) => {
-  state.pendingOrders = Array.isArray(action.payload) ? action.payload : [];
-})
-      .addCase(markOrderAsCompleted.fulfilled, (state, action) => {
-        const index = state.orders.findIndex((order) => order.id === action.payload.id);
-        if (index !== -1) {
-          state.orders[index] = action.payload;
-        }
-        state.pendingOrders = state.pendingOrders.filter((order) => order.id !== action.payload.id);
-      });
   },
 });
 
+export const { clearPendingOrders } = orderSlice.actions;
 export default orderSlice.reducer;

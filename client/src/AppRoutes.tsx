@@ -11,7 +11,6 @@ import Login from './components/user/Login';
 import VerifyEmail from './components/user/VerifyEmail';
 import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
-
 const AppRoutes = () => {
   return (
     <Routes>

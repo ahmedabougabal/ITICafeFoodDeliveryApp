@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'rooms',
     'channels',
     'social_users',
+    'admin_auth',
+    'social_django',
 ]
 
 
@@ -69,6 +71,7 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',        #add middleware for corsheader; it should be above common middleware
+    'social_django.middleware.SocialAuthExceptionMiddleware',  # Add this line
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -219,10 +222,13 @@ SIMPLE_JWT = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
-cors_allowed_origins = [
-    "http://localhost:5176",  # My React app's URL
-    "http://localhost:3000",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # React dev server
+    "http://localhost:3000",  # Admin panel
+    "http://127.0.0.1:5173",  # React dev server (alternative URL)
+    "http://127.0.0.1:3000",  # Admin panel (alternative URL)
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -264,7 +270,7 @@ EMAIL_PORT=587
 EMAIL_HOST_USER="mahmoudwafi33@gmail.com"
 EMAIL_HOST_PASSWORD="egjv ffdo kaxm pest"
 EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL="iticofe@gmail.com"
+DEFAULT_FROM_EMAIL="iticafe@gmail.com"
 
 
 
@@ -280,6 +286,16 @@ DEFAULT_FROM_EMAIL="iticofe@gmail.com"
 GOOGLE_CLIENT_ID=env('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET=env('GOOGLE_CLIENT_SECRET')
 SOCIAL_SECRET=env('SOCIAL_SECRET')
-# GITHUB_CLIENT_ID=env('GITHUB_CLIENT_ID')
-# GITHUB_CLIENT_SECRET=env('GITHUB_CLIENT_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
+ 
+
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 

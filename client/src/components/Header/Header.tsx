@@ -41,7 +41,7 @@ const Header: React.FC = () => {
               <Link to="#">{user.full_name}</Link>
               <div className={classes.menu}>
                 <Link to="/profile">Profile</Link>
-                <Link to="/orders">Orders</Link>
+                <Link to="/active-orders">Orders</Link>
                 <a onClick={handleLogout} className={classes.logout}>
                   Log Out
                 </a>
