@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid, Button, TextField, List, ListItem, Typography, Tabs, Tab, CircularProgress, Snackbar } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, CircularProgress, Snackbar } from '@mui/material';
 import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
-import DoneIcon from '@mui/icons-material/Done';
 import MuiAlert from '@mui/material/Alert';
+import OrderCard from '../../components/OrderComponent/OrderCard'; // Import the separate OrderCard component
 
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -18,7 +16,6 @@ const Orders = () => {
   const error = useSelector((state) => state.orders.error);
 
   const [activeTab, setActiveTab] = useState('pending');
-  const [preparationTime, setPreparationTime] = useState('');
   const [preparingOrders, setPreparingOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -43,7 +40,7 @@ const Orders = () => {
     setActiveTab(newValue);
   };
 
-  const handleAcceptOrder = async (orderId) => {
+  const handleAcceptOrder = async (orderId, preparationTime) => {
     if (!preparationTime) {
       setSnackbarOpen(true); // Show snackbar for error
       return;
@@ -51,7 +48,6 @@ const Orders = () => {
     try {
       await dispatch(acceptOrder({ id: orderId, preparationTime: parseInt(preparationTime) }));
       fetchOrders(); // Fetch orders immediately after accepting
-      setPreparationTime('');
     } catch (error) {
       console.error('Error accepting order:', error);
     }
@@ -111,54 +107,11 @@ const Orders = () => {
           {pendingOrders.length > 0 ? (
             pendingOrders.map((order) => (
               <Grid item xs={12} md={6} lg={4} key={order.id}>
-                <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
-                  <CardContent>
-                    <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
-                      <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-                      <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-                      <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-                      <ListItem><strong>User:</strong> {order.user}</ListItem>
-                      <ListItem>
-                        <strong>Items:</strong>
-                        <ul>
-                          {order.items && order.items.map((item, index) => (
-                            <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
-                            </li>
-                          ))}
-                        </ul>
-                      </ListItem>
-                    </List>
-                    <TextField
-                      label="Preparation Time (minutes)"
-                      type="number"
-                      value={preparationTime}
-                      onChange={(e) => setPreparationTime(e.target.value)}
-                      fullWidth
-                      sx={{ mt: 2 }}
-                    />
-                    <Button
-                      variant="contained"
-                      color="success"
-                      startIcon={<CheckCircleIcon />}
-                      onClick={() => handleAcceptOrder(order.id)}
-                      sx={{ mt: 2, mr: 2 }}
-                    >
-                      Accept
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      startIcon={<CancelIcon />}
-                      onClick={() => handleRejectOrder(order.id)}
-                      sx={{ mt: 2 }}
-                    >
-                      Reject
-                    </Button>
-                  </CardContent>
-                </Card>
+                <OrderCard
+                  order={order}
+                  onAccept={handleAcceptOrder}
+                  onReject={handleRejectOrder}
+                />
               </Grid>
             ))
           ) : (
@@ -246,7 +199,7 @@ const Orders = () => {
         </Grid>
       )}
 
-      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
+   <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
         <Alert onClose={() => setSnackbarOpen(false)} severity="error" sx={{ width: '100%' }}>
           Please enter a preparation time!
         </Alert>
