@@ -14,36 +14,50 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
   const messagesRef = useRef<HTMLDivElement>(null);
 
   // Function to append message to chat
-  const appendMessage = (message: string, isOwnMessage = false) => {
+  const appendMessage = (message: string, sender: string, isOwnMessage = false) => {
+    console.log(`Appending message from sender: ${sender}`); // Debugging log
+  
     const messageElement = document.createElement('div');
-    messageElement.textContent = message;
+    
+    // Style the message element based on whether it's the user's own message
     messageElement.className = isOwnMessage ? classes.ownMessage : classes.otherMessage;
-
-    // Append to the chat messages container
+  
+    // Create a paragraph for the message content
+    const contentElement = document.createElement('p');
+    contentElement.textContent = message;
+  
+    // Create a span for the sender name
+    const senderElement = document.createElement('span');
+    senderElement.textContent = sender;
+    senderElement.className = classes.senderName; // Make sure you have appropriate styles here
+  
+    // Append the sender and message content to the message element
+    messageElement.appendChild(senderElement);
+    messageElement.appendChild(contentElement);
+  
+    // Append the message element to the chat content
     messagesRef.current?.appendChild(messageElement);
-
+  
     // Scroll to the bottom to show the latest message
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   };
 
-  // Sanitize user email to create a room name
-  const sanitizedUserEmail = selectedChat.replace(/@/g, '_');
-  const sanitizedAdminEmail = 'admin@gmail.com'.replace(/@/g, '_');
-  const roomName = `${sanitizedUserEmail}_${sanitizedAdminEmail}`;
+  const roomName = `${selectedChat}_admin@gmail.com`;
 
   useEffect(() => {
     // Fetch existing messages when the component mounts
     const fetchMessages = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/messages/${selectedChat}/admin@gmail.com/`);
+        // api which call function in view through urls.py to get messages for database ordered by date
+        const response = await fetch(`http://localhost:8000/rooms/messages/${selectedChat}/admin@gmail.com/`); 
         const data = await response.json();
         setMessages(data); // Set fetched messages to state
 
         // Append each fetched message to the chat UI
-        data.forEach((msg: { content: string; sender: string }) => {
-          appendMessage(msg.content, msg.sender === 'admin@gmail.com'); // Assuming admin's email is used for identification
+        data.forEach((msg: { content: string; sender: string }) => { // fill chat with the previous messages
+          appendMessage(msg.content, msg.sender, msg.sender === 'admin@gmail.com'); // Assuming admin's email is used for identification
         });
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -53,19 +67,19 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     fetchMessages();
 
     // WebSocket connection on mount
-    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`);
+    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`); // 1- open ws connection and goto django backend
 
     ws.current.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      appendMessage(data.message, data.sender === 'admin@gmail.com'); // Check if the sender is admin
+      const data = JSON.parse(event.data); // handler triggered when recieving message form server which is another user
+      appendMessage(data.message, data.sender, data.sender === 'admin@gmail.com'); // dispaly message in chat window, function exist in the top 
     };
 
     ws.current.onclose = () => {
-      console.log("WebSocket connection closed");
+      console.log("WebSocket connection closed"); // when websocket closed, almost when server stopped
     };
 
     // Cleanup on unmount
-    return () => {
+    return () => { // open new websocket when selected chat chosen
       if (ws.current) {
         ws.current.close();
         ws.current = null; // Clear the reference
@@ -73,20 +87,20 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
     };
   }, [roomName, selectedChat]);
 
-  // Handle send message
+  // Handle send message when click on send button
   const handleSendMessage = () => {
     const inputElement = document.querySelector(`.${classes.chatInput}`) as HTMLInputElement;
-    const message = inputElement?.value.trim();
+    const message = inputElement?.value.trim(); // function to get message contnet from 
 
-    if (message && ws.current?.readyState === WebSocket.OPEN) {
+    if (message && ws.current?.readyState === WebSocket.OPEN) { // ensure message has content and websocket is open.
       // Construct the message object to include sender and receiver
       const messageData = {
-        message,
-        sender: 'admin@gmail.com',
-        receiver: selectedChat
+        message: message, 
+        sender: 'admin@gmail.com', // sender here is the admin 
+        receiver: selectedChat, // reciever is the user 
       };
 
-      ws.current.send(JSON.stringify(messageData)); // Send message to the WebSocket server
+      ws.current.send(JSON.stringify(messageData)); // Send message_object to the WebSocket server
       appendMessage(message, true); // Append own message
       inputElement.value = ''; // Clear input
     }
@@ -115,3 +129,4 @@ const AdminChat: React.FC<AdminChatProps> = ({ onClose, selectedChat }) => {
 };
 
 export default AdminChat;
+
