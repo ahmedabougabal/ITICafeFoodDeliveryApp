@@ -1,37 +1,29 @@
-from django.shortcuts import render, redirect
-
-# create your views here
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
-from .models import Message
-from .serializers import MessageSerializer
-from users.models import User
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.db import models
+from .models import User, Message  # Adjust the import according to your project structure
+from .serializers import MessageSerializer  # Adjust the import according to your project structure
 
 class MessageListView(APIView):
-    def get(self, request, user_email):
+    def get(self, request, user_email, admin_email):
         """
-        Retrieve chat messages between a user and admin.
+        Retrieve the last 25 chat messages between a user and admin.
         """
         user = User.objects.get(email=user_email)
         admin = User.objects.get(email=admin_email)
 
-        # Get messages exchanged between user and admin
+        print(f'User: {user.id}, Email: {user.email}')
+        print(f'Admin: {admin.id}, Email: {admin.email}')
+
+        # Get the last 25 messages exchanged between user and admin
         messages = Message.objects.filter(
             (models.Q(sender=user) & models.Q(receiver=admin)) | 
             (models.Q(sender=admin) & models.Q(receiver=user))
-        ).order_by('timestamp')
+        ).order_by('-timestamp')[:25]  # Order by timestamp descending and slice to get the last 25
+
+        # Reverse the messages to maintain the order from oldest to newest in the response
+        messages = messages[::-1]
 
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        """
-        Save a new message.
-        """
-        serializer = MessageSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

@@ -5,7 +5,7 @@
     bottom: 6.25rem; /* 100px */
     right: 1.25rem; /* 20px */
     width: 25rem; /* 300px */
-    height: 15rem; /* 400px */
+    height: 26rem; /* 400px */
     background-color: white;
     border: 0.0625rem solid #ccc; /* 1px */
     border-radius: 0.625rem; /* 10px */
@@ -72,5 +72,47 @@
   
   .sendButton:hover {
     background-color: #0056b3;
+  }
+  
+
+  .chatContent {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem; /* 10px converted to rem */
+    overflow-y: auto; /* Allow scrolling if messages overflow */
+  }
+  
+  .ownMessage {
+    font-weight: bold;
+    align-self: flex-end; /* Align to the right for own messages */
+    background-color: #93efda; /* Light green background for own messages */
+    color: #000000; /* Text color */
+    border-radius: 0.625rem; /* 10px to rem */
+    padding: 0.5rem 0.75rem; /* Padding around the message (8px 12px converted to rem) */
+    margin: 0.3rem 0; /* Margin for spacing between messages (5px to rem) */
+    max-width: 70%; /* Maximum width to fit message */
+    word-wrap: break-word; /* Break long words */
+  }
+  
+  .otherMessage {
+    font-weight: bold;
+    align-self: flex-start; /* Align to the left for other messages */
+    background-color: #eede8b; /* White background for received messages */
+    color: #000000; /* Text color */
+    border-radius: 0.625rem; /* 10px to rem */
+    padding: 0.5rem 0.75rem; /* Padding around the message (8px 12px converted to rem) */
+    margin: 0.3rem 0; /* Margin for spacing between messages (5px to rem) */
+    max-width: 70%; /* Maximum width to fit message */
+    word-wrap: break-word; /* Break long words */
+  }
+  
+  .senderName {
+    display: block; /* Ensure sender's name (email) occupies full line */
+    font-size: 0.875rem; /* 14px converted to rem */
+    margin-bottom: 0.25rem; /* Small space below sender name (4px to rem) */
+    white-space: nowrap; /* Prevent email from wrapping onto new lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: rgb(123, 123, 123); /* Add ellipsis if the email is too long */
   }
   
