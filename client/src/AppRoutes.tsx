@@ -11,6 +11,7 @@ import Login from './components/user/Login';
 import VerifyEmail from './components/user/VerifyEmail';
 import PasswordResetRequest from './components/user/PasswordResetRequest';
 import ResetPassword from './components/user/ResetPassword';
+import Orders from './pages/Orders/Orders';
 
 const AppRoutes = () => {
   return (
@@ -27,6 +28,8 @@ const AppRoutes = () => {
         <Route path='/otp/verify' element={<VerifyEmail/>}/>
         <Route path='/forget-password' element={<PasswordResetRequest/>}/>
         <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
+        <Route path='/orders' element={<Orders/>}/>
+
     </Routes>
   );
 };

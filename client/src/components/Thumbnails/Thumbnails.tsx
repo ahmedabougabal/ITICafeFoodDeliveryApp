@@ -1,5 +1,6 @@
 import React from 'react';
 import {useCart} from "../../hooks/useCart.tsx";
+import classes from "./thumbnails.module.css"
 
 interface Branch {
   id: number;
@@ -40,7 +41,7 @@ const Thumbnails: React.FC<ThumbnailsProps> = ({ foods }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className={classes.list}>
       {foods.map((food) => (
         <div key={food.id} className="bg-white rounded-lg shadow-md overflow-hidden">
           {food.image && (
@@ -62,7 +63,7 @@ const Thumbnails: React.FC<ThumbnailsProps> = ({ foods }) => {
             )}
             <button
               onClick={() => addToCart(food)}
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+              className={classes.button}
             >
               Add to Cart
             </button>

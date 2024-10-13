@@ -7,6 +7,7 @@ import Price from '../../components/Price/Price';
 
 export const CartPage = () => {
     const { cart, createOrder, changeQuantity, removeFromCart } = useCart();
+    let counter=1
 
     const handleCheckout = async () => {
         try {
@@ -33,8 +34,9 @@ export const CartPage = () => {
                     <ul className={classes.list}>
                         {cart.items.map((item: any) => (
                             <li key={item.food.id}>
+                                <span className={classes.cart_count}>{counter++}</span>
                                 <div>
-                                    <img src={`/foods/${item.food.imageUrl}`} alt={item.food.name} />
+                                    <img src={`${item.food.image}`} alt={item.food.name} />
                                 </div>
                                 <div>
                                     <Link to={`/food/${item.food.id}`}>{item.food.name}</Link>

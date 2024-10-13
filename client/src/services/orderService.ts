@@ -40,6 +40,18 @@ export const orderService = {
     }
   },
 
+  getActiveOrders: async () => {
+    try {
+      console.log('Fetching active orders...');
+      const response = await axiosInstance.get(`http://127.0.0.1:8000/api/orders/active-orders/`);
+      console.log('Server response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching orders:', error.response?.data || error.message);
+      throw error;
+    }
+  },
+
   getPastOrders: async () => {
     try {
       console.log('Fetching past orders...');

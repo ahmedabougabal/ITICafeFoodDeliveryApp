@@ -80,3 +80,16 @@
     margin-top: 0.7rem;
     font-size: 1.1rem;
 }
+.button {
+    color: white;
+    background-color: #e72929;
+    border: none;
+    font-size: 1.2rem;
+    padding: .5rem;
+    border-radius: 10rem;
+    outline: none;
+  }
+  .button:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }

@@ -41,7 +41,7 @@ const FoodPage: React.FC = () => {
         <div className={classes.container}>
             <img 
             className={classes.image}
-            src={`/foods/${food.imageUrl}`}
+            src={`${food.image}`}
             alt={food.name}/>
             <div className={classes.details}>
                 <div className={classes.header}>

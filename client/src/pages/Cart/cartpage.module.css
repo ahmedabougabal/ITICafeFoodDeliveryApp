@@ -130,3 +130,10 @@
 .continue_shopping:hover {
     opacity: 0.8;
 }
+.cart_count {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 0.1rem 0.45rem;
+    border-radius: 100rem;
+    font-size: 0.9rem;
+}

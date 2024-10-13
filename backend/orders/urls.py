@@ -8,6 +8,7 @@ router.register(r'orders', OrderViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('create-order/', OrderViewSet.as_view({'post': 'create_order'}), name='create-order'),
+    path('active-orders/', OrderViewSet.as_view({'get': 'active_orders'}), name='avtive-orders'),
     path('orders/pending/', OrderViewSet.as_view({'get': 'pending'}), name='order-pending'),
     path('orders/<int:pk>/accept/', OrderViewSet.as_view({'post': 'accept'}), name='order-accept'),
     path('orders/<int:pk>/reject/', OrderViewSet.as_view({'post': 'reject'}), name='order-reject'),

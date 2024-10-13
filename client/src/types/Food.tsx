@@ -6,6 +6,6 @@ export type Food = {
     favourite: boolean,
     origins: Array<string>,
     stars: number,
-    imageUrl: string,
+    image: string,
     tags: Array<string>
   }
