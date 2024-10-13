@@ -62,8 +62,8 @@ export const fetchPendingOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await orderService.getPendingOrders();
-      console.log('API Response for pending orders:', response.data);
-      return response.data;
+      console.log('API Response for pending orders:', response);
+      return response;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -93,7 +93,6 @@ const orderSlice = createSlice({
     error: null,
   },
   reducers: {
-    // Add a new reducer to clear pending orders
     clearPendingOrders: (state) => {
       state.pendingOrders = [];
       console.log('Cleared pending orders');
@@ -117,6 +116,39 @@ const orderSlice = createSlice({
         state.error = action.payload || 'Unknown error occurred';
         console.error('Error fetching active orders:', action.payload);
       })
+      .addCase(fetchPendingOrders.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+        console.log('Fetching pending orders...');
+      })
+      .addCase(fetchPendingOrders.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pendingOrders = action.payload;
+        state.error = null;
+        console.log('Fetched pending orders:', action.payload);
+      })
+      .addCase(fetchPendingOrders.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Unknown error occurred';
+        console.error('Error fetching pending orders:', action.payload);
+      })
+      .addCase(acceptOrder.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pendingOrders = state.pendingOrders.filter(order => order.id !== action.payload.id);
+        console.log('Order accepted:', action.payload);
+      })
+      .addCase(rejectOrder.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.pendingOrders = state.pendingOrders.filter(order => order.id !== action.payload.id);
+        console.log('Order rejected:', action.payload);
+      })
+      .addCase(completeOrder.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.allOrders = state.allOrders.map(order =>
+          order.id === action.payload.id ? { ...order, status: 'completed' } : order
+        );
+        console.log('Order completed:', action.payload);
+      });
   },
 });
 
