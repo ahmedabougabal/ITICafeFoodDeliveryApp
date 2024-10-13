@@ -117,7 +117,12 @@ const orderService = {
     try {
       const response = await axiosInstance.get('/orders/pending-orders/');
       console.log('API Response:', response);
-      return response.data;
+      if (response.data && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        console.error('Unexpected response format:', response.data);
+        return [];
+      }
     } catch (error) {
       console.error('Error fetching pending orders:', error.response ? error.response.data : error.message);
       throw error;
