@@ -228,7 +228,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def active_orders(self, request):
         try:
             logger.info(f"Retrieving active orders for user with ID: {request.user.id}")
-            active_orders = self.get_queryset().filter(user=request.user).exclude(status='completed').order_by(
+            active_orders = self.get_queryset().filter(user=request.user).exclude(status__in=['completed','cancelled']).order_by(
                 '-created_at')
             serializer = self.get_serializer(active_orders, many=True)
             return Response(serializer.data)
