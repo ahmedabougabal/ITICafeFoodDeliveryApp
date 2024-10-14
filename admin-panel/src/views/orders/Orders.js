@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, Cir
 import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import MuiAlert from '@mui/material/Alert';
 import OrderCard from '../../components/OrderComponent/OrderCard'; // Import the separate OrderCard component
+import { fetchActiveOrders } from '../../slices/orderSlice';
 
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -23,6 +24,7 @@ const Orders = () => {
   // Fetch pending orders
   const fetchOrders = () => {
     dispatch(fetchPendingOrders());
+    dispatch(fetchActiveOrders());
   };
 
   // Initial fetch

@@ -219,6 +219,7 @@ class OrderViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # Method to retrieve user's active orders
+    # this method only used in client page not in admin panel it gets orders for requested user only
     @swagger_auto_schema(
         operation_description="Retrieve the user's active (non-completed) orders.",
         responses={200: OrderSerializer(many=True)}
@@ -233,6 +234,22 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Exception as e:
             logger.error(f"Error retrieving active orders for user with ID: {request.user.id}: {str(e)}", exc_info=True)
+            return Response({"error": "An unexpected error occurred while retrieving active orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    #method to retrieve all users orders
+    #this end point to admin panel use only!
+    @swagger_auto_schema(
+        operation_description="Retrieve all users active (non-completed) orders.",
+        responses={200: OrderSerializer(many=True)}
+    )
+    @action(detail=False, methods=['get'])
+    def admin_active_orders(self, request):
+        try:
+            active_orders = self.get_queryset().filter(status='preparing').order_by('-created_at')
+            serializer = self.get_serializer(active_orders, many=True)
+            return Response(serializer.data)
+        except Exception as e:
             return Response({"error": "An unexpected error occurred while retrieving active orders."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -265,6 +282,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             order.status = 'preparing'
             order.preparation_time = preparation_time
             order.save()
+            
 
             # Send email notification
             send_order_notification(order.user.email, order.id, "accepted", preparation_time)
