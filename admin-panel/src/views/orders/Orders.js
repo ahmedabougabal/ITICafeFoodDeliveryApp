@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, CircularProgress, Snackbar } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, CircularProgress, Snackbar, List, ListItem } from '@mui/material';
 import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import MuiAlert from '@mui/material/Alert';
 import OrderCard from '../../components/OrderComponent/OrderCard'; // Import the separate OrderCard component
 import { fetchActiveOrders } from '../../slices/orderSlice';
-
+import DoneIcon from '@mui/icons-material/Done';
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 ));
@@ -13,11 +13,12 @@ const Alert = React.forwardRef((props, ref) => (
 const Orders = () => {
   const dispatch = useDispatch();
   const pendingOrders = useSelector((state) => state.orders.pendingOrders || []);
+  const preparingOrders = useSelector((state) => state.orders.preparingOrders || []); // Get active orders
   const status = useSelector((state) => state.orders.status);
   const error = useSelector((state) => state.orders.error);
 
   const [activeTab, setActiveTab] = useState('pending');
-  const [preparingOrders, setPreparingOrders] = useState([]);
+  // const [preparingOrders, setPreparingOrders] = useState([]);
   const [completedOrders, setCompletedOrders] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -121,7 +122,8 @@ const Orders = () => {
           )}
         </Grid>
       )}
-
+      {console.log(preparingOrders)}
+      
       {activeTab === 'preparing' && (
         <Grid container spacing={2}>
           {preparingOrders.length > 0 ? (
