@@ -6,7 +6,7 @@ export const fetchActiveOrders = createAsyncThunk(
   'orders/fetchActive',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await orderService.getActiveOrders();
+      const response = await orderService.getAdminActiveOrders();
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || error.message);
