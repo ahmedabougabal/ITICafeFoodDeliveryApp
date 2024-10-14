@@ -91,6 +91,16 @@ const orderService = {
       throw error;
     }
   },
+  getAdminCompletedOrders: async () => {
+    try {
+      const response = await axiosInstance.get('/orders/admin-completed-orders/');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching past orders:', error.response || error);
+      throw error;
+    }
+  },
+
 
   getActiveOrders: async () => {
     try {
@@ -140,7 +150,7 @@ const orderService = {
 
   markAsCompleted: async (id) => {
     try {
-      const response = await axiosInstance.post(`/orders/${id}/complete/`);
+      const response = await axiosInstance.post(`/orders/${id}/complete/`,{});
       return response.data;
     } catch (error) {
       console.error('Error marking order as completed:', error.response || error);
