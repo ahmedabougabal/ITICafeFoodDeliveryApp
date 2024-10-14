@@ -17,8 +17,10 @@ import AuthMessage from './components/AuthMessage';
 import CartProvider from "./hooks/useCart.tsx";
 import ChatRoom from './components/Chat/ChatRoom.tsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import ActiveOrders from './pages/Order/ActiveOrder.tsx';
+
 
 function AppContent() {
   const { user, setUser } = useUser();

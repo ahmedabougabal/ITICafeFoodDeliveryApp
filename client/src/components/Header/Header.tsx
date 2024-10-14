@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import classes from './header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
-import {useUser} from '../../UserContext';
-import '../../App.css';
+import { useUser } from '../../UserContext';
 import { toast } from 'react-toastify';
-// client/src/utils/AxiosInstance.jsx
 import AxiosInstance from "../../utils/AxiosInstance";
 import ChatRoom from '../Chat/ChatRoom';
 import AdminChat from '../AdminChat/AdminChat';
@@ -13,7 +11,7 @@ import { getLoggedInUsers } from '../AdminChat/apiService';
 
 
 const Header: React.FC = () => {
-  const { cart } = useCart();
+  const { cart} = useCart(); // Make sure to implement clearCart in your cart context
   const navigate = useNavigate();
   const { user, setUser } = useUser(); // Use the user and setUser from context
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -32,7 +30,8 @@ const Header: React.FC = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
-      setUser(null); // Update the user in context
+      setUser(null);
+      clearCart(); // Clear the cart when logging out
       navigate('/login');
       toast.warn("Logout successful");
     } catch (error) {
