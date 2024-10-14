@@ -89,6 +89,7 @@ const orderSlice = createSlice({
   initialState: {
     allOrders: [],
     pendingOrders: [],
+    preparingOrders:[],
     status: 'idle',
     error: null,
   },
@@ -107,7 +108,7 @@ const orderSlice = createSlice({
       })
       .addCase(fetchActiveOrders.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.allOrders = action.payload;
+        state.preparingOrders = action.payload;
         state.error = null;
         console.log('Fetched active orders:', action.payload);
       })
