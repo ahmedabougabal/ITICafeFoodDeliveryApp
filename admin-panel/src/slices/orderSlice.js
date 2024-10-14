@@ -14,6 +14,19 @@ export const fetchActiveOrders = createAsyncThunk(
   }
 );
 
+// Fetch Completed orders
+export const fetchCompletedOrders = createAsyncThunk(
+  'orders/fetchCompleted',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await orderService.getAdminCompletedOrders();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || error.message);
+    }
+  }
+);
+
 // Create a new order
 export const createOrder = createAsyncThunk(
   'orders/createOrder',
@@ -116,6 +129,22 @@ const orderSlice = createSlice({
         state.status = 'failed';
         state.error = action.payload || 'Unknown error occurred';
         console.error('Error fetching active orders:', action.payload);
+      })
+      .addCase(fetchCompletedOrders.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+        console.log('Fetching completed orders...');
+      })
+      .addCase(fetchCompletedOrders.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.completedOrders = action.payload;
+        state.error = null;
+        console.log('Fetched completed orders:', action.payload);
+      })
+      .addCase(fetchCompletedOrders.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Unknown error occurred';
+        console.error('Error fetching completed orders:', action.payload);
       })
       .addCase(fetchPendingOrders.pending, (state) => {
         state.status = 'loading';
