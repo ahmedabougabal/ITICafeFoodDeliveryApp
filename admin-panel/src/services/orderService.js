@@ -25,7 +25,16 @@ axiosInstance.interceptors.request.use(
 const orderService = {
   getActiveOrders: async () => {
     try {
-      const response = await axiosInstance.get('/orders/active_orders/');
+      const response = await axiosInstance.get('/orders/active-orders/');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching active orders:', error.response || error);
+      throw error;
+    }
+  },
+  getAdminActiveOrders: async () => {
+    try {
+      const response = await axiosInstance.get('/orders/admin-active-orders/');
       return response.data;
     } catch (error) {
       console.error('Error fetching active orders:', error.response || error);
