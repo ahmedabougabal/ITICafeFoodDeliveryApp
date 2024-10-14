@@ -28,7 +28,13 @@ class Order(models.Model):
     completed_at = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"Order {self.id} by {self.user.get_full_name()}"
+        if hasattr(self.user, 'get_full_name') and callable(getattr(self.user, 'get_full_name')):
+            user_name = self.user.get_full_name()
+        else:
+            user_name = str(self.user)  # Fallback if the method doesn't exist or isn't callable
+        return f"Order {self.id} by {user_name}"
+
+
 
     def save(self, *args, **kwargs):
         discount_rate = self.user.get_discount_rate()
