@@ -197,6 +197,8 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response({"error": "An unexpected error occurred while completing and paying for the order."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
     # Method to retrieve user's past orders
     @swagger_auto_schema(
         operation_description="Retrieve the user's past orders.",
@@ -215,6 +217,23 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Exception as e:
             logger.error(f"Error retrieving past orders for user with ID: {request.user.id}: {str(e)}", exc_info=True)
+            return Response({"error": "An unexpected error occurred while retrieving past orders."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+    # Method to retrieve completed orders for admin panel
+    @swagger_auto_schema(
+        operation_description="Retrieve completed orders for admin panel.",
+        responses={200: OrderSerializer(many=True)}
+    )
+    @action(detail=False, methods=['get'])
+    def admin_completed_orders(self, request):
+        try:
+            logger.info(f"Retrieving completed orders ")
+            past_orders = self.get_queryset().filter(status='completed').order_by('-completed_at')
+            serializer = self.get_serializer(past_orders, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error(f"Error retrieving completed orders{str(e)}", exc_info=True)
             return Response({"error": "An unexpected error occurred while retrieving past orders."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -364,13 +383,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         try:
             logger.info(f"Completing order with ID: {pk}")
             order = self.get_object()
-            if order.status != 'ready':
-                return Response({"detail": "Only ready orders can be marked as completed."},
-                                status=status.HTTP_400_BAD_REQUEST)
+            # if order.status != 'ready':
+            #     return Response({"detail": "Only ready orders can be marked as completed."},
+            #                     status=status.HTTP_400_BAD_REQUEST)
 
             order.status = 'completed'
             order.completed_at = timezone.now()
-            order.payment_status = 'paid'
+            # order.payment_status = 'paid'
             order.save()
 
             # Send email notification

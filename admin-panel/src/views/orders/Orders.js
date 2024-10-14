@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, Cir
 import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import MuiAlert from '@mui/material/Alert';
 import OrderCard from '../../components/OrderComponent/OrderCard'; // Import the separate OrderCard component
-import { fetchActiveOrders } from '../../slices/orderSlice';
+import { completeOrder, fetchActiveOrders, fetchCompletedOrders } from '../../slices/orderSlice';
 import DoneIcon from '@mui/icons-material/Done';
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -14,18 +14,21 @@ const Orders = () => {
   const dispatch = useDispatch();
   const pendingOrders = useSelector((state) => state.orders.pendingOrders || []);
   const preparingOrders = useSelector((state) => state.orders.preparingOrders || []); // Get active orders
+  const completedOrders = useSelector((state) => state.orders.completedOrders || []); // Get completed  orders
+  
   const status = useSelector((state) => state.orders.status);
   const error = useSelector((state) => state.orders.error);
 
   const [activeTab, setActiveTab] = useState('pending');
   // const [preparingOrders, setPreparingOrders] = useState([]);
-  const [completedOrders, setCompletedOrders] = useState([]);
+  // const [completedOrders, setCompletedOrders] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   // Fetch pending orders
   const fetchOrders = () => {
     dispatch(fetchPendingOrders());
     dispatch(fetchActiveOrders());
+    dispatch(fetchCompletedOrders())
   };
 
   // Initial fetch
@@ -64,13 +67,21 @@ const Orders = () => {
       console.error('Error rejecting order:', error);
     }
   };
-
-  const handleCompleteOrder = (orderId) => {
-    const updatedPreparingOrders = preparingOrders.filter(order => order.id !== orderId);
-    const completedOrder = preparingOrders.find(order => order.id === orderId);
-    setPreparingOrders(updatedPreparingOrders);
-    setCompletedOrders([...completedOrders, completedOrder]);
+  const handleCompleteOrder = async (orderId) => {
+    
+    try {
+      await dispatch(completeOrder(orderId ));
+      fetchOrders(); // Fetch orders immediately after accepting
+    } catch (error) {
+      console.error('Error accepting order:', error);
+    }
   };
+  // const handleCompleteOrder = (orderId) => {
+  //   const updatedPreparingOrders = preparingOrders.filter(order => order.id !== orderId);
+  //   const completedOrder = preparingOrders.find(order => order.id === orderId);
+  //   setPreparingOrders(updatedPreparingOrders);
+  //   setCompletedOrders([...completedOrders, completedOrder]);
+  // };
 
   if (status === 'loading') {
     return (
