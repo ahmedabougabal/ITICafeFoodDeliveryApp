@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, CardHeader, Grid, Button, Typography, Tabs, Tab, CircularProgress, Snackbar, List, ListItem } from '@mui/material';
+import {  Grid, Button, Typography, Tabs, Tab, CircularProgress, Snackbar} from '@mui/material';
 import { fetchPendingOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import MuiAlert from '@mui/material/Alert';
-import OrderCard from '../../components/OrderComponent/OrderCard'; // Import the separate OrderCard component
-import { completeOrder, fetchActiveOrders, fetchCompletedOrders } from '../../slices/orderSlice';
-import DoneIcon from '@mui/icons-material/Done';
+import PendingOrderCard from '../../components/OrderComponent/PendingOrderCard'; // Import the separate OrderCard component
+import { completeOrder, fetchActiveOrders, fetchCompletedOrders, payOrder } from '../../slices/orderSlice';
+import PreparingOrderCard from '../../components/OrderComponent/PreparingOrderCard';
+import CompletedOrderCard from '../../components/OrderComponent/CompletedOrderCard';
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 ));
@@ -54,6 +55,15 @@ const Orders = () => {
     try {
       await dispatch(acceptOrder({ id: orderId, preparationTime: parseInt(preparationTime) }));
       fetchOrders(); // Fetch orders immediately after accepting
+    } catch (error) {
+      console.error('Error accepting order:', error);
+    }
+  };
+  const handlePayOrder = async (orderId) => {
+    
+    try {
+      await dispatch(payOrder({ id: orderId, method: 'cash' }));
+      await dispatch(fetchCompletedOrders()) // Fetch orders immediately after pay
     } catch (error) {
       console.error('Error accepting order:', error);
     }
@@ -120,57 +130,36 @@ const Orders = () => {
         <Grid container spacing={2}>
           {pendingOrders.length > 0 ? (
             pendingOrders.map((order) => (
-              <Grid item xs={12} md={6} lg={4} key={order.id}>
-                <OrderCard
+            <>
+            
+              <Grid item xs={12} md={6} lg={4} >
+                <PendingOrderCard
+                key={order.id}
                   order={order}
                   onAccept={handleAcceptOrder}
                   onReject={handleRejectOrder}
                 />
               </Grid>
+               <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
+               <Alert onClose={() => setSnackbarOpen(false)} severity="error" sx={{ width: '100%' }}>
+                 Please enter a preparation time!
+               </Alert>
+             </Snackbar>
+            </>
             ))
           ) : (
             <Typography>No pending orders at the moment.</Typography>
           )}
         </Grid>
       )}
-      {console.log(preparingOrders)}
+     
       
       {activeTab === 'preparing' && (
         <Grid container spacing={2}>
           {preparingOrders.length > 0 ? (
             preparingOrders.map((order) => (
-              <Grid item xs={12} md={6} lg={4} key={order.id}>
-                <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
-                  <CardContent>
-                    <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
-                      <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-                      <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-                      <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-                      <ListItem><strong>User:</strong> {order.user}</ListItem>
-                      <ListItem>
-                        <strong>Items:</strong>
-                        <ul>
-                          {order.items && order.items.map((item, index) => (
-                            <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
-                            </li>
-                          ))}
-                        </ul>
-                      </ListItem>
-                    </List>
-                    <Button
-                      variant="contained"
-                      color="success"
-                      startIcon={<DoneIcon />}
-                      onClick={() => handleCompleteOrder(order.id)}
-                      sx={{ mt: 2 }}
-                    >
-                      Mark as Completed
-                    </Button>
-                  </CardContent>
-                </Card>
+              <Grid item xs={12} md={6} lg={4} >
+                <PreparingOrderCard key={order.id} order={order} handleCompleteOrder={handleCompleteOrder} />
               </Grid>
             ))
           ) : (
@@ -183,42 +172,18 @@ const Orders = () => {
         <Grid container spacing={2}>
           {completedOrders.length > 0 ? (
             completedOrders.map((order) => (
-              <Grid item xs={12} md={6} lg={4} key={order.id}>
-                <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
-                  <CardContent>
-                    <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
-                      <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-                      <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-                      <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-                      <ListItem><strong>User:</strong> {order.user}</ListItem>
-                      <ListItem>
-                        <strong>Items:</strong>
-                        <ul>
-                          {order.items && order.items.map((item, index) => (
-                            <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
-                            </li>
-                          ))}
-                        </ul>
-                      </ListItem>
-                    </List>
-                  </CardContent>
-                </Card>
+              <Grid item xs={12} md={6} lg={4} >
+                <CompletedOrderCard key={order.id} order={order} handlePayOrder={handlePayOrder} />
               </Grid>
             ))
           ) : (
             <Typography>No completed orders yet.</Typography>
           )}
         </Grid>
+         
       )}
 
-   <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
-        <Alert onClose={() => setSnackbarOpen(false)} severity="error" sx={{ width: '100%' }}>
-          Please enter a preparation time!
-        </Alert>
-      </Snackbar>
+  
     </div>
   );
 };
