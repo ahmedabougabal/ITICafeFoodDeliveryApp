@@ -12,11 +12,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Branch',
+            name='Message',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, unique=True)),
-                ('address', models.TextField()),
+                ('content', models.TextField()),
+                ('date_sent', models.DateTimeField(auto_now_add=True)),
             ],
+            options={
+                'ordering': ['date_sent'],
+            },
         ),
     ]
