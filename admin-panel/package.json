@@ -45,6 +45,7 @@
     "react-router-dom": "^6.26.2",
     "react-toastify": "^10.0.5",
     "react-transition-group": "^4.4.5",
+    "recharts": "^2.13.0",
     "redux": "^5.0.1",
     "simplebar-react": "^3.2.6"
   },
