@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from users.models import User
 from menu.models import MenuItem
+from django.core.exceptions import ValidationError
 
 class Order(models.Model):
     STATUS_CHOICES = [
@@ -16,6 +17,7 @@ class Order(models.Model):
         ('unpaid', 'Unpaid'),
         ('paid', 'Paid'),
     ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # menu_items = models.ManyToManyField(MenuItem, through='OrderItem')
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
@@ -27,8 +29,16 @@ class Order(models.Model):
     preparation_time = models.PositiveIntegerField(blank=True, null=True)  # In minutes
     completed_at = models.DateTimeField(blank=True, null=True)
 
-    def __str__(self):
-        return f"Order {self.id} by {self.user.get_full_name()}"
+    def _str_(self):
+        if hasattr(self.user, 'get_full_name') and callable(getattr(self.user, 'get_full_name')):
+            user_name = self.user.get_full_name()
+        else:
+            user_name = str(self.user)
+        return f"Order {self.id} by {user_name}"
+    
+    def clean(self):
+        if self.total_price < 0:
+            raise ValidationError("Total price cannot be negative.")
 
     def save(self, *args, **kwargs):
         discount_rate = self.user.get_discount_rate()

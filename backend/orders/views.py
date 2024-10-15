@@ -17,6 +17,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from utils.email_utils import send_order_notification
 
+
+
+
 # email notification imports
 from django.core.mail import send_mail
 from django.conf import settings
@@ -89,6 +92,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         request_body=OrderCreateSerializer,
         responses={201: OrderSerializer()}
     )
+
+
     @action(detail=False, methods=['post'])
     def create_order(self, request):
         self.permission_classes = [permissions.IsAuthenticated, CanCreateOrder]
@@ -260,7 +265,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             type=openapi.TYPE_OBJECT,
             properties={
                 'preparation_time': openapi.Schema(type=openapi.TYPE_INTEGER,
-                                                   description='Preparation time in minutes'),
+                                description='Preparation time in minutes'),
             }
         ),
         responses={200: OrderSerializer()}
@@ -420,9 +425,6 @@ class OrderViewSet(viewsets.ModelViewSet):
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
-                
-
-    
 
 class OrderDetailView(APIView):
     def get(self, request, order_id):
