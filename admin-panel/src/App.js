@@ -5,7 +5,7 @@ import { CSpinner, useColorModes } from '@coreui/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './scss/style.scss';
-import PrivateRoute from './components/admin/PrivateRoute'; 
+import PrivateRoute from './components/admin/PrivateRoute';
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'));
@@ -31,7 +31,7 @@ const App = () => {
     }
 
     setColorMode(storedTheme);
-  }, []); 
+  }, []);
 
   return (
     <HashRouter>
@@ -46,7 +46,7 @@ const App = () => {
         <Routes>
           {/* Redirect root URL to /admin/login once he open the localhost::3000*/}
           <Route path="/" element={<Navigate to="/admin/login" replace />} />
-          
+
           <Route path="*" name="Home" element={<DefaultLayout />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route
