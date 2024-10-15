@@ -20,4 +20,5 @@ urlpatterns = [
     path('active-orders/', OrderViewSet.as_view({'get': 'active_orders'}), name='active-orders'),
     path('admin-active-orders/', OrderViewSet.as_view({'get': 'admin_active_orders'}), name='admin-active-orders'),
     path('notify-user/', OrderViewSet.as_view({'post': 'notifyUser'}),name='notify-user'),
+    path('sales-stats/', OrderViewSet.as_view({'get': 'sales_stats'}), name='sales-stats'),
 ]
