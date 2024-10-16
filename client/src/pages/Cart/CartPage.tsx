@@ -12,7 +12,7 @@ export const CartPage = () => {
     const handleCheckout = async () => {
         try {
             await createOrder();
-            message.success('Order placed successfully via cash checkout!');
+            message.success('Order placed successfully via cash!');
         } catch (error: any) {
             console.error('Checkout error:', error);
             message.error(`Failed to place order: ${error.response?.data?.detail || error.message}`);

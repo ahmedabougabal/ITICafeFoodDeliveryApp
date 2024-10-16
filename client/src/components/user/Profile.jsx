@@ -6,9 +6,17 @@ import './profile.css';
 
 const BRANCHES = {
     "1": "New Capital",
-    "2": "Mansoura",
-    "3": "Cairo University",
-    "4": "Assuit"
+    "2": "Smart Village",
+    "3": "Mansoura",
+    "4": "Alexandria",
+    "5": "Beni Sweif",
+    "6": "Assuit",
+    "7": "Cairo",
+    "8": "Giza",
+    "9": "Port Said",
+    "10": "Aswan",
+    "11": "El Minya",
+    "12": "Sohag",
 };
 
 const Profile = () => {
