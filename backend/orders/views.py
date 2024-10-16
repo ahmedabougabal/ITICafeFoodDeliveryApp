@@ -191,16 +191,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         responses={200: OrderSerializer()}
     )
     @action(detail=True, methods=['post'])
-    def complete_and_pay(self, request, pk=None):
+    def pay(self, request, pk=None):
         try:
             logger.info(f"Completing and paying for order with ID: {pk}")
+            paymentMethod=request.data.get('method')
             order = self.get_object()
-            if order.status != 'ready':
-                return Response({"detail": "Order must be ready for pickup to be completed and paid."},
-                                status=status.HTTP_400_BAD_REQUEST)
-
-            order.status = 'completed'
-            order.completed_at = timezone.now()
+            order.payment_status='paid-'+paymentMethod
+            
             order.save()
             return Response(OrderSerializer(order).data)
         except Exception as e:
@@ -394,9 +391,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         try:
             logger.info(f"Completing order with ID: {pk}")
             order = self.get_object()
-            # if order.status != 'ready':
-            #     return Response({"detail": "Only ready orders can be marked as completed."},
-            #                     status=status.HTTP_400_BAD_REQUEST)
 
             order.status = 'completed'
             order.completed_at = timezone.now()

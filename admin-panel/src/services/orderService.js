@@ -121,6 +121,15 @@ const orderService = {
       throw error;
     }
   },
+  payOrder: async (orderId, method) => {
+    try {
+      const response = await axiosInstance.post(`/orders/${orderId}/pay/`, {'method': method});
+      return response.data;
+    } catch (error) {
+      console.error('Error paying order:', error.response || error);
+      throw error;
+    }
+  },
 
   rejectOrder: async (orderId) => {
     try {

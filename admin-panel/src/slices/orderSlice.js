@@ -68,6 +68,19 @@ export const rejectOrder = createAsyncThunk(
     }
   }
 );
+// pay an order
+export const payOrder = createAsyncThunk(
+  'orders/acceptOrder',
+  async ({ id, method }, { rejectWithValue }) => {
+    try {
+      const response = await orderService.payOrder(id, method);
+      console.log('API Response for paying order:', response.data);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
 
 // Fetch pending orders
 export const fetchPendingOrders = createAsyncThunk(
