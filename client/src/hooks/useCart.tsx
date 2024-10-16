@@ -19,6 +19,7 @@ interface CartContextType {
   removeFromCart: (foodId: string) => void;
   changeQuantity: (cartItem: CartItem, newQuantity: number) => void;
   createOrder: () => Promise<any>;
+  payOrder: () => Promise<any>;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -97,6 +98,17 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     console.log('Cart updated after addition:', cartItems);
   };
 
+
+  const payOrder = async (id:number, method:string) => {
+    try {
+      const response = await orderService.payOrder(id, method);
+      return response;
+    } catch (error) {
+      console.error('Error paying order:', error);
+    }
+  };
+
+
   const createOrder = async () => {
     try {
       console.log('Cart data before creating order:', cartItems);
@@ -137,6 +149,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         changeQuantity,
         addToCart,
         createOrder,
+        payOrder,
       }}
     >
       {children}

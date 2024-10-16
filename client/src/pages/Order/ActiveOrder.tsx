@@ -51,7 +51,7 @@ const ActiveOrders: React.FC = () => {
                     <strong>Status:</strong> {order.status}
                   </Card.Text>
                   <Card.Text>
-                    <strong>Payment Status:</strong> {order.payment_status === 'paid' ? 'Paid' : 'Unpaid'}
+                    <strong>Payment Status:</strong> {order.payment_status}
                   </Card.Text>
                   <Card.Text>
                     <strong>Branch:</strong> {order.branch_name}

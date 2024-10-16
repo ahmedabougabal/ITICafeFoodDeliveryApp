@@ -15,7 +15,9 @@ class Order(models.Model):
     ]
     PAYMENT_STATUS_CHOICES = [
         ('unpaid', 'Unpaid'),
-        ('paid', 'Paid'),
+        ('paid-cash', 'Paid-cash'),
+        ('paid-paypal', 'Paid-paypal'),
+        ('paid-visa', 'Paid-visa'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
