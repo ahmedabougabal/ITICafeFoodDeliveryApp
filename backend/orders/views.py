@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from utils.email_utils import send_order_notification
 
-from django.db.models.functions import TruncDate 
+from django.db.models.functions import TruncDate , TruncHour
 
 
 
@@ -256,7 +256,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def active_orders(self, request):
         try:
             logger.info(f"Retrieving active orders for user with ID: {request.user.id}")
-            active_orders = self.get_queryset().filter(user=request.user).exclude(status__in=['completed','cancelled']).order_by(
+            active_orders = self.get_queryset().filter(user=request.user).exclude(status__in=['cancelled']).order_by(
                 '-created_at')
             serializer = self.get_serializer(active_orders, many=True)
             return Response(serializer.data)
@@ -446,7 +446,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         else:
             return Response({'error': 'Invalid request method'}, status=status.HTTP_400_BAD_REQUEST)
 
-
     @action(detail=False, methods=['get'])
     def sales_stats(self, request):
         try:
@@ -455,12 +454,26 @@ class OrderViewSet(viewsets.ModelViewSet):
             if time_range == 'today':
                 start_date = timezone.now().date()
                 date_range = "Today"
+                # For today, we'll group by hour
+                busy_times = Order.objects.filter(created_at__date=start_date).annotate(
+                    hour=TruncHour('created_at')
+                ).values('hour').annotate(
+                    count=Count('id')
+                ).order_by('hour')
+
+                # Fill in missing hours with zero counts
+                all_hours = {hour: 0 for hour in range(24)}
+                for bt in busy_times:
+                    all_hours[bt['hour'].hour] = bt['count']
+                busy_times = [{'hour': f"{hour:02d}:00", 'count': count} for hour, count in all_hours.items()]
             elif time_range == '7days':
                 start_date = timezone.now().date() - timedelta(days=6)
                 date_range = f"Last 7 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+                busy_times = self.get_daily_busy_times(start_date)
             else:  # Default to 30 days
                 start_date = timezone.now().date() - timedelta(days=29)
                 date_range = f"Last 30 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+                busy_times = self.get_daily_busy_times(start_date)
 
             orders = Order.objects.filter(created_at__date__gte=start_date)
 
@@ -468,13 +481,6 @@ class OrderViewSet(viewsets.ModelViewSet):
             most_bought = OrderItem.objects.filter(order__in=orders).values('item__name').annotate(
                 total_quantity=Sum('quantity')
             ).order_by('-total_quantity')[:5]
-
-            # Busy times
-            busy_times = orders.annotate(
-                day=TruncDate('created_at')
-            ).values('day').annotate(
-                count=Count('id')
-            ).order_by('day')
 
             # Total sales
             total_sales = orders.aggregate(total=Sum('total_price'))['total'] or 0
@@ -499,9 +505,14 @@ class OrderViewSet(viewsets.ModelViewSet):
             print(f"Error in sales_stats: {str(e)}")
             return Response({'error': str(e)}, status=500)
 
-                
+    def get_daily_busy_times(self, start_date):
+        return Order.objects.filter(created_at__date__gte=start_date).annotate(
+            day=TruncDate('created_at')
+        ).values('day').annotate(
+            count=Count('id')
+        ).order_by('day')
 
-    
+
 
 
 class OrderDetailView(APIView):
