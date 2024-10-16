@@ -87,6 +87,19 @@ export const orderService = {
       throw error;
     }
   },
+
+  payOrder: async (orderId, method) => {
+    try {
+      console.log(`Paying order with ID: ${orderId}...`);
+      const response = await axiosInstance.post(`${API_URL}${orderId}/pay/`,{"method": method});
+      console.log('Server response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error paying order:', error.response?.data || error.message);
+      throw error;
+    }
+  },
+
   ActiveOrders: async () => {
   try {
     console.log('Fetching active orders...');

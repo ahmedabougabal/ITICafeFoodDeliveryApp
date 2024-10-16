@@ -57,4 +57,4 @@ if settings.DEBUG:
         }),
     ]
 
-logger.info("URL patterns: %s", urlpatterns)
+# logger.info("URL patterns: %s", urlpatterns)

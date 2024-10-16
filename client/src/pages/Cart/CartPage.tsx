@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom';
 import Price from '../../components/Price/Price';
 
 export const CartPage = () => {
-    const { cart, createOrder, changeQuantity, removeFromCart } = useCart();
+    const { cart, createOrder, changeQuantity, removeFromCart, payOrder } = useCart();
 
     const handleCheckout = async () => {
         try {
             await createOrder();
-            message.success('Order placed successfully via cash checkout!');
+            message.success('Order placed successfully via cash!');
         } catch (error: any) {
             console.error('Checkout error:', error);
             message.error(`Failed to place order: ${error.response?.data?.detail || error.message}`);
@@ -41,11 +41,15 @@ export const CartPage = () => {
                         try {
                             const order = await actions.order.capture();
                             const createdOrder = await createOrder();
-
                             // Check if the order was created successfully
                             if (createdOrder) {
-                                message.success('Order placed successfully via PayPal!');
+                                
                                 console.log('Created Order:', createdOrder);
+
+                                const method = data.paymentSource == "paypal" ? "paypal" : "visa";
+
+                                const payedOrder = await payOrder(createdOrder.id, method);
+                                message.success(`Order placed successfully via ${method}`);
                             } else {
                                 message.error('Failed to create order in our system.');
                             }
@@ -59,6 +63,7 @@ export const CartPage = () => {
         };
         document.body.appendChild(script);
     }, [cart.totalPrice, cart.items]);
+
 
     return (
         <ConfigProvider
