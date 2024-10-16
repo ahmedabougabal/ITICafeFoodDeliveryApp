@@ -101,17 +101,6 @@ const orderService = {
     }
   },
 
-
-  getActiveOrders: async () => {
-    try {
-      const response = await axiosInstance.get('/orders/active-orders/');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching active orders:', error.response || error);
-      throw error;
-    }
-  },
-
   acceptOrder: async (orderId, preparationTime) => {
     try {
       const response = await axiosInstance.post(`/orders/${orderId}/accept/`, {preparation_time: preparationTime});

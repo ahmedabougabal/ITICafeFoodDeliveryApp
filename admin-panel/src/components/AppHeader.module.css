@@ -1,0 +1,50 @@
+.chatButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 9999; /* Ensure it's displayed over all elements */
+  }
+
+  .chatButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .loggedInUsers {
+    position: fixed; /* To position it relative to the header */
+    bottom: 20px;
+    right: 20px; 
+    display: flex; /* Use flexbox for horizontal layout */
+    flex-direction: row; /* Ensure items are in a single row */
+    background-color: #5dd3fb; /* Background color for contrast */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 5px; /* Add padding to the container */
+    z-index: 1000; /* Ensure it displays on top */
+  }
+  
+  .loggedInUsers ul {
+    display: flex; /* Ensure the ul also uses flexbox */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    list-style-type: none; /* Remove default list style */
+  }
+  
+  .loggedInUsers li {
+    margin: 2px; /* Space between items */
+    background-color: #007bff;
+    border-radius: 10px; /* Rounded corners */
+    color: #fffefe; /* Text color */
+    padding: 10px; /* Padding inside each item */
+    white-space: nowrap; /* Prevent text from wrapping */
+  }
+  
+  .loggedInUsers li:hover {
+    background-color: #1796fff1; /* Highlight on hover */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
