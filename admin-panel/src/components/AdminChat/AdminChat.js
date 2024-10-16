@@ -1,18 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import classes from './chatRoom.module.css';
+import classes from './AdminChat.module.css';
 
-interface ChatRoomProps {
-  onClose: () => void; // function to close the chat
-  userEmail: string;   // email of the user
-}
+const AdminChat = ({ onClose, selectedChat }) => {
+  console.log("User Email:", selectedChat);
 
-const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
-  const [messages, setMessages] = useState<{ message: string; sender: string }[]>([]);
-  const ws = useRef<WebSocket | null>(null);
-  const messagesRef = useRef<HTMLDivElement>(null);
+  const [messages, setMessages] = useState([]);
+  const ws = useRef(null);
+  const messagesRef = useRef(null);
 
   // Function to append message to chat
-  const appendMessage = (message: string, sender: string, isOwnMessage = false) => {
+  const appendMessage = (message, sender, isOwnMessage = false) => {
     console.log(`Appending message from sender: ${sender}`); // Debugging log
   
     const messageElement = document.createElement('div');
@@ -41,19 +38,21 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
     }
   };
-    
-  // Fetch existing messages when the component mounts
+
+  const roomName = `${selectedChat}_admin@gmail.com`;
+
   useEffect(() => {
+    // Fetch existing messages when the component mounts
     const fetchMessages = async () => {
       try {
-        // api which call function in view through urls.py to get messages for database ordered by date
-        const response = await fetch(`http://localhost:8000/rooms/messages/${userEmail}/admin@gmail.com/`);
+        // API call to fetch messages for the selected chat
+        const response = await fetch(`http://localhost:8000/rooms/messages/${selectedChat}/admin@gmail.com/`); 
         const data = await response.json();
         setMessages(data); // Set fetched messages to state
 
         // Append each fetched message to the chat UI
-        data.forEach((msg: { content: string; sender: string }) => {
-          appendMessage(msg.content, msg.sender, msg.sender === userEmail);
+        data.forEach((msg) => {
+          appendMessage(msg.content, msg.sender, msg.sender === 'admin@gmail.com'); // Assuming admin's email is used for identification
         });
       } catch (error) {
         console.error("Error fetching messages:", error);
@@ -62,38 +61,41 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
 
     fetchMessages();
 
-    // WebSocket connection on first render
-    const roomName = `${userEmail}_admin@gmail.com`;
-    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`);
+    // WebSocket connection on mount
+    ws.current = new WebSocket(`ws://localhost:8000/ws/rooms/${roomName}/`); // Open WS connection
 
-    ws.current.onmessage = (event) => { // handler triggered when recieving message form server which is another user
-      const data = JSON.parse(event.data); 
-      appendMessage(data.message, data.sender, data.sender === userEmail);  // dispaly message in chat window, function exist in the top 
+    ws.current.onmessage = (event) => {
+      const data = JSON.parse(event.data); // Handler triggered when receiving message from server
+      appendMessage(data.message, data.sender, data.sender === 'admin@gmail.com'); // Display message in chat window
     };
 
     ws.current.onclose = () => {
-      console.log("WebSocket connection closed"); // when websocket closed, almost when server stopped
+      console.log("WebSocket connection closed"); // When websocket closed
     };
 
-    return () => { // open new websocket when logged user changed
-      ws.current?.close(); // Cleanup WebSocket connection on component unmount
+    // Cleanup on unmount
+    return () => { // Open new websocket when selected chat chosen
+      if (ws.current) {
+        ws.current.close();
+        ws.current = null; // Clear the reference
+      }
     };
-  }, [userEmail]);
+  }, [roomName, selectedChat]);
 
-    // Handle send message when click on send button
+  // Handle send message when click on send button
   const handleSendMessage = () => {
-    const inputElement = document.querySelector(`.${classes.chatInput}`) as HTMLInputElement;
-    const message = inputElement?.value.trim();
+    const inputElement = document.querySelector(`.${classes.chatInput}`);
+    const message = inputElement?.value.trim(); // Get message content
 
-    if (message && ws.current?.readyState === WebSocket.OPEN) { // ensure message has content and websocket is open.
+    if (message && ws.current?.readyState === WebSocket.OPEN) { // Ensure message has content and websocket is open.
       // Construct the message object to include sender and receiver
       const messageData = {
         message: message, 
-        sender: userEmail, // sender here is the user 
-        receiver: 'admin@gmail.com', // reciever is the admin
+        sender: 'admin@gmail.com', // Sender here is the admin 
+        receiver: selectedChat, // Receiver is the user 
       };
 
-      ws.current.send(JSON.stringify(messageData)); // Send message_object to the WebSocket server
+      ws.current.send(JSON.stringify(messageData)); // Send message to the WebSocket server
       appendMessage(message, true); // Append own message
       inputElement.value = ''; // Clear input
     }
@@ -102,12 +104,13 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
   return (
     <div className={classes.chatWindow}>
       <div className={classes.chatHeader}>
-      <h1>ITI Cafe Is Here!</h1>
+        <h4>{selectedChat}</h4>
         <button onClick={onClose} className={classes.closeButton}>
           &times;
         </button>
       </div>
       <div ref={messagesRef} className={classes.chatContent}></div>
+      {/* Chat input area with Send button */}
       <div className={classes.chatInputContainer}>
         <input
           type="text"
@@ -120,4 +123,4 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ onClose, userEmail }) => {
   );
 };
 
-export default ChatRoom;
+export default AdminChat;
