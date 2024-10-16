@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from utils.email_utils import send_order_notification
 
+from django.db.models.functions import TruncDate 
 
 
 
@@ -449,47 +450,50 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def sales_stats(self, request):
         try:
-            # These are the most bought items
-            most_bought = OrderItem.objects.values('item__name').annotate(
+            time_range = request.query_params.get('range', '30days')
+
+            if time_range == 'today':
+                start_date = timezone.now().date()
+                date_range = "Today"
+            elif time_range == '7days':
+                start_date = timezone.now().date() - timedelta(days=6)
+                date_range = f"Last 7 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+            else:  # Default to 30 days
+                start_date = timezone.now().date() - timedelta(days=29)
+                date_range = f"Last 30 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+
+            orders = Order.objects.filter(created_at__date__gte=start_date)
+
+            # Most bought items
+            most_bought = OrderItem.objects.filter(order__in=orders).values('item__name').annotate(
                 total_quantity=Sum('quantity')
             ).order_by('-total_quantity')[:5]
 
-            # Monitor the busy times like that in Google Maps
-            orders = Order.objects.all()
-            busy_times = {
-                'Monday': [0] * 24,
-                'Tuesday': [0] * 24,
-                'Wednesday': [0] * 24,
-                'Thursday': [0] * 24,
-                'Friday': [0] * 24,
-                'Saturday': [0] * 24,
-                'Sunday': [0] * 24,
-            }
-            for order in orders:
-                day = order.created_at.strftime('%A')
-                hour = order.created_at.hour
-                busy_times[day][hour] += 1
+            # Busy times
+            busy_times = orders.annotate(
+                day=TruncDate('created_at')
+            ).values('day').annotate(
+                count=Count('id')
+            ).order_by('day')
 
-            # This is a simple calculation for summing all sales for the last 30 days
-            thirty_days_ago = timezone.now() - timedelta(days=30)
-            total_sales = Order.objects.filter(created_at__gte=thirty_days_ago).aggregate(
-                total=Sum('total_price')
-            )['total']
+            # Total sales
+            total_sales = orders.aggregate(total=Sum('total_price'))['total'] or 0
 
             # Average order value
-            avg_order_value = Order.objects.aggregate(avg=Avg('total_price'))['avg']
+            avg_order_value = orders.aggregate(avg=Avg('total_price'))['avg'] or 0
 
-            # Top customers >3
-            top_customers = User.objects.annotate(
+            # Top customers
+            top_customers = User.objects.filter(order__in=orders).annotate(
                 total_spent=Sum('order__total_price')
             ).order_by('-total_spent')[:5].values('email', 'total_spent')
 
             return Response({
                 'most_bought': most_bought,
-                'busy_times': busy_times,
+                'busy_times': list(busy_times),
                 'total_sales': total_sales,
                 'avg_order_value': avg_order_value,
                 'top_customers': top_customers,
+                'date_range': date_range,
             })
         except Exception as e:
             print(f"Error in sales_stats: {str(e)}")
