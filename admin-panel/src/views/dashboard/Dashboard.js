@@ -38,13 +38,21 @@ const Dashboard = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log('Fetched sales stats:', response.data); // Debugging log
+      console.log('Fetched sales stats:', response.data);
 
       // Handle empty data
       if (response.data.busy_times && response.data.busy_times.length === 0) {
-        // If there's no data, create a single data point for today
-        const today = new Date().toISOString().split('T')[0];
-        response.data.busy_times = [{ day: today, count: 0 }];
+        if (range === 'today') {
+          // Create 24 data points for today (one for each hour)
+          response.data.busy_times = Array.from({length: 24}, (_, i) => ({
+            hour: `${i.toString().padStart(2, '0')}:00`,
+            count: 0
+          }));
+        } else {
+          // For other ranges, create a single data point for today
+          const today = new Date().toISOString().split('T')[0];
+          response.data.busy_times = [{ day: today, count: 0 }];
+        }
       }
 
       setSalesStats(response.data);
@@ -63,6 +71,10 @@ const Dashboard = () => {
     };
   }, []);
 
+   const formatCurrency = (value) => {
+    return typeof value === 'number' ? `$${value.toFixed(2)}` : 'N/A';
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -75,18 +87,23 @@ const Dashboard = () => {
     return <div>No data available</div>;
   }
 
-  // Prepare chart data
-  const busyTimesData = (salesStats.busy_times || []).map(({ day, count }) => ({ day, count: count || 0 }));
+   // Prepare chart data
+  const busyTimesData = (salesStats.busy_times || []).map(data => {
+    if (timeRange === 'today') {
+      return { label: data.hour, count: data.count || 0 };
+    } else {
+      return { label: data.day, count: data.count || 0 };
+    }
+  });
 
-  console.log('Busy times data:', busyTimesData); // Debugging log
+  console.log('Busy times data:', busyTimesData);
 
-  // Add error handling for chart rendering
   if (busyTimesData.length === 0) {
     return <div>No data available for the selected time range</div>;
   }
 
   const chartData = {
-    labels: busyTimesData.map(data => data.day),
+    labels: busyTimesData.map(data => data.label),
     datasets: [
       {
         label: 'Orders',
@@ -98,8 +115,6 @@ const Dashboard = () => {
       },
     ],
   };
-
-  console.log('Chart data:', chartData); // Debugging log
 
   const chartOptions = {
     maintainAspectRatio: false,
@@ -113,10 +128,13 @@ const Dashboard = () => {
         grid: {
           drawOnChartArea: false,
         },
+        ticks: {
+          maxTicksLimit: timeRange === 'today' ? 24 : 10, // Show all 24 hours for 'today', limit to 10 for other ranges
+        },
       },
       y: {
         beginAtZero: true,
-        max: Math.max(...busyTimesData.map(data => data.count), 5), // Ensure a minimum max value of 5
+        max: Math.max(...busyTimesData.map(data => data.count), 5),
         ticks: {
           maxTicksLimit: 5,
           callback: function(value) {
@@ -138,10 +156,6 @@ const Dashboard = () => {
         hoverBorderWidth: 3,
       },
     },
-  };
-
-  const formatCurrency = (value) => {
-    return typeof value === 'number' ? `$${value.toFixed(2)}` : 'N/A';
   };
 
   return (
