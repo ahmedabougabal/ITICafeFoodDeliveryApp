@@ -88,7 +88,7 @@ const AppHeader = () => {
     // Fetch the data immediately and set up an interval for every 30 seconds
     fetchLoggedInUsers(); // Initial fetch
   
-    const intervalId = setInterval(fetchLoggedInUsers, 30000); // Fetch every 30 seconds
+    const intervalId = setInterval(fetchLoggedInUsers, 5000); // Fetch every 30 seconds
   
     // Cleanup the interval when the component unmounts
     return () => clearInterval(intervalId);
@@ -98,15 +98,12 @@ const AppHeader = () => {
   useEffect(() => {
     console.log('Updated loggedInUsers:', loggedInUsers); // Check the latest data after it’s set
   }, [loggedInUsers]);
-  
-  
+
 const handleAdminClick = (email) => {
   setSelectedUserEmail(email); // Set the selected user email
   // Toggle the chat open/close state based on current state
   setIsAdminChatOpen((prev) => !prev);
 };
-
-
 
   return (
     <>
