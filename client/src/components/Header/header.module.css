@@ -64,6 +64,10 @@
     font-size: 0.9rem;
 }
 
+.cart-icon path {
+    fill: white;
+}
+
 /* header.module.css */
 
 .chatButton {

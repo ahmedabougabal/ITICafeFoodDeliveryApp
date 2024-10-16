@@ -18,6 +18,8 @@ urlpatterns = [
     path('admin-completed-orders/', OrderViewSet.as_view({'get': 'admin_completed_orders'}), name='admin-completed-orders'),
     path('<int:pk>/reorder/', OrderViewSet.as_view({'post': 'reorder'}), name='order-reorder'),
     path('latest-order/', OrderViewSet.as_view({'get': 'latest_order'}), name='order-latest'),
+    path('active-orders/', OrderViewSet.as_view({'get': 'active_orders'}), name='active-orders'),
+    path('admin-active-orders/', OrderViewSet.as_view({'get': 'admin_active_orders'}), name='admin-active-orders'),
     path('notify-user/', OrderViewSet.as_view({'post': 'notifyUser'}),name='notify-user'),
-    path('active-orders/', OrderViewSet.as_view({'get': 'active_orders'}), name='order-active-orders'),
+    path('sales-stats/', OrderViewSet.as_view({'get': 'sales_stats'}), name='sales-stats'),
 ]

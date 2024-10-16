@@ -16,6 +16,11 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from utils.email_utils import send_order_notification
+
+from django.db.models.functions import TruncDate , TruncHour
+
+
 
 # email notification imports
 from django.core.mail import send_mail
@@ -410,6 +415,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             logger.error(f"Error completing order with ID: {pk}: {str(e)}", exc_info=True)
             return Response({"error": "An unexpected error occurred while completing the order."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             
     # notify user with message by email
     @swagger_auto_schema(
@@ -499,6 +505,25 @@ class OrderViewSet(viewsets.ModelViewSet):
             print(f"Error in sales_stats: {str(e)}")
             return Response({'error': str(e)}, status=500)
 
-                
+    def get_daily_busy_times(self, start_date):
+        return Order.objects.filter(created_at__date__gte=start_date).annotate(
+            day=TruncDate('created_at')
+        ).values('day').annotate(
+            count=Count('id')
+        ).order_by('day')
 
-    
+
+
+
+class OrderDetailView(APIView):
+    def get(self, request, order_id):
+        try:
+            order = Order.objects.get(id=order_id)
+            serializer = OrderSerializer(order)
+            return Response(serializer.data)
+        except Order.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+        
+
