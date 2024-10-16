@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./header.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
@@ -6,7 +6,6 @@ import { useUser } from "../../UserContext";
 import { toast } from "react-toastify";
 import AxiosInstance from "../../utils/AxiosInstance";
 import ChatRoom from "../Chat/ChatRoom";
-import AdminChat from "../AdminChat/AdminChat";
 import { getLoggedInUsers } from "../AdminChat/apiService";
 
 const Header: React.FC = () => {
@@ -14,12 +13,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUser(); // Use the user and setUser from context
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [loggedInUsers, setLoggedInUsers] = useState<string[]>([]);
-  const [selectedUserEmail, setSelectedUserEmail] = useState<string | null>(
-    null
-  ); // State for selected user email
-  const [isAdminChatOpen, setIsAdminChatOpen] = useState(false); // State for AdminChat visibility
-
+ 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
   };
@@ -40,32 +34,6 @@ const Header: React.FC = () => {
     }
   };
 
-  // Fetch logged-in users when the component mounts or user changes
-  useEffect(() => {
-    const fetchLoggedInUsers = async () => {
-      if (user && user.email === "admin@gmail.com") {
-        const token = localStorage.getItem("token"); // Retrieve token from local storage
-        try {
-          const users = await getLoggedInUsers(token); // Pass token to the API call
-          setLoggedInUsers(users);
-        } catch (error) {
-          console.error("Error fetching logged-in users:", error);
-        }
-      }
-    };
-
-    fetchLoggedInUsers();
-  }, [user]);
-
-  // Handle user click to open chat
-  const handleAdminrClick = (email: string) => {
-    setSelectedUserEmail(email); // Set the selected user email
-    if (setIsAdminChatOpen) {
-      setIsAdminChatOpen(false);
-    }
-    setIsAdminChatOpen(true); // Open the AdminChat
-  };
-
   return (
     <header className={classes.header}>
       <div className={classes.container}>
@@ -73,7 +41,7 @@ const Header: React.FC = () => {
           ITIFoods
         </Link>
         <ul>
-          {user ? (
+          {user ? ( <> 
             <li className={classes.menu_container}>
               <Link to="#">{user.full_name}</Link>
 
@@ -85,6 +53,10 @@ const Header: React.FC = () => {
                 </a>
               </div>
             </li>
+            <button onClick={toggleChat} className={classes.chatButton}>
+               Chat
+            </button>
+            </>
           ) : (
             <>
               <li>
@@ -106,37 +78,9 @@ const Header: React.FC = () => {
         </ul>
       </div>
 
-      {user && user.email === "admin@gmail.com" ? (
-        <div className={classes.loggedInUsers}>
-          <ul>
-            {loggedInUsers.map((loggedInUser, index) => (
-              <li
-                key={index}
-                onClick={() => handleAdminrClick(loggedInUser)}
-                className={classes.loggedInUser}
-              >
-                {loggedInUser}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <button onClick={toggleChat} className={classes.chatButton}>
-          Chat
-        </button>
-      )}
-
       {/* Render ChatRoom only for regular users */}
-      {isChatOpen && user && !selectedUserEmail && (
+      {isChatOpen && user && (
         <ChatRoom onClose={toggleChat} userEmail={user.email} />
-      )}
-
-      {/* Render AdminChat for selected user */}
-      {isAdminChatOpen && selectedUserEmail && (
-        <AdminChat
-          onClose={() => setIsAdminChatOpen(false)}
-          selectedChat={selectedUserEmail}
-        />
       )}
     </header>
   );
