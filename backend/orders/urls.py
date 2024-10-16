@@ -13,6 +13,7 @@ urlpatterns = [
     path('<int:pk>/accept/', OrderViewSet.as_view({'post': 'accept'}), name='order-accept'),
     path('<int:pk>/reject/', OrderViewSet.as_view({'post': 'reject'}), name='order-reject'),
     path('<int:pk>/complete/', OrderViewSet.as_view({'post': 'complete'}), name='order-complete'),
+    path('<int:pk>/pay/', OrderViewSet.as_view({'post': 'pay'}), name='order-pay'),
     path('past-orders/', OrderViewSet.as_view({'get': 'past_orders'}), name='order-past-orders'),
     path('admin-completed-orders/', OrderViewSet.as_view({'get': 'admin_completed_orders'}), name='admin-completed-orders'),
     path('<int:pk>/reorder/', OrderViewSet.as_view({'post': 'reorder'}), name='order-reorder'),

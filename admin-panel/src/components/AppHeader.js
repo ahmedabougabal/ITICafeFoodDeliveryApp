@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import classes from './AppHeader.module.css'
+import AdminChat from './AdminChat/AdminChat'
 import {
   CContainer,
   CDropdown,
@@ -12,6 +14,8 @@ import {
   CHeaderToggler,
   CNavLink,
   CNavItem,
+  CButton,
+  CFooter,
   useColorModes,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
@@ -28,7 +32,21 @@ import {
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
 
+
 const AppHeader = () => {
+  // Hooks must be inside the functional component
+  const [state, setState] = useState([])
+  const [loggedInUsers, setLoggedInUsers] = useState([])
+  const [selectedUserEmail, setSelectedUserEmail] = useState(null); // State for selected user email
+  const [isAdminChatOpen, setIsAdminChatOpen] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+   // Toggle dropdown visibility when chat button is clicked
+   const toggleDropdown = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+    setIsAdminChatOpen(false)
+  };
+  
   const headerRef = useRef()
   const { colorMode, setColorMode } = useColorModes('coreui-free-react-admin-template-theme')
 
@@ -36,13 +54,59 @@ const AppHeader = () => {
   const sidebarShow = useSelector((state) => state.sidebarShow)
 
   useEffect(() => {
-    document.addEventListener('scroll', () => {
-      headerRef.current &&
-        headerRef.current.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0)
-    })
-  }, [])
+    console.log('useEffect triggered'); // Check if the useEffect is being triggered
+  
+    const fetchLoggedInUsers = async () => {
+      const token = localStorage.getItem('authToken'); // Get token from local storage
+      console.log('Token:', token); // Log the token to see if it's available
+  
+      if (token) {
+        try {
+          const response = await fetch("http://localhost:8000/api-auth/logged-in-users/", {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          });
+  
+          console.log('Response status:', response.status); // Log the response status
+  
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          setLoggedInUsers(data.logged_in_users); // Set the fetched users in state
+          console.log(loggedInUsers);
+        } catch (error) {
+          console.error('Error fetching logged-in users:', error);
+        }
+      }
+    };
+  
+    // Fetch the data immediately and set up an interval for every 30 seconds
+    fetchLoggedInUsers(); // Initial fetch
+  
+    const intervalId = setInterval(fetchLoggedInUsers, 5000); // Fetch every 30 seconds
+  
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(intervalId);
+  }, []); // The empty dependency array ensures the effect runs once and sets up the interval
+  
+  
+  useEffect(() => {
+    console.log('Updated loggedInUsers:', loggedInUsers); // Check the latest data after it’s set
+  }, [loggedInUsers]);
+
+const handleAdminClick = (email) => {
+  setSelectedUserEmail(email); // Set the selected user email
+  // Toggle the chat open/close state based on current state
+  setIsAdminChatOpen((prev) => !prev);
+};
 
   return (
+    <>
     <CHeader position="sticky" className="mb-4 p-0" ref={headerRef}>
       <CContainer className="border-bottom px-4" fluid>
         <CHeaderToggler
@@ -65,6 +129,29 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
+        <CNavItem>
+            <CButton className={classes.chatButton} onClick={toggleDropdown}>
+              Chat
+            </CButton>
+            {isDropdownVisible && (
+              <div className={classes.loggedInUsers}>
+                <ul>
+                  {loggedInUsers.map((loggedInUser, index) => (
+                    <li
+                      key={index}
+                      onClick={() => {
+                        console.log(`Clicked on: ${loggedInUser}`); // Log clicked user
+                        handleAdminClick(loggedInUser); // Call the function to open chat
+                      }}
+                      className={classes.loggedInUser}
+                    >
+                      {loggedInUser}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </CNavItem>
           <CNavItem>
             <CNavLink href="#">
               <CIcon icon={cilBell} size="lg" />
@@ -135,6 +222,14 @@ const AppHeader = () => {
         <AppBreadcrumb />
       </CContainer>
     </CHeader>
+   
+    {isAdminChatOpen && selectedUserEmail && (
+      <AdminChat
+        onClose={() => setIsAdminChatOpen(false)} // Correctly handle closing
+        selectedChat={selectedUserEmail} // Pass the selected user's email
+      />
+    )}
+    </>
   )
 }
 

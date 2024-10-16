@@ -26,7 +26,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['id', 'user', 'branch_name', 'items', 'total_price', 'discounted_price', 'discount', 'status',
-                  'payment_status', 'created_at', 'updated_at', 'preparation_time', 'completed_at']
+                'payment_status', 'created_at', 'updated_at', 'preparation_time', 'completed_at']
 
     @staticmethod
     def get_discount(obj: Order) -> float:
@@ -104,6 +104,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         return OrderSerializer(instance, context=self.context).data
+
 
 class OrderUpdateSerializer(serializers.ModelSerializer):
     class Meta:

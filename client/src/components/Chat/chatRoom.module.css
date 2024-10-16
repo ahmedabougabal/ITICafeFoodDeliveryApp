@@ -1,5 +1,13 @@
 /* chatRoom.module.css */
 
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: none; /* Optionally remove default background */
+}
+
 .chatWindow {
     position: fixed;
     bottom: 6.25rem; /* 100px */
@@ -19,15 +27,22 @@
   .chatHeader {
     background-color: #007bff;
     color: white;
-    padding: 0.625rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Spread items apart */
     align-items: center;
     border-top-left-radius: 0.625rem;
     border-top-right-radius: 0.625rem;
   }
   
+  /* Add this rule to ensure the h1 takes full space */
+  .chatHeader h1 {
+    margin-left: 2rem;
+    text-align: left; /* Align text to the left */
+  }
+  
+  /* Close button already aligns to the right, no change needed here */
   .closeButton {
+    padding: 0;
     background: none;
     border: none;
     color: white;

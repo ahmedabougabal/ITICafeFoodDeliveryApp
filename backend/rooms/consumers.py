@@ -54,3 +54,4 @@ class ChatRoomConsumer(AsyncWebsocketConsumer):
         sender = User.objects.get(email=sender_email)
         receiver = User.objects.get(email=receiver_email)
         Message.objects.create(content=message, sender=sender, receiver=receiver)
+<<<<<<< HEAD

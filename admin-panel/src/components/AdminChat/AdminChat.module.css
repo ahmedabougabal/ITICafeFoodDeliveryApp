@@ -1,0 +1,115 @@
+.chatWindow {
+  position: fixed;
+  bottom: 6.25rem; /* 100px */
+  right: 1.25rem; /* 20px */
+  width: 25rem; /* 300px */
+  height: 26rem; /* 400px */
+  background-color: white;
+  border: 0.0625rem solid #ccc; /* 1px */
+  border-radius: 0.625rem; /* 10px */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.chatHeader {
+  background-color: #007bff;
+  color: white;
+  padding: 0.625rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 0.625rem;
+  border-top-right-radius: 0.625rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.chatContent {
+  padding: 0.625rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chatInputContainer {
+  display: flex;
+  padding: 0.625rem;
+  border-top: 0.0625rem solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.chatInput {
+  width: 100%;
+  padding: 0.625rem;
+  font-size: 1rem;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Styling for the Send button */
+.sendButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  margin-left: 0.625rem; /* Adds space between input and button */
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sendButton:hover {
+  background-color: #0056b3;
+}
+
+.chatContent {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem; /* 10px converted to rem */
+  overflow-y: auto; /* Allow scrolling if messages overflow */
+}
+
+.ownMessage {
+  font-weight: bold;
+  align-self: flex-end; /* Align to the right for own messages */
+  background-color: #93efda; /* Light green background for own messages */
+  color: #000000; /* Text color */
+  border-radius: 0.625rem; /* 10px to rem */
+  padding: 0.5rem 0.75rem; /* Padding around the message (8px 12px converted to rem) */
+  margin: 0.3rem 0; /* Margin for spacing between messages (5px to rem) */
+  max-width: 70%; /* Maximum width to fit message */
+  word-wrap: break-word; /* Break long words */
+}
+
+.otherMessage {
+  font-weight: bold;
+  align-self: flex-start; /* Align to the left for other messages */
+  background-color: #eede8b; /* White background for received messages */
+  color: #000000; /* Text color */
+  border-radius: 0.625rem; /* 10px to rem */
+  padding: 0.5rem 0.75rem; /* Padding around the message (8px 12px converted to rem) */
+  margin: 0.3rem 0; /* Margin for spacing between messages (5px to rem) */
+  max-width: 70%; /* Maximum width to fit message */
+  word-wrap: break-word; /* Break long words */
+}
+
+.senderName {
+  display: block; /* Ensure sender's name (email) occupies full line */
+  font-size: 0.875rem; /* 14px converted to rem */
+  margin-bottom: 0.25rem; /* Small space below sender name (4px to rem) */
+  white-space: nowrap; /* Prevent email from wrapping onto new lines */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis if the email is too long */
+  color: rgb(123, 123, 123); /* Color for sender name */
+  max-width: 80%; /* Allow sender name to take up to 80% of the message width */
+}

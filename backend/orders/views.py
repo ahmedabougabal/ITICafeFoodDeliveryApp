@@ -94,6 +94,8 @@ class OrderViewSet(viewsets.ModelViewSet):
         request_body=OrderCreateSerializer,
         responses={201: OrderSerializer()}
     )
+
+
     @action(detail=False, methods=['post'])
     def create_order(self, request):
         self.permission_classes = [permissions.IsAuthenticated, CanCreateOrder]
@@ -185,16 +187,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         responses={200: OrderSerializer()}
     )
     @action(detail=True, methods=['post'])
-    def complete_and_pay(self, request, pk=None):
+    def pay(self, request, pk=None):
         try:
             logger.info(f"Completing and paying for order with ID: {pk}")
+            paymentMethod=request.data.get('method')
             order = self.get_object()
-            if order.status != 'ready':
-                return Response({"detail": "Order must be ready for pickup to be completed and paid."},
-                                status=status.HTTP_400_BAD_REQUEST)
-
-            order.status = 'completed'
-            order.completed_at = timezone.now()
+            order.payment_status='paid-'+paymentMethod
+            
             order.save()
             return Response(OrderSerializer(order).data)
         except Exception as e:
@@ -252,7 +251,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     def active_orders(self, request):
         try:
             logger.info(f"Retrieving active orders for user with ID: {request.user.id}")
-            active_orders = self.get_queryset().filter(user=request.user).exclude(status__in=['completed','cancelled']).order_by(
+            active_orders = self.get_queryset().filter(user=request.user).exclude(status__in=['cancelled']).order_by(
                 '-created_at')
             serializer = self.get_serializer(active_orders, many=True)
             return Response(serializer.data)
@@ -284,7 +283,7 @@ class OrderViewSet(viewsets.ModelViewSet):
             type=openapi.TYPE_OBJECT,
             properties={
                 'preparation_time': openapi.Schema(type=openapi.TYPE_INTEGER,
-                                                   description='Preparation time in minutes'),
+                                description='Preparation time in minutes'),
             }
         ),
         responses={200: OrderSerializer()}
@@ -388,9 +387,6 @@ class OrderViewSet(viewsets.ModelViewSet):
         try:
             logger.info(f"Completing order with ID: {pk}")
             order = self.get_object()
-            # if order.status != 'ready':
-            #     return Response({"detail": "Only ready orders can be marked as completed."},
-            #                     status=status.HTTP_400_BAD_REQUEST)
 
             order.status = 'completed'
             order.completed_at = timezone.now()
@@ -447,47 +443,57 @@ class OrderViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def sales_stats(self, request):
         try:
-            # These are the most bought items
-            most_bought = OrderItem.objects.values('item__name').annotate(
+            time_range = request.query_params.get('range', '30days')
+
+            if time_range == 'today':
+                start_date = timezone.now().date()
+                date_range = "Today"
+                # For today, we'll group by hour
+                busy_times = Order.objects.filter(created_at__date=start_date).annotate(
+                    hour=TruncHour('created_at')
+                ).values('hour').annotate(
+                    count=Count('id')
+                ).order_by('hour')
+
+                # Fill in missing hours with zero counts
+                all_hours = {hour: 0 for hour in range(24)}
+                for bt in busy_times:
+                    all_hours[bt['hour'].hour] = bt['count']
+                busy_times = [{'hour': f"{hour:02d}:00", 'count': count} for hour, count in all_hours.items()]
+            elif time_range == '7days':
+                start_date = timezone.now().date() - timedelta(days=6)
+                date_range = f"Last 7 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+                busy_times = self.get_daily_busy_times(start_date)
+            else:  # Default to 30 days
+                start_date = timezone.now().date() - timedelta(days=29)
+                date_range = f"Last 30 days ({start_date.strftime('%Y-%m-%d')} to {timezone.now().date().strftime('%Y-%m-%d')})"
+                busy_times = self.get_daily_busy_times(start_date)
+
+            orders = Order.objects.filter(created_at__date__gte=start_date)
+
+            # Most bought items
+            most_bought = OrderItem.objects.filter(order__in=orders).values('item__name').annotate(
                 total_quantity=Sum('quantity')
             ).order_by('-total_quantity')[:5]
 
-            # Monitor the busy times like that in Google Maps
-            orders = Order.objects.all()
-            busy_times = {
-                'Monday': [0] * 24,
-                'Tuesday': [0] * 24,
-                'Wednesday': [0] * 24,
-                'Thursday': [0] * 24,
-                'Friday': [0] * 24,
-                'Saturday': [0] * 24,
-                'Sunday': [0] * 24,
-            }
-            for order in orders:
-                day = order.created_at.strftime('%A')
-                hour = order.created_at.hour
-                busy_times[day][hour] += 1
-
-            # This is a simple calculation for summing all sales for the last 30 days
-            thirty_days_ago = timezone.now() - timedelta(days=30)
-            total_sales = Order.objects.filter(created_at__gte=thirty_days_ago).aggregate(
-                total=Sum('total_price')
-            )['total']
+            # Total sales
+            total_sales = orders.aggregate(total=Sum('total_price'))['total'] or 0
 
             # Average order value
-            avg_order_value = Order.objects.aggregate(avg=Avg('total_price'))['avg']
+            avg_order_value = orders.aggregate(avg=Avg('total_price'))['avg'] or 0
 
-            # Top customers >3
-            top_customers = User.objects.annotate(
+            # Top customers
+            top_customers = User.objects.filter(order__in=orders).annotate(
                 total_spent=Sum('order__total_price')
             ).order_by('-total_spent')[:5].values('email', 'total_spent')
 
             return Response({
                 'most_bought': most_bought,
-                'busy_times': busy_times,
+                'busy_times': list(busy_times),
                 'total_sales': total_sales,
                 'avg_order_value': avg_order_value,
                 'top_customers': top_customers,
+                'date_range': date_range,
             })
         except Exception as e:
             print(f"Error in sales_stats: {str(e)}")

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import classes from './cartpage.module.css';
 import { useCart } from '../../hooks/useCart';
 import { Title } from '../../components/Title/Title';
@@ -11,12 +12,53 @@ export const CartPage = () => {
     const handleCheckout = async () => {
         try {
             await createOrder();
-            message.success('Order placed successfully!');
+            message.success('Order placed successfully via cash checkout!');
         } catch (error: any) {
             console.error('Checkout error:', error);
             message.error(`Failed to place order: ${error.response?.data?.detail || error.message}`);
         }
     };
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = "https://www.paypal.com/sdk/js?client-id=Ae_OtnoT2KLzHjO-ecS1WR2OpLtxcNLcUIPiStI8Spx1WQO1r_QvhCwQPx-flPFSmkmvZr9Otw4YXU5d&currency=USD";
+        script.async = true;
+        script.onload = () => {
+            // Render PayPal button when the script is loaded
+            if (window.paypal) {
+                window.paypal.Buttons({
+                    createOrder: (data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: cart.totalPrice.toString(), // Ensure value is a string
+                                },
+                            }],
+                        });
+                    },
+                    
+                    onApprove: async (data, actions) => {
+                        try {
+                            const order = await actions.order.capture();
+                            const createdOrder = await createOrder();
+
+                            // Check if the order was created successfully
+                            if (createdOrder) {
+                                message.success('Order placed successfully via PayPal!');
+                                console.log('Created Order:', createdOrder);
+                            } else {
+                                message.error('Failed to create order in our system.');
+                            }
+                        } catch (error) {
+                            console.error('Payment or order creation error:', error);
+                            message.error(`Failed to place order: ${error.response?.data?.detail || error.message}`);
+                        }
+                    },
+                }).render('#paypal-button-container');
+            }
+        };
+        document.body.appendChild(script);
+    }, [cart.totalPrice, cart.items]);
 
     return (
         <ConfigProvider
@@ -68,6 +110,9 @@ export const CartPage = () => {
                         <button onClick={handleCheckout} className={classes.checkout_button}>
                             Proceed To Checkout
                         </button>
+
+                        {/* PayPal Button will be rendered here */}
+                        <div id="paypal-button-container"></div>
                     </div>
                 </div>
             ) : (
@@ -81,3 +126,11 @@ export const CartPage = () => {
         </ConfigProvider>
     );
 };
+
+// // paypal.d.ts
+// declare global {
+//     interface Window {
+//         paypal: any; // You can use a more specific type if you have one
+//     }
+// }
+// export {};
