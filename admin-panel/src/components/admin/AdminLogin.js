@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import './AdminLogin.css'; 
-import backgroundImage1 from '../../assets/images/edit.jpg'; 
-import backgroundImage2 from '../../assets/images/4.jpeg'; 
+import './AdminLogin.css';
+import backgroundImage1 from '../../assets/images/edit.jpg';
+import backgroundImage2 from '../../assets/images/4.jpeg';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -39,10 +39,10 @@ const AdminLogin = () => {
         email,
         password
       });
-
+      localStorage.setItem('authToken', response.data.token) // added this line to bypass auth error in fetching data for sales stats
       localStorage.setItem('authToken', response.data.access);
       localStorage.setItem('refreshToken', response.data.refresh);
-      
+
       // this will Redirect to the page admin user is trying to access, or to dashboard (default)
       const { from } = location.state || { from: { pathname: "/dashboard" } };
       navigate(from);

@@ -29,16 +29,14 @@ class Order(models.Model):
     preparation_time = models.PositiveIntegerField(blank=True, null=True)  # In minutes
     completed_at = models.DateTimeField(blank=True, null=True)
 
-    def _str_(self):
+
+    def __str__(self):
         if hasattr(self.user, 'get_full_name') and callable(getattr(self.user, 'get_full_name')):
             user_name = self.user.get_full_name()
         else:
-            user_name = str(self.user)
+            user_name = str(self.user)  # Fallback if the method doesn't exist or isn't callable
         return f"Order {self.id} by {user_name}"
-    
-    def clean(self):
-        if self.total_price < 0:
-            raise ValidationError("Total price cannot be negative.")
+
 
     def save(self, *args, **kwargs):
         discount_rate = self.user.get_discount_rate()
