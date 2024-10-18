@@ -6,14 +6,12 @@ from django.template.context_processors import media
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 env = environ.Env(
     ALLOWED_HOSTS=(list, ['127.0.0.1:8000']),
     DEBUG=(bool, False),
     MEDIA_ROOT=str,
     SECRET_KEY=str,
 )
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -23,7 +21,6 @@ env_file = os.path.join(BASE_DIR, '.env')
 environ.Env.read_env(env_file)
 
 SECRET_KEY = env('SECRET_KEY')
-
 
 DEBUG = env('DEBUG')
 
@@ -41,11 +38,11 @@ INSTALLED_APPS = [
     'core',
     'django_filters',
     'django_extensions',
-       #apps of user authentication
+    # apps of user authentication
     'users',
     'rest_framework',
     'rest_framework_simplejwt',
-   'corsheaders',
+    'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'drf_yasg',
     'rooms',
@@ -55,7 +52,6 @@ INSTALLED_APPS = [
     'social_django',
 ]
 
-
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer'
@@ -63,6 +59,7 @@ CHANNEL_LAYERS = {
 }
 
 from datetime import timedelta
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
@@ -70,7 +67,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',        #add middleware for corsheader; it should be above common middleware
+    'corsheaders.middleware.CorsMiddleware',  # add middleware for corsheader; it should be above common middleware
     'social_django.middleware.SocialAuthExceptionMiddleware',  # Add this line
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -184,7 +181,7 @@ REST_FRAMEWORK = {
                                 'rest_framework.filters.OrderingFilter'],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     'DEFAULT_VERSION': 'v1',
-    'ALLOWED_VERSIONS': ('v1','v2'),
+    'ALLOWED_VERSIONS': ('v1', 'v2'),
     'VERSION_PARAM': 'version',
 }
 
@@ -220,7 +217,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=5),
 }
 
-
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # React dev server
@@ -229,9 +225,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",  # Admin panel (alternative URL)
 ]
 
-
 CORS_ALLOW_CREDENTIALS = True
-
 
 # Logging configuration
 LOGGING = {
@@ -261,43 +255,35 @@ LOGGING = {
 
 AUTH_USER_MODEL = 'users.User'
 
-
 # Looking to send emails in production? Check out our Email API/SMTP product!
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT=587
-EMAIL_HOST_USER="itifoods.newcapital@gmail.com"
-EMAIL_HOST_PASSWORD="sfkw hogm ozkm fgaf"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "itifoods.newcapital@gmail.com"
+EMAIL_HOST_PASSWORD = "sfkw hogm ozkm fgaf"
 # EMAIL_HOST_USER="mahmoudwafi33@gmail.com"
 # EMAIL_HOST_PASSWORD="egjv ffdo kaxm pest"
-EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL="iticafe@gmail.com"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "iticafe@gmail.com"
 
-
-
-
-#EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-#MAIL_HOST_USER = 'e51ece82959d02'
-#EMAIL_HOST_PASSWORD = 'b2ddf365a55b20'
-#DEFAULT_FROM_EMAIL="info@mahmoud.com"
-#EMAIL_PORT = '2525'
-#EMAIL_USE_TLS= True
+# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+# MAIL_HOST_USER = 'e51ece82959d02'
+# EMAIL_HOST_PASSWORD = 'b2ddf365a55b20'
+# DEFAULT_FROM_EMAIL="info@mahmoud.com"
+# EMAIL_PORT = '2525'
+# EMAIL_USE_TLS= True
 
 # add this
-GOOGLE_CLIENT_ID=env('GOOGLE_CLIENT_ID')
-GOOGLE_CLIENT_SECRET=env('GOOGLE_CLIENT_SECRET')
-SOCIAL_SECRET=env('SOCIAL_SECRET')
+GOOGLE_CLIENT_ID = env('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = env('GOOGLE_CLIENT_SECRET')
+SOCIAL_SECRET = env('SOCIAL_SECRET')
 SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'public_profile']
- 
-
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
-
-
