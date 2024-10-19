@@ -130,3 +130,28 @@
 .continue_shopping:hover {
     opacity: 0.8;
 }
+
+.quantity_input {
+    width: 80px !important;
+}
+
+.list li {
+    display: grid;
+    grid-template-columns: 100px 2fr 120px 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 0.5rem;
+}
+
+.list li:last-child {
+    border-bottom: none;
+}
+
+.list li > div:first-child img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}

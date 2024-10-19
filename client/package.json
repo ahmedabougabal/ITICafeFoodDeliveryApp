@@ -21,6 +21,7 @@
         "font-awesome": "^4.7.0",
         "jquery": "^3.7.1",
         "jwt-decode": "^4.0.0",
+        "lucide-react": "^0.453.0",
         "mdb-react-ui-kit": "^9.0.0",
         "popper.js": "^1.16.1",
         "postcss": "^8.4.47",

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import {useUser} from "../../UserContext.tsx";
 import { getAll, search } from '../../services/FoodService';
 import Search from '../../components/Search/Search';
-import Thumbnails from '../../components/Thumbnails/Thumbnails';
+import { Thumbnails } from '../../components/Thumbnails/Thumbnails';
 import styles from './HomePage.module.css';
 
 const HomePage = () => {
