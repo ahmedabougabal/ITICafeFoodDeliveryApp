@@ -41,6 +41,13 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState<number>(initCart.totalPrice);
   const [totalCount, setTotalCount] = useState<number>(initCart.totalCount);
 
+  const clearCart= ()=>{
+    setCartItems([]);
+    setTotalPrice(0);
+    setTotalCount(0);
+    localStorage.removeItem(CART_KEY);
+  }
+
   useEffect(() => {
     const totalPrice = sum(cartItems.map((item) => item.price));
     const totalCount = sum(cartItems.map((item) => item.quantity));
@@ -150,6 +157,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         addToCart,
         createOrder,
         payOrder,
+        clearCart,
       }}
     >
       {children}
