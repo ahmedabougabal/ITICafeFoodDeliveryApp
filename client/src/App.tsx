@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AppRoutes from "./AppRoutes";
 import Header from "./components/Header/Header";
-import  Footer  from './components/Footer/Footer';
+import { Footer } from './components/Footer/Footer';
 import { authService } from './services/AuthService';
 import Profile from './components/user/Profile';
 import EditProfile from './components/user/EditProfile';

@@ -9,6 +9,24 @@ import Price from '../../components/Price/Price';
 export const CartPage = () => {
     const { cart, createOrder, changeQuantity, removeFromCart, payOrder } = useCart();
 
+    const getImagePath = (imageUrl: string) => {
+        // If the imageUrl doesn't exist, return placeholder
+        if (!imageUrl) {
+            return '/placeholder-food.png';
+        }
+
+        // If it's already a full URL, use it as is
+        if (imageUrl.startsWith('http')) {
+            return imageUrl;
+        }
+
+        // Otherwise, use the correct path from your Django media structure
+        // Assuming your Django MEDIA_URL is configured correctly
+        return `${process.env.REACT_APP_API_URL || ''}/media/${imageUrl}`;
+    };
+
+
+
     const handleCheckout = async () => {
         try {
             await createOrder();
@@ -65,70 +83,93 @@ export const CartPage = () => {
     }, [cart.totalPrice, cart.items]);
 
 
-    return (
-        <ConfigProvider
-            theme={{
-                token: {
-                    colorPrimary: '#ffbbbb',
-                },
-            }}
-        >
-            <Title title='Cart Page' margin='1.5rem 0 0 2.5rem' />
+  return (
+        <div className="min-h-screen flex flex-col">
+            <ConfigProvider
+                theme={{
+                    token: {
+                        colorPrimary: '#ffbbbb',
+                    },
+                }}
+            >
+                <div className="flex-grow">
+                    <Title title='Cart Page' margin='1.5rem 0 0 2.5rem' />
 
-            {cart && cart.items.length > 0 ? (
-                <div className={classes.container}>
-                    <ul className={classes.list}>
-                        {cart.items.map((item: any) => (
-                            <li key={item.food.id}>
+                    {cart && cart.items.length > 0 ? (
+                        <div className={classes.container}>
+                            <ul className={classes.list}>
+                                {cart.items.map((item: any) => (
+                                    <li key={item.food.id}>
+                                        <div className="w-24 h-24 overflow-hidden rounded-lg border border-gray-200">
+                                            {item.food.imageUrl ? (
+                                                <img
+                                                    src={getImagePath(item.food.imageUrl)}
+                                                    alt={item.food.name}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.src = '/placeholder-food.png'; // Fallback image
+                                                        target.onerror = null; // Prevent infinite loop
+                                                    }}
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                                                    <span className="text-gray-400">No image</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <Link to={`/food/${item.food.id}`} className="text-lg font-medium hover:text-[#ff6b6b]">
+                                                {item.food.name}
+                                            </Link>
+                                        </div>
+                                        <div>
+                                            <InputNumber
+                                                min={1}
+                                                max={10}
+                                                value={item.quantity}
+                                                onChange={(value) => changeQuantity(item, Number(value))}
+                                                className={classes.quantity_input}
+                                            />
+                                        </div>
+                                        <div>
+                                            <Price price={item.price} />
+                                        </div>
+                                        <div>
+                                            <button
+                                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                                                onClick={() => removeFromCart(item.food.id)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className={classes.checkout}>
                                 <div>
-                                    <img src={`/foods/${item.food.imageUrl}`} alt={item.food.name} />
+                                    <div className={classes.food_count}>Items: {cart.totalCount}</div>
+                                    <div className={classes.total_price}>
+                                        <Price price={cart.totalPrice} />
+                                    </div>
                                 </div>
-                                <div>
-                                    <Link to={`/food/${item.food.id}`}>{item.food.name}</Link>
-                                </div>
-                                <div>
-                                    <InputNumber
-                                        min={1}
-                                        max={10}
-                                        value={item.quantity}
-                                        onChange={(value) => changeQuantity(item, Number(value))}
-                                    />
-                                </div>
-                                <div>
-                                    <Price price={item.price} />
-                                </div>
-                                <div>
-                                    <button className={classes.remove_button} onClick={() => removeFromCart(item.food.id)}>
-                                        Remove
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                    <div className={classes.checkout}>
-                        <div>
-                            <div className={classes.food_count}>{cart.totalCount}</div>
-                            <div className={classes.total_price}>
-                                <Price price={cart.totalPrice} />
+                                <button onClick={handleCheckout} className={classes.checkout_button}>
+                                    Proceed To Checkout
+                                </button>
+                                <div id="paypal-button-container"></div>
                             </div>
                         </div>
-                        <button onClick={handleCheckout} className={classes.checkout_button}>
-                            Proceed To Checkout
-                        </button>
-
-                        {/* PayPal Button will be rendered here */}
-                        <div id="paypal-button-container"></div>
-                    </div>
+                    ) : (
+                        <div className={classes.empty_cart}>
+                            <p>Your cart is empty.</p>
+                            <Link to="/" className={classes.continue_shopping}>
+                                Continue Shopping
+                            </Link>
+                        </div>
+                    )}
                 </div>
-            ) : (
-                <div className={classes.empty_cart}>
-                    <p>Your cart is empty.</p>
-                    <Link to="/" className={classes.continue_shopping}>
-                        Continue Shopping
-                    </Link>
-                </div>
-            )}
-        </ConfigProvider>
+            </ConfigProvider>
+        </div>
     );
 };
 

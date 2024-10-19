@@ -1,26 +1,29 @@
-
 import React, { useState, useEffect } from 'react';
-import classes from './header.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { useUser } from '../../UserContext';
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import ChatRoom from '../Chat/ChatRoom';
-
-
+import styles from './header.module.css';
+import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
 
 const Header: React.FC = () => {
-  const { cart} = useCart(); // Make sure to implement clearCart in your cart context
+  const { cart, clearCart } = useCart();
   const navigate = useNavigate();
-  const { user, setUser } = useUser(); // Use the user and setUser from context
+  const { user, setUser } = useUser();
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [gradientAngle, setGradientAngle] = useState(135);
 
-  const toggleChat = () => {
-    setIsChatOpen(!isChatOpen);
-  };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setGradientAngle((prevAngle) => (prevAngle + 1) % 360);
+    }, 50);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const toggleChat = () => setIsChatOpen(!isChatOpen);
 
   const handleLogout = async () => {
     try {
@@ -30,7 +33,7 @@ const Header: React.FC = () => {
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('user');
       setUser(null);
-      clearCart(); // Clear the cart when logging out
+      clearCart();
       navigate('/login');
       toast.warn("Logout successful");
     } catch (error) {
@@ -38,53 +41,58 @@ const Header: React.FC = () => {
     }
   };
 
+  const headerStyle = {
+    background: `linear-gradient(${gradientAngle}deg, #f11d71 0%, #85122c 100%)`,
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
-        <Link to="/" className="navbar-brand">ITIFoods</Link>
-          <ul className="navbar-nav ms-auto">
-            {user ? (
-              <>
-                <li className="nav-item dropdown">
-                  <Link to="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {user.full_name}
-                  </Link>
-                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><Link to="/profile" className="dropdown-item">Profile</Link></li>
-                    <li><Link to="/active-orders" className="dropdown-item">Orders</Link></li>
-                    <li><a onClick={handleLogout} className="dropdown-item" style={{ cursor: 'pointer' }}>Log Out</a></li>
-                  </ul>
-                </li>
-                {/* Cart link appears only when the user is logged in */}
-                <li className="nav-item">
-                  <Link to="/cart" className="nav-link">
-                    <i className="bi bi-cart" style={{ fontSize: '1.2rem' }}></i>
-                    Cart
-                    {cart.totalCount > 0 && (
-                      <span className="badge bg-danger ms-1">{cart.totalCount}</span>
-                    )}
-                  </Link>
-                </li>
-                <button onClick={toggleChat} className={classes.chatButton}>
-                  Chat
-                </button>
-                
-                {/* Render ChatRoom only for regular users */}
-                {isChatOpen && user && (
-                  <ChatRoom onClose={toggleChat} userEmail={user.email} />
-                )}        
-              </>
-            ) : (
-              <>
-                <li className="nav-item"><Link to="/login" className="nav-link">Login</Link></li>
-                <li className="nav-item"><Link to="/signup" className="nav-link">Register</Link></li>
-              </>
-            )}
-          </ul>
+    <header className={styles.header} style={headerStyle}>
+      <div className={styles.container}>
+        <div className={styles.leftSection}>
+          <Link to="/" className={styles.logo}>
+            <FaShoppingCart className={styles.logoIcon} />
+            <span>ITIFoods</span>
+          </Link>
         </div>
-    </nav>
+        <nav className={styles.rightSection}>
+          {user ? (
+            <>
+              <div className={styles.userMenu}>
+                <button className={styles.userButton}>
+                  {user.full_name}
+                  <i className="bi bi-chevron-down"></i>
+                </button>
+                <ul className={styles.dropdown}>
+                  <li><Link to="/profile">Profile</Link></li>
+                  <li><Link to="/active-orders">Orders</Link></li>
+                  <li><button onClick={handleLogout}>Log Out</button></li>
+                </ul>
+              </div>
+              <Link to="/cart" className={styles.cartLink}>
+                <i className="bi bi-cart3"></i>
+                <span>Cart</span>
+                {cart.totalCount > 0 && (
+                  <span className={styles.cartBadge}>{cart.totalCount}</span>
+                )}
+              </Link>
+              <button onClick={toggleChat} className={styles.chatButton}>
+                <i className="bi bi-chat-dots"></i>
+                <span>Chat</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={styles.authLink}>Login</Link>
+              <Link to="/signup" className={styles.authLink}>Register</Link>
+            </>
+          )}
+        </nav>
+      </div>
+      {isChatOpen && user && (
+        <ChatRoom onClose={toggleChat} userEmail={user.email} />
+      )}
+    </header>
   );
-  
 };
 
 export default Header;
