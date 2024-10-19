@@ -19,7 +19,8 @@ interface CartContextType {
   removeFromCart: (foodId: string) => void;
   changeQuantity: (cartItem: CartItem, newQuantity: number) => void;
   createOrder: () => Promise<any>;
-  payOrder: () => Promise<any>;
+  payOrder: (id: number, method: string) => Promise<any>;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -41,15 +42,19 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState<number>(initCart.totalPrice);
   const [totalCount, setTotalCount] = useState<number>(initCart.totalCount);
 
-  const clearCart= ()=>{
+  const clearCart = () => {
     setCartItems([]);
     setTotalPrice(0);
     setTotalCount(0);
     localStorage.removeItem(CART_KEY);
-  }
+  };
 
   useEffect(() => {
-    const totalPrice = sum(cartItems.map((item) => item.price));
+    const totalPrice = sum(cartItems.map((item) => {
+      console.log(`Item price: ${item.price}, type: ${typeof item.price}`);
+      return item.price;
+    }));
+    console.log(`Calculated total price: ${totalPrice}`);
     const totalCount = sum(cartItems.map((item) => item.quantity));
     setTotalPrice(totalPrice);
     setTotalCount(totalCount);
@@ -66,11 +71,27 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   function getCartFromLocalStorage() {
     const storedCart = localStorage.getItem(CART_KEY);
-    return storedCart ? JSON.parse(storedCart) : EMPTY_CART;
+    console.log('Stored cart:', storedCart);
+    if (storedCart) {
+      try {
+        const parsedCart = JSON.parse(storedCart);
+        console.log('Parsed cart:', parsedCart);
+        return parsedCart;
+      } catch (error) {
+        console.error('Error parsing stored cart:', error);
+        return EMPTY_CART;
+      }
+    }
+    return EMPTY_CART;
   }
 
   const sum = (items: number[]) => {
-    return items.reduce((prevValue, curValue) => prevValue + curValue, 0);
+    console.log('Summing items:', items);
+    return items.reduce((prevValue, curValue) => {
+      const sum = prevValue + curValue;
+      console.log(`${prevValue} + ${curValue} = ${sum}`);
+      return sum;
+    }, 0);
   };
 
   const removeFromCart = (foodId: string) => {
@@ -96,17 +117,17 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = (food: Food) => {
     console.log(`Adding food with ID: ${food.id} to cart...`);
+    console.log('Food price:', food.price, 'type:', typeof food.price);
     const cartItem = cartItems.find((item) => item.food.id === food.id);
     if (cartItem) {
       changeQuantity(cartItem, cartItem.quantity + 1);
     } else {
-      setCartItems([...cartItems, { food, quantity: 1, price: food.price }]);
+      setCartItems([...cartItems, { food, quantity: 1, price: Number(food.price) }]);
     }
     console.log('Cart updated after addition:', cartItems);
   };
 
-
-  const payOrder = async (id:number, method:string) => {
+  const payOrder = async (id: number, method: string) => {
     try {
       const response = await orderService.payOrder(id, method);
       return response;
@@ -114,7 +135,6 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       console.error('Error paying order:', error);
     }
   };
-
 
   const createOrder = async () => {
     try {
@@ -130,7 +150,7 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       console.log('Prepared order data:', orderData);
       const response = await orderService.createOrder(orderData);
       console.log('Created order:', response);
-      setCartItems([]);
+      clearCart();
       navigate('/order-success'); // Redirect to the success page
       return response;
     } catch (error) {

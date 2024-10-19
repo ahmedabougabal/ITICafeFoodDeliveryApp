@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useCart } from "../../hooks/useCart.tsx";
 import { ShoppingCart } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Food {
   id: number;
@@ -24,6 +26,20 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
+  const notify = () => {
+    toast.success(`${food.name} added to cart!`, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    addToCart(food);
+  };
+
   return (
     <div
       className="relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105"
@@ -45,15 +61,16 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
       </div>
       <div className="p-4 bg-white">
         <h3 className="font-bold text-lg mb-2">{food.name}</h3>
-        <p className="text-gray-600 mb-2">${Number(food.price).toFixed(2)}</p>
+        <p className="text-gray-600 mb-2">EGP {Number(food.price).toFixed(2)}</p>
         {food.is_available ? (
           <span className="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded-full mb-2">Available</span>
         ) : (
           <span className="inline-block bg-red-500 text-white text-xs px-2 py-1 rounded-full mb-2">Unavailable</span>
         )}
         <button
-          onClick={() => addToCart(food)}
+          onClick={notify}
           className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors flex items-center justify-center"
+          disabled={!food.is_available}
         >
           <ShoppingCart className="mr-2" size={16} />
           Add to Cart
@@ -69,47 +86,26 @@ const Thumbnails: React.FC<ThumbnailsProps> = ({ foods }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
-      {foods.map((food) => (
-        <FoodCard key={food.id} food={food} />
-      ))}
+    <div className="relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+        {foods.map((food) => (
+          <FoodCard key={food.id} food={food} />
+        ))}
+      </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
 
-const Footer: React.FC = () => {
-  return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between items-center">
-          <div className="w-full md:w-1/3 text-center md:text-left mb-6 md:mb-0">
-            <h2 className="text-2xl font-bold">ITICofeFood</h2>
-            <p className="mt-2">Delicious food at your fingertips</p>
-          </div>
-          <div className="w-full md:w-1/3 text-center mb-6 md:mb-0">
-            <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
-            <ul>
-              <li><a href="#" className="hover:text-gray-300">Home</a></li>
-              <li><a href="#" className="hover:text-gray-300">Menu</a></li>
-              <li><a href="#" className="hover:text-gray-300">About Us</a></li>
-              <li><a href="#" className="hover:text-gray-300">Contact</a></li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/3 text-center md:text-right">
-            <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
-            <div className="flex justify-center md:justify-end space-x-4">
-              <a href="#" className="hover:text-gray-300"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" className="hover:text-gray-300"><i className="fab fa-twitter"></i></a>
-              <a href="#" className="hover:text-gray-300"><i className="fab fa-instagram"></i></a>
-            </div>
-          </div>
-        </div>
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center">
-          <p>&copy; 2024 ITICofeFood. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export { Thumbnails, Footer };
+export { Thumbnails };
