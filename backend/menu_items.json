@@ -1,0 +1,82 @@
+[
+  {
+    "model": "menu.menuitem",
+    "pk": 1,
+    "fields": {
+      "name": "Basbosa",
+      "price": "5.99",
+      "description": "Traditional Middle Eastern sweet cake made with semolina and soaked in syrup",
+      "image": "menu_items/basbosa.jpeg",
+      "category": 1,
+      "is_available": true,
+      "stock": 50,
+      "calories": 300,
+      "allergens": "Nuts, Dairy",
+      "branch": 1
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 2,
+    "fields": {
+      "name": "Coffee",
+      "price": "2.99",
+      "description": "Freshly brewed aromatic coffee",
+      "image": "menu_items/coffe.jpg",
+      "category": 2,
+      "is_available": true,
+      "stock": 100,
+      "calories": 5,
+      "allergens": "",
+      "branch": 1
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 3,
+    "fields": {
+      "name": "Crepe",
+      "price": "7.99",
+      "description": "Thin pancake filled with your choice of sweet or savory ingredients",
+      "image": "menu_items/crepe.jpg",
+      "category": 3,
+      "is_available": true,
+      "stock": 30,
+      "calories": 350,
+      "allergens": "Gluten, Dairy, Eggs",
+      "branch": 1
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 4,
+    "fields": {
+      "name": "Pizza",
+      "price": "12.99",
+      "description": "Classic Italian pizza with various toppings",
+      "image": "menu_items/pizza.jpeg",
+      "category": 3,
+      "is_available": true,
+      "stock": 20,
+      "calories": 800,
+      "allergens": "Gluten, Dairy",
+      "branch": 1
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 5,
+    "fields": {
+      "name": "Protein Bar",
+      "price": "3.99",
+      "description": "Nutritious snack bar packed with protein",
+      "image": "menu_items/protein_bar.webp",
+      "category": 4,
+      "is_available": true,
+      "stock": 75,
+      "calories": 200,
+      "allergens": "Nuts, Soy",
+      "branch": 1
+    }
+  }
+]
