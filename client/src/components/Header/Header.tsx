@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { useUser } from '../../UserContext';
+import { useFavorites } from '../../FavoritesContext';
 import { toast } from 'react-toastify';
 import AxiosInstance from "../../utils/AxiosInstance";
 import ChatRoom from '../Chat/ChatRoom';
 import styles from './header.module.css';
-import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
+import { FaShoppingCart, FaHeart } from 'react-icons/fa';
 
 const Header: React.FC = () => {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
   const { user, setUser } = useUser();
+  const { favorites } = useFavorites();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [gradientAngle, setGradientAngle] = useState(135);
 
@@ -45,7 +47,7 @@ const Header: React.FC = () => {
     background: `linear-gradient(${gradientAngle}deg, #f11d71 0%, #85122c 100%)`,
   };
 
-  return (
+   return (
     <header className={styles.header} style={headerStyle}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
@@ -68,8 +70,15 @@ const Header: React.FC = () => {
                   <li><button onClick={handleLogout}>Log Out</button></li>
                 </ul>
               </div>
+              <Link to="/favorites" className={styles.favoritesLink}>
+                <FaHeart />
+                <span>Favorites</span>
+                {favorites.length > 0 && (
+                  <span className={styles.favoriteBadge}>{favorites.length}</span>
+                )}
+              </Link>
               <Link to="/cart" className={styles.cartLink}>
-                <i className="bi bi-cart3"></i>
+                <FaShoppingCart />
                 <span>Cart</span>
                 {cart.totalCount > 0 && (
                   <span className={styles.cartBadge}>{cart.totalCount}</span>

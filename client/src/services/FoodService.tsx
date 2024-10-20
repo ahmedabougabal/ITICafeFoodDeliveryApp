@@ -60,3 +60,20 @@ export const checkAuthStatus = async () => {
         throw error;
     }
 };
+
+export const getFavoriteItems = async (ids: number[]) => {
+    try {
+        const response = await AxiosInstance.post(`${BASE_URL}/api/menu/items-by-ids/`, { ids });
+        console.log('getFavoriteItems - API Response:', response.data);
+
+        if (!Array.isArray(response.data)) {
+            console.error('getFavoriteItems - Invalid data structure:', response.data);
+            throw new Error('Invalid data received from API');
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error('getFavoriteItems - Error fetching favorite items:', error);
+        throw error;
+    }
+};
