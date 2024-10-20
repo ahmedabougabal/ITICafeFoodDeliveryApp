@@ -91,7 +91,7 @@ const Header: React.FC = () => {
     background: `linear-gradient(${gradientAngle}deg, #f11d71 0%, #85122c 100%)`,
   };
 
-  return (
+   return (
     <header className={styles.header} style={headerStyle}>
       <div className={styles.container}>
         <div className={styles.leftSection}>
