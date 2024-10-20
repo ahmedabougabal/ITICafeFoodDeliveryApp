@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Basbosa",
-      "price": "5.99",
+      "price": "60",
       "description": "Traditional Middle Eastern sweet cake made with semolina and soaked in syrup",
       "image": "menu_items/basbosa.jpeg",
       "category": 1,
@@ -20,7 +20,7 @@
     "pk": 2,
     "fields": {
       "name": "Coffee",
-      "price": "2.99",
+      "price": "50",
       "description": "Freshly brewed aromatic coffee",
       "image": "menu_items/coffe.jpg",
       "category": 2,
@@ -36,7 +36,7 @@
     "pk": 3,
     "fields": {
       "name": "Crepe",
-      "price": "7.99",
+      "price": "40",
       "description": "Thin pancake filled with your choice of sweet or savory ingredients",
       "image": "menu_items/crepe.jpg",
       "category": 3,
@@ -52,7 +52,7 @@
     "pk": 4,
     "fields": {
       "name": "Pizza",
-      "price": "12.99",
+      "price": "120",
       "description": "Classic Italian pizza with various toppings",
       "image": "menu_items/pizza.jpeg",
       "category": 3,
@@ -68,7 +68,7 @@
     "pk": 5,
     "fields": {
       "name": "Protein Bar",
-      "price": "3.99",
+      "price": "70",
       "description": "Nutritious snack bar packed with protein",
       "image": "menu_items/protein_bar.webp",
       "category": 4,
@@ -77,6 +77,54 @@
       "calories": 200,
       "allergens": "Nuts, Soy",
       "branch": 1
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 6,
+    "fields": {
+      "name": "Burger",
+      "price": "150",
+      "description": "Juicy beef burger with lettuce, tomato, and cheese",
+      "image": "menu_items/burger.jpg",
+      "category": 3,
+      "is_available": true,
+      "stock": 40,
+      "calories": 600,
+      "allergens": "Gluten, Dairy",
+      "branch": 2
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 7,
+    "fields": {
+      "name": "Chicken Supreme",
+      "price": "90",
+      "description": "Grilled chicken breast topped with garlic butter and herbs",
+      "image": "menu_items/chickenSupreme.jpg",
+      "category": 3,
+      "is_available": true,
+      "stock": 35,
+      "calories": 450,
+      "allergens": "Gluten, Dairy",
+      "branch": 2
+    }
+  },
+  {
+    "model": "menu.menuitem",
+    "pk": 8,
+    "fields": {
+      "name": "Omelette",
+      "price": "25",
+      "description": "Fluffy omelette filled with cheese, vegetables, and ham",
+      "image": "menu_items/omelete.jpg",
+      "category": 3,
+      "is_available": true,
+      "stock": 50,
+      "calories": 300,
+      "allergens": "Dairy, Eggs",
+      "branch": 2
     }
   }
 ]
