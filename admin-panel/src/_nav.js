@@ -8,6 +8,9 @@ import {
   cilCart,
 } from '@coreui/icons'
 import { CNavItem } from '@coreui/react'
+import { useTranslation } from 'react-i18next'
+
+
 
 const _nav = [
   {

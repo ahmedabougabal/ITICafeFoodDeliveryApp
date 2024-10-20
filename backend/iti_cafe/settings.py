@@ -26,6 +26,7 @@ DEBUG = env('DEBUG')
 
 # Application definition
 INSTALLED_APPS = [
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -218,12 +219,12 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins during development
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React dev server
-    "http://localhost:3000",  # Admin panel
-    "http://127.0.0.1:5173",  # React dev server (alternative URL)
-    "http://127.0.0.1:3000",  # Admin panel (alternative URL)
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",  # React dev server
+#     "http://localhost:3000",  # Admin panel
+#     "http://127.0.0.1:5173",  # React dev server (alternative URL)
+#     "http://127.0.0.1:3000",  # Admin panel (alternative URL)
+# ]
 
 CORS_ALLOW_CREDENTIALS = True
 
