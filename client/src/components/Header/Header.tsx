@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
 import { useUser } from '../../UserContext';
 import { toast } from 'react-toastify';
-import AxiosInstance from "../../utils/AxiosInstance";
+import AxiosInstance from '../../utils/AxiosInstance';
 import ChatRoom from '../Chat/ChatRoom';
 import styles from './header.module.css';
 import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
@@ -12,18 +12,59 @@ const Header: React.FC = () => {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
   const { user, setUser } = useUser();
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [gradientAngle, setGradientAngle] = useState(135);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState<number>(0); // Notification counter
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setGradientAngle((prevAngle) => (prevAngle + 1) % 360);
-    }, 50);
-
-    return () => clearInterval(intervalId);
+    // Load unread count from local storage on mount
+    const storedUnreadCount = localStorage.getItem('unreadCount');
+    if (storedUnreadCount) {
+      setUnreadCount(Number(storedUnreadCount));
+    }
   }, []);
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  useEffect(() => {
+    if (user) {
+      const notificationRoomName = `${user.email}_admin@gmail.com`;
+      const wsNotification = new WebSocket(`ws://localhost:8000/ws/rooms/${notificationRoomName}/`);
+
+      wsNotification.onopen = () => {
+        console.log('WebSocket connection opened.');
+      };
+
+      wsNotification.onmessage = (event) => {
+        // Increase the unread count when a new message is received
+        const data = JSON.parse(event.data)
+        if(data.sender === 'admin@gmail.com'){
+          setUnreadCount((prevUnreadCount) => {
+            const updatedUnreadCount = prevUnreadCount + 1;
+            localStorage.setItem('unreadCount', updatedUnreadCount.toString()); // Persist in local storage
+            return updatedUnreadCount;
+          });
+        }  
+      };
+
+      wsNotification.onclose = () => {
+        console.log('WebSocket connection closed.');
+      };
+
+      return () => {
+        wsNotification.close();
+      };
+    }
+  }, [user]);
+
+  // Function to toggle chat window and clear notification if chat is opened
+  const toggleChat = () => {
+    setIsChatOpen((prev) => !prev);
+
+    if (!isChatOpen) {
+      // Clear unread count when chat is opened
+      setUnreadCount(0);
+      localStorage.removeItem('unreadCount'); // Optionally remove from local storage
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -35,9 +76,9 @@ const Header: React.FC = () => {
       setUser(null);
       clearCart();
       navigate('/login');
-      toast.warn("Logout successful");
+      toast.warn('Logout successful');
     } catch (error) {
-      toast.error("Logout failed.");
+      toast.error('Logout failed.');
     }
   };
 
@@ -78,6 +119,11 @@ const Header: React.FC = () => {
               <button onClick={toggleChat} className={styles.chatButton}>
                 <i className="bi bi-chat-dots"></i>
                 <span>Chat</span>
+                {unreadCount > 0 && !isChatOpen && (
+                  <span className={styles.notificationBadge}>
+                    {unreadCount} New Messages
+                  </span>
+                )}
               </button>
             </>
           ) : (
