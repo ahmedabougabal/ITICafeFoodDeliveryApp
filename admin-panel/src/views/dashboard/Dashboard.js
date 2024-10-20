@@ -15,12 +15,14 @@ import {
   CButton,
   CButtonGroup,
 } from '@coreui/react';
+import { useTranslation } from 'react-i18next';
 
 const Dashboard = () => {
   const [salesStats, setSalesStats] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [timeRange, setTimeRange] = useState('30days');
+  const {t}=useTranslation()
 
   useEffect(() => {
     fetchSalesStats(timeRange);
@@ -76,7 +78,7 @@ const Dashboard = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>;
   }
 
   if (error) {
@@ -84,7 +86,7 @@ const Dashboard = () => {
   }
 
   if (!salesStats) {
-    return <div>No data available</div>;
+    return <div>{t("nodata")}</div>;
   }
 
    // Prepare chart data
@@ -165,20 +167,20 @@ const Dashboard = () => {
           <CRow>
             <CCol sm={5}>
               <h4 id="traffic" className="card-title mb-0">
-                Sales Statistics
+                {t("sales_statistics")}
               </h4>
               <div className="small text-body-secondary">{salesStats.date_range}</div>
             </CCol>
             <CCol sm={7} className="d-none d-md-block">
               <CButtonGroup className="float-end">
                 <CButton color="primary" variant="outline" active={timeRange === 'today'} onClick={() => setTimeRange('today')}>
-                  Today
+                  {t("today")}
                 </CButton>
                 <CButton color="primary" variant="outline" active={timeRange === '7days'} onClick={() => setTimeRange('7days')}>
-                  Last 7 Days
+                  {t("last_7_days")}
                 </CButton>
                 <CButton color="primary" variant="outline" active={timeRange === '30days'} onClick={() => setTimeRange('30days')}>
-                  Last 30 Days
+                  {t("last_30_days")}
                 </CButton>
               </CButtonGroup>
             </CCol>
@@ -195,12 +197,12 @@ const Dashboard = () => {
         <CCol xs={12} md={6} xl={6}>
           <CCard className="mb-4">
             <CCardBody>
-              <h4>Most Bought Items</h4>
+              <h4>{t("most_bought_items")}</h4>
               <CTable>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell>Item</CTableHeaderCell>
-                    <CTableHeaderCell>Quantity</CTableHeaderCell>
+                    <CTableHeaderCell>{t("item")}</CTableHeaderCell>
+                    <CTableHeaderCell>{t("quantity")}</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -219,12 +221,12 @@ const Dashboard = () => {
         <CCol xs={12} md={6} xl={6}>
           <CCard className="mb-4">
             <CCardBody>
-              <h4>Top Customers</h4>
+              <h4>{t("top_customers")}</h4>
               <CTable>
                 <CTableHead>
                   <CTableRow>
-                    <CTableHeaderCell>Customer</CTableHeaderCell>
-                    <CTableHeaderCell>Total Spent</CTableHeaderCell>
+                    <CTableHeaderCell>{t("customer")}</CTableHeaderCell>
+                    <CTableHeaderCell>{t("total_spent")}</CTableHeaderCell>
                   </CTableRow>
                 </CTableHead>
                 <CTableBody>
@@ -245,7 +247,7 @@ const Dashboard = () => {
         <CCol xs={12} md={6} xl={6}>
           <CCard className="mb-4">
             <CCardBody>
-              <h4>Total Sales (Last 30 Days)</h4>
+              <h4>{t("total_sales_last_30_days")}</h4>
               <p className="fs-2">{formatCurrency(salesStats.total_sales)}</p>
             </CCardBody>
           </CCard>
@@ -254,7 +256,7 @@ const Dashboard = () => {
         <CCol xs={12} md={6} xl={6}>
           <CCard className="mb-4">
             <CCardBody>
-              <h4>Average Order Value</h4>
+              <h4>{t("average_order_value")}</h4>
               <p className="fs-2">{formatCurrency(salesStats.avg_order_value)}</p>
             </CCardBody>
           </CCard>

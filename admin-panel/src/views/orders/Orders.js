@@ -7,6 +7,7 @@ import PendingOrderCard from '../../components/OrderComponent/PendingOrderCard';
 import { completeOrder, fetchActiveOrders, fetchCompletedOrders, payOrder } from '../../slices/orderSlice';
 import PreparingOrderCard from '../../components/OrderComponent/PreparingOrderCard';
 import CompletedOrderCard from '../../components/OrderComponent/CompletedOrderCard';
+import { useTranslation } from 'react-i18next';
 const Alert = React.forwardRef((props, ref) => (
   <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
 ));
@@ -24,6 +25,8 @@ const Orders = () => {
   // const [preparingOrders, setPreparingOrders] = useState([]);
   // const [completedOrders, setCompletedOrders] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const {t}=useTranslation()
 
   // Fetch pending orders
   const fetchOrders = () => {
@@ -108,7 +111,7 @@ const Orders = () => {
   return (
     <div>
       <Typography variant="h4" gutterBottom align="center" sx={{ color: '#1976d2' }}>
-        Orders Management
+        {t("orders_management")}
       </Typography>
       <Tabs
         value={activeTab}
@@ -117,13 +120,13 @@ const Orders = () => {
         textColor="primary"
         centered
       >
-        <Tab label="Pending" value="pending" />
-        <Tab label="Preparing" value="preparing" />
-        <Tab label="Completed" value="completed" />
+        <Tab label={t("pending")} value="pending" />
+        <Tab label={t("preparing")} value="preparing" />
+        <Tab label={t("completed")} value="completed" />
       </Tabs>
 
       <Button variant="contained" color="primary" onClick={fetchOrders} sx={{ mt: 2, mb: 2 }}>
-        Refresh Orders
+        {t("refresh_orders")}
       </Button>
 
       {activeTab === 'pending' && (
@@ -142,13 +145,13 @@ const Orders = () => {
               </Grid>
                <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
                <Alert onClose={() => setSnackbarOpen(false)} severity="error" sx={{ width: '100%' }}>
-                 Please enter a preparation time!
+                 {t("please_enter_preparation_time")}
                </Alert>
              </Snackbar>
             </>
             ))
           ) : (
-            <Typography>No pending orders at the moment.</Typography>
+            <Typography>{t("no_pending_orders_at_the_moment")}</Typography>
           )}
         </Grid>
       )}
@@ -163,7 +166,7 @@ const Orders = () => {
               </Grid>
             ))
           ) : (
-            <Typography>No orders are currently being prepared.</Typography>
+            <Typography>{t("no_orders_are_currently_being_prepared")}</Typography>
           )}
         </Grid>
       )}
@@ -177,7 +180,7 @@ const Orders = () => {
               </Grid>
             ))
           ) : (
-            <Typography>No completed orders yet.</Typography>
+            <Typography>{t("no_completed_orders_yet")}</Typography>
           )}
         </Grid>
          
