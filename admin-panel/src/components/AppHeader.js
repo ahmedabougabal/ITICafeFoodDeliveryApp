@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import classes from './AppHeader.module.css'
 import AdminChat from './AdminChat/AdminChat'
+
 import {
   CContainer,
   CDropdown,
@@ -31,10 +32,13 @@ import {
 
 import { AppBreadcrumb } from './index'
 import { AppHeaderDropdown } from './header/index'
+import { useTranslation } from 'react-i18next'
 
 
 const AppHeader = () => {
   // Hooks must be inside the functional component
+  
+  const { i18n, t } = useTranslation();
   const [state, setState] = useState([])
   const [loggedInUsers, setLoggedInUsers] = useState([])
   const [selectedUserEmail, setSelectedUserEmail] = useState(null); // State for selected user email
@@ -45,6 +49,11 @@ const AppHeader = () => {
    const toggleDropdown = () => {
     setIsDropdownVisible(!isDropdownVisible);
     setIsAdminChatOpen(false)
+  };
+   // Language change handler
+   const handleLanguageChange = (event) => {
+    const selectedLang = event.target.value;
+    i18n.changeLanguage(selectedLang);
   };
   
   const headerRef = useRef()
@@ -118,14 +127,26 @@ const handleAdminClick = (email) => {
         <CHeaderNav className="d-none d-md-flex">
           <CNavItem>
             <CNavLink to="/dashboard" as={NavLink}>
-              Dashboard
+            {t('dashboard')}
             </CNavLink>
           </CNavItem>
         </CHeaderNav>
         <CHeaderNav className="ms-auto">
         <CNavItem>
+        <select defaultValue={"ar"} onChange={handleLanguageChange}>
+        
+          <option key='ar' value="ar">
+            ar
+          </option>
+          <option key='en' value="en">
+          en
+        </option>
+       
+      </select>
+        </CNavItem>
+        <CNavItem>
             <CButton className={classes.chatButton} onClick={toggleDropdown}>
-              Chat
+              {t("chat")}
             </CButton>
             {isDropdownVisible && (
               <div className={classes.loggedInUsers}>
