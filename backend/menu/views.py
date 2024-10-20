@@ -7,6 +7,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django.utils import timezone
 from django.db.models import Count
 from django.core.exceptions import ValidationError
+from rest_framework.views import APIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from core.models import Branch
 from .models import MenuItem, Category
 from .serializers import (
@@ -188,3 +191,9 @@ class MenuItemViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
 
+class MenuItemsByIdsView(APIView):
+    def post(self, request):
+        ids = request.data.get('ids', [])
+        menu_items = MenuItem.objects.filter(id__in=ids)
+        serializer = MenuItemSerializer(menu_items, many=True)
+        return Response(serializer.data)
