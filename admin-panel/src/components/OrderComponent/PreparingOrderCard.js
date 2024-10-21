@@ -2,16 +2,20 @@ import { Button, Card, CardContent, CardHeader, List, ListItem } from '@mui/mate
 import DoneIcon from '@mui/icons-material/Done';
 import CountDown from 'ant-design-pro/lib/CountDown';
 
-import React from 'react'
+
+
+import React, { useState } from 'react'
 import Price from '../Price/Price';
 import { useTranslation } from 'react-i18next';
+import CountdownTimer from '../CountDownTimer';
 
 export default function PreparingOrderCard({order,handleCompleteOrder}) {
   const {t}= useTranslation()
+  const [isTimerEnded, setIsTimerEnded] = useState(false);
 
 
   const handleTimerEnd=()=>{
-
+    setIsTimerEnded(true)
   }
   
 // Parse the given timestamp into a Date object
@@ -29,6 +33,8 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                       <ListItem><strong>{t("created_at")}</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
                       <ListItem><strong>{t("branch")}</strong> {order.branch_name}</ListItem>
                       <ListItem><strong>{t("user")}</strong> {order.user}</ListItem>
+                      <ListItem><strong>{isTimerEnded?`${t("time_delayed")}`:`${t("time_left")}`}</strong> <CountdownTimer targetTime={targetTime} onComplete={handleTimerEnd} />
+                      </ListItem>
                       <ListItem>
                         <strong>{t("items")}</strong>
                         <ul>
@@ -49,7 +55,7 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                     >
                       {t("mark_as_completed")}
                     </Button>
-                    <CountDown style={{ fontSize: 20 }} target={targetTime} onEnd={handleTimerEnd}/>
+                    
                   </CardContent>
                 </Card>
   )

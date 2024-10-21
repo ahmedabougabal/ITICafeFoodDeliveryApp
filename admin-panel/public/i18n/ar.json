@@ -43,7 +43,11 @@
     "preparation_time_minutes":"وقت التحضير بالدقائق",
     "mark_as_completed":"التعيين ك منتهي",
     "orders":"الطلبات",
-    "home":"الرئيسية"
+    "home":"الرئيسية",
+    "time_left":"الوقت المتبقي:",
+    "time_delayed":"الوقت المتأخر"
+
+
 
 
 

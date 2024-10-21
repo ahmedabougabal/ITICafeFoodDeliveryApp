@@ -43,7 +43,9 @@
     "preparation_time_minutes":"Preparation Time (minutes)",
     "mark_as_completed":"Mark as Completed",
     "orders":"orders",
-    "home":"Home"
+    "home":"Home",
+    "time_left":"Time Left:",
+    "time_delayed":"Time Delayed"
 
 
 
