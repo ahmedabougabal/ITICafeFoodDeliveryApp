@@ -4,7 +4,7 @@ import { useCart } from '../../hooks/useCart';
 import { useUser } from '../../UserContext';
 import { useFavorites } from '../../FavoritesContext';
 import { toast } from 'react-toastify';
-import AxiosInstance from "../../utils/AxiosInstance";
+import AxiosInstance from '../../utils/AxiosInstance';
 import ChatRoom from '../Chat/ChatRoom';
 import styles from './header.module.css';
 import { FaShoppingCart, FaHeart } from 'react-icons/fa';
@@ -16,6 +16,7 @@ const Header: React.FC = () => {
   const { favorites } = useFavorites();
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [gradientAngle, setGradientAngle] = useState(135);
+  const [unreadCount, setUnreadCount] = useState<number>(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -25,7 +26,50 @@ const Header: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const toggleChat = () => setIsChatOpen(!isChatOpen);
+  useEffect(() => {
+    const storedUnreadCount = localStorage.getItem('unreadCount');
+    if (storedUnreadCount) {
+      setUnreadCount(Number(storedUnreadCount));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      const notificationRoomName = `${user.email}_admin@gmail.com`;
+      const wsNotification = new WebSocket(`ws://localhost:8000/ws/rooms/${notificationRoomName}/`);
+
+      wsNotification.onopen = () => {
+        console.log('WebSocket connection opened.');
+      };
+
+      wsNotification.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if(data.sender === 'admin@gmail.com') {
+          setUnreadCount((prevUnreadCount) => {
+            const updatedUnreadCount = prevUnreadCount + 1;
+            localStorage.setItem('unreadCount', updatedUnreadCount.toString());
+            return updatedUnreadCount;
+          });
+        }  
+      };
+
+      wsNotification.onclose = () => {
+        console.log('WebSocket connection closed.');
+      };
+
+      return () => {
+        wsNotification.close();
+      };
+    }
+  }, [user]);
+
+  const toggleChat = () => {
+    setIsChatOpen((prev) => !prev);
+    if (!isChatOpen) {
+      setUnreadCount(0);
+      localStorage.removeItem('unreadCount');
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -37,9 +81,9 @@ const Header: React.FC = () => {
       setUser(null);
       clearCart();
       navigate('/login');
-      toast.warn("Logout successful");
+      toast.warn('Logout successful');
     } catch (error) {
-      toast.error("Logout failed.");
+      toast.error('Logout failed.');
     }
   };
 
@@ -87,6 +131,11 @@ const Header: React.FC = () => {
               <button onClick={toggleChat} className={styles.chatButton}>
                 <i className="bi bi-chat-dots"></i>
                 <span>Chat</span>
+                {unreadCount > 0 && !isChatOpen && (
+                  <span className={styles.notificationBadge}>
+                    {unreadCount} New Messages
+                  </span>
+                )}
               </button>
             </>
           ) : (
