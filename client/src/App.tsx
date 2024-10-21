@@ -20,6 +20,7 @@ import HomePage from './pages/Home/HomePage.tsx';
 import { CartPage } from "./pages/Cart/CartPage.tsx";
 import ChatRoom from './components/Chat/ChatRoom.tsx';
 import OrderSuccess from './pages/OrderSuccessPage.tsx';
+import Notification from './pages/Notifications/Notifications.tsx';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -57,7 +58,7 @@ function AppContent() {
       {authMessage && <AuthMessage message={authMessage.message} type={authMessage.type} />}
       <div className="flex-grow">
         <Routes>
-        <Route path="/*" element={<AppRoutes />} />
+          <Route path="/*" element={<AppRoutes />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/login' element={<Login onLoginSuccess={handleLogin} />} />
@@ -70,6 +71,7 @@ function AppContent() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/chat" element={<ChatRoom />} />
           <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/notifications" element={<Notification />} />
         </Routes>
       </div>
       <Footer />

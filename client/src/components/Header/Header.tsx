@@ -20,6 +20,16 @@ const Header = () => {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [gradientAngle, setGradientAngle] = useState(135);
+interface HeaderProps {
+  notificationCount: number; // Add notification count prop
+}
+
+const Header: React.FC<HeaderProps> = ({ notificationCount }) => {
+  const { cart, clearCart } = useCart();
+  const navigate = useNavigate();
+  const { user, setUser } = useUser();
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [gradientAngle, setGradientAngle] = useState(135);
 
     // Load unread count from localStorage when the page loads
     useEffect(() => {
@@ -277,6 +287,61 @@ const Header = () => {
             )}
         </header>
     );
+  return (
+    <header className={styles.header} style={headerStyle}>
+      <div className={styles.container}>
+        <div className={styles.leftSection}>
+          <Link to="/" className={styles.logo}>
+            <FaShoppingCart className={styles.logoIcon} />
+            <span>ITIFoods</span>
+          </Link>
+        </div>
+        <nav className={styles.rightSection}>
+          {user ? (
+            <>
+              <div className={styles.userMenu}>
+                <button className={styles.userButton}>
+                  {user.full_name}
+                  <i className="bi bi-chevron-down"></i>
+                </button>
+                <ul className={styles.dropdown}>
+                  <li><Link to="/profile">Profile</Link></li>
+                  <li><Link to="/active-orders">Orders</Link></li>
+                  <li><button onClick={handleLogout}>Log Out</button></li>
+                </ul>
+              </div>
+              <Link to="/cart" className={styles.cartLink}>
+                <i className="bi bi-cart3"></i>
+                <span>Cart</span>
+                {cart.totalCount > 0 && (
+                  <span className={styles.cartBadge}>{cart.totalCount}</span>
+                )}
+              </Link>
+              <button onClick={toggleChat} className={styles.chatButton}>
+                <i className="bi bi-chat-dots"></i>
+                <span>Chat</span>
+              </button>
+              <Link to="/notifications" className={styles.notificationLink}>
+                <i className="bi bi-bell notification-icon"></i>
+                {notificationCount > 0 && (
+                  <span className={styles.notificationBadge}>{notificationCount}</span>
+                )}
+                Notifications
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={styles.authLink}>Login</Link>
+              <Link to="/signup" className={styles.authLink}>Register</Link>
+            </>
+          )}
+        </nav>
+      </div>
+      {isChatOpen && user && (
+        <ChatRoom onClose={toggleChat} userEmail={user.email} />
+      )}
+    </header>
+  );
 };
 
 export default Header;

@@ -4,6 +4,7 @@ from menu.models import MenuItem
 from .models import Order, OrderItem
 from menu.serializers import MenuItemSerializer
 from decimal import Decimal
+from .models import Notification
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -110,3 +111,8 @@ class OrderUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ['status', 'preparation_time']
+        
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['id', 'message', 'created_at']
