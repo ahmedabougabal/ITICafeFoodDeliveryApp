@@ -14,19 +14,12 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const { user, setUser } = useUser();
   const { favorites } = useFavorites();
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [gradientAngle, setGradientAngle] = useState(135);
-  const [unreadCount, setUnreadCount] = useState<number>(0);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState<number>(0); // Notification counter
 
   useEffect(() => {
     // Load unread count from local storage on mount
-    const storedUnreadCount = localStorage.getItem('unreadCount');
-    if (storedUnreadCount) {
-      setUnreadCount(Number(storedUnreadCount));
-    }
-  }, []);
-
-  useEffect(() => {
     const storedUnreadCount = localStorage.getItem('unreadCount');
     if (storedUnreadCount) {
       setUnreadCount(Number(storedUnreadCount));
@@ -43,11 +36,13 @@ const Header: React.FC = () => {
       };
 
       wsNotification.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        if(data.sender === 'admin@gmail.com') {
+
+        // Increase the unread count when a new message is received
+        const data = JSON.parse(event.data)
+        if(data.sender === 'admin@gmail.com'){
           setUnreadCount((prevUnreadCount) => {
             const updatedUnreadCount = prevUnreadCount + 1;
-            localStorage.setItem('unreadCount', updatedUnreadCount.toString());
+            localStorage.setItem('unreadCount', updatedUnreadCount.toString()); // Persist in local storage
             return updatedUnreadCount;
           });
         }  
@@ -63,11 +58,15 @@ const Header: React.FC = () => {
     }
   }, [user]);
 
+
+  // Function to toggle chat window and clear notification if chat is opened
   const toggleChat = () => {
     setIsChatOpen((prev) => !prev);
+
     if (!isChatOpen) {
+      // Clear unread count when chat is opened
       setUnreadCount(0);
-      localStorage.removeItem('unreadCount');
+      localStorage.removeItem('unreadCount'); // Optionally remove from local storage
     }
   };
 
