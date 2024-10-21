@@ -19,11 +19,11 @@ const Header: React.FC = () => {
   const [unreadCount, setUnreadCount] = useState<number>(0);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setGradientAngle((prevAngle) => (prevAngle + 1) % 360);
-    }, 50);
-
-    return () => clearInterval(intervalId);
+    // Load unread count from local storage on mount
+    const storedUnreadCount = localStorage.getItem('unreadCount');
+    if (storedUnreadCount) {
+      setUnreadCount(Number(storedUnreadCount));
+    }
   }, []);
 
   useEffect(() => {
