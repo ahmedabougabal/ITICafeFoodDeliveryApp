@@ -69,7 +69,7 @@ const FavoritesPage: React.FC = () => {
                 <Card className="favorite-item hover:shadow-lg transition-all duration-300">
                   <div className="relative">
                     <Card.Image
-                      src={item.image ? `/media/${item.image}` : '/api/placeholder/400/300'}
+                      src={item.image ? `http://localhost:8000${item.image}` : '/api/placeholder/400/300'}
                       alt={item.name}
                       className="h-48 object-cover"
                     />
