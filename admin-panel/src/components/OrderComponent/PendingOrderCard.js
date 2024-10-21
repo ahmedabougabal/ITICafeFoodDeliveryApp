@@ -3,10 +3,12 @@ import { Card, CardContent, CardHeader, Button, TextField, List, ListItem, Typog
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Price from '../Price/Price';
+import { useTranslation } from 'react-i18next';
 
 const OrderCard = ({ order, onAccept, onReject }) => {
   const [preparationTime, setPreparationTime] = useState('');
   const [error, setError] = useState('');
+  const {t}= useTranslation()
 
   const handleAccept = () => {
     const prepTime = parseInt(preparationTime, 10);
@@ -30,16 +32,16 @@ const OrderCard = ({ order, onAccept, onReject }) => {
 
   return (
     <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-      <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
+      <CardHeader title={t("order_no") +`${order.id}`} subheader={t("status") +`: ${t(order.status)}`} />
       <CardContent>
         <List>
-          <ListItem><strong>Total Price:</strong><Price price={`${order.total_price}`}/> </ListItem>
-          <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-          <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-          <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-          <ListItem><strong>User:</strong> {order.user}</ListItem>
+          <ListItem><strong>{t("total_price")}</strong><Price price={`${order.total_price}`}/> </ListItem>
+          <ListItem><strong>{t("payment_status")}</strong> {t(order.payment_status)}</ListItem>
+          <ListItem><strong>{t("created_at")}</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
+          <ListItem><strong>{t("branch")}</strong> {order.branch_name}</ListItem>
+          <ListItem><strong>{t("user")}</strong> {order.user}</ListItem>
           <ListItem>
-            <strong>Items:</strong>
+            <strong>{t("items")}</strong>
             <ul>
               {order.items && order.items.map((item, index) => (
                 <li key={index}>
@@ -50,7 +52,7 @@ const OrderCard = ({ order, onAccept, onReject }) => {
           </ListItem>
         </List>
         <TextField
-          label="Preparation Time (minutes)"
+          label={t("preparation_time_minutes")}
           type="number"
           value={preparationTime}
           onChange={handlePreparationTimeChange}
@@ -68,7 +70,7 @@ const OrderCard = ({ order, onAccept, onReject }) => {
           sx={{ mt: 2, mr: 2 }}
           disabled={!preparationTime || parseInt(preparationTime, 10) <= 0}
         >
-          Accept
+          {t("accept")}
         </Button>
         <Button
           variant="contained"
@@ -77,7 +79,7 @@ const OrderCard = ({ order, onAccept, onReject }) => {
           onClick={() => onReject(order.id)}
           sx={{ mt: 2 }}
         >
-          Reject
+          {t("reject")}
         </Button>
       </CardContent>
     </Card>

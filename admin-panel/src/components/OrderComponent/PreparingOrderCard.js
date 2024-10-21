@@ -4,8 +4,11 @@ import CountDown from 'ant-design-pro/lib/CountDown';
 
 import React from 'react'
 import Price from '../Price/Price';
+import { useTranslation } from 'react-i18next';
 
 export default function PreparingOrderCard({order,handleCompleteOrder}) {
+  const {t}= useTranslation()
+
 
   const handleTimerEnd=()=>{
 
@@ -18,16 +21,16 @@ const initialTime = new Date(order.updated_at);
 const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 * 1000);
   return (
     <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
+                  <CardHeader title={t("order_no") +`${order.id}`} subheader={t("status") +`: ${t(order.status)}`} />
                   <CardContent>
                     <List>
-                      <ListItem><strong>Total Price:</strong> <Price price={`${order.total_price}`}/></ListItem>
-                      <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-                      <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-                      <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-                      <ListItem><strong>User:</strong> {order.user}</ListItem>
+                      <ListItem><strong>{t("total_price")}</strong> <Price price={`${order.total_price}`}/></ListItem>
+                      <ListItem><strong>{t("payment_status")}</strong> {t(order.payment_status)}</ListItem>
+                      <ListItem><strong>{t("created_at")}</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
+                      <ListItem><strong>{t("branch")}</strong> {order.branch_name}</ListItem>
+                      <ListItem><strong>{t("user")}</strong> {order.user}</ListItem>
                       <ListItem>
-                        <strong>Items:</strong>
+                        <strong>{t("items")}</strong>
                         <ul>
                           {order.items && order.items.map((item, index) => (
                             <li key={index}>
@@ -44,7 +47,7 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                       onClick={() => handleCompleteOrder(order.id)}
                       sx={{ mt: 2 }}
                     >
-                      Mark as Completed
+                      {t("mark_as_completed")}
                     </Button>
                     <CountDown style={{ fontSize: 20 }} target={targetTime} onEnd={handleTimerEnd}/>
                   </CardContent>

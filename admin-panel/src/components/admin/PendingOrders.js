@@ -99,14 +99,14 @@ const PendingOrders = () => {
                             onClick={() => handleAcceptOrder(order.id)}
                             className="me-2 mt-2"
                           >
-                            Accept
+                            {t("accept")}
                           </CButton>
                           <CButton
                             color="danger"
                             onClick={() => handleRejectOrder(order.id)}
                             className="mt-2"
                           >
-                            Reject
+                            {t("reject")}
                           </CButton>
                         </CForm>
                       </CCardBody>
