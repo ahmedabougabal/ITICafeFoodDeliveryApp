@@ -1,6 +1,7 @@
 import { Button, Card, CardContent, CardHeader , List, ListItem } from '@mui/material'
 import { CIcon } from '@coreui/icons-react';
 import { cibCcVisa,cibCashapp,cibCcPaypal } from '@coreui/icons';
+import Price from '../Price/Price';
 
 import DoneIcon from '@mui/icons-material/Done';
 
@@ -13,7 +14,7 @@ export default function CompletedOrderCard({order,handlePayOrder,refresh}) {
                   <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
                   <CardContent>
                     <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
+                      <ListItem><strong>Total Price:</strong> <Price price={`${order.total_price}`}/></ListItem>
                       <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
                       <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
                       <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
@@ -23,7 +24,7 @@ export default function CompletedOrderCard({order,handlePayOrder,refresh}) {
                         <ul>
                           {order.items && order.items.map((item, index) => (
                             <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
+                              {item.item.name} - Quantity: {item.quantity}, Price: <Price price={`${item.item.price}`}/>
                             </li>
                           ))}
                         </ul>

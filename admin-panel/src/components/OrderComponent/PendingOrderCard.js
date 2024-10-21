@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, Button, TextField, List, ListItem, Typography } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Price from '../Price/Price';
 
 const OrderCard = ({ order, onAccept, onReject }) => {
   const [preparationTime, setPreparationTime] = useState('');
@@ -32,7 +33,7 @@ const OrderCard = ({ order, onAccept, onReject }) => {
       <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
       <CardContent>
         <List>
-          <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
+          <ListItem><strong>Total Price:</strong><Price price={`${order.total_price}`}/> </ListItem>
           <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
           <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
           <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>

@@ -3,8 +3,13 @@ import DoneIcon from '@mui/icons-material/Done';
 import CountDown from 'ant-design-pro/lib/CountDown';
 
 import React from 'react'
+import Price from '../Price/Price';
 
 export default function PreparingOrderCard({order,handleCompleteOrder}) {
+
+  const handleTimerEnd=()=>{
+
+  }
   
 // Parse the given timestamp into a Date object
 const initialTime = new Date(order.updated_at);
@@ -16,7 +21,7 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                   <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
                   <CardContent>
                     <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
+                      <ListItem><strong>Total Price:</strong> <Price price={`${order.total_price}`}/></ListItem>
                       <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
                       <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
                       <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
@@ -26,7 +31,7 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                         <ul>
                           {order.items && order.items.map((item, index) => (
                             <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
+                              {item.item.name} - Quantity: {item.quantity}, Price: <Price price={`${item.item.price}`} />
                             </li>
                           ))}
                         </ul>
@@ -41,7 +46,7 @@ const targetTime = new Date(initialTime.getTime() + order.preparation_time * 60 
                     >
                       Mark as Completed
                     </Button>
-                    <CountDown style={{ fontSize: 20 }} target={targetTime} />
+                    <CountDown style={{ fontSize: 20 }} target={targetTime} onEnd={handleTimerEnd}/>
                   </CardContent>
                 </Card>
   )

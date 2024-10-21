@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { createOrder } from '../../slices/orderSlice';
-
+import Price from '../../components/Price/Price'
 const CheckoutComponent = ({ cart }) => {
   const dispatch = useDispatch()
 
@@ -30,7 +30,7 @@ const CheckoutComponent = ({ cart }) => {
     <div>
       <h2>Checkout</h2>
       {/* Display cart items and total */}
-      <p>Total: ${cart.totalPrice}</p>
+      <p>Total:<Price price={`${cart.totalPrice}`} /> </p>
       <p>Payment Method: Cash on Pickup</p>
       <button onClick={handleCheckout}>Place Order</button>
     </div>
