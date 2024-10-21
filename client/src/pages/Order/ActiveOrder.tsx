@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import orderService from '../../services/orderService';
 import { Card, Container, Row, Col, ListGroup, Image } from 'react-bootstrap';
 import styles from './ActiveOrders.module.css';
+import Price from '../../components/Price/Price';
 
 const ActiveOrders: React.FC = () => {
   const [activeOrders, setActiveOrders] = useState<any[]>([]);
@@ -75,9 +76,9 @@ const ActiveOrders: React.FC = () => {
                             </Col>
                             <Col xs={9}>
                               <p><strong>{itemWrapper.item.name}</strong></p>
-                              <p>Price: ${itemWrapper.item.price}</p>
+                              <p>Price: <Price price={itemWrapper.item.price} /></p>
                               <p>Quantity: {itemWrapper.quantity}</p>
-                              <p>Total: ${(itemWrapper.quantity * parseFloat(itemWrapper.item.price)).toFixed(2)}</p>
+                              <p>Total: <Price price={`${(itemWrapper.quantity * parseFloat(itemWrapper.item.price)).toFixed(2)}`} /></p>
                             </Col>
                           </Row>
                         </ListGroup.Item>
@@ -85,7 +86,7 @@ const ActiveOrders: React.FC = () => {
                     </ListGroup>
 
                     <Card.Text className={styles.cardText}>
-                      <strong>Total Price:</strong> ${parseFloat(order.total_price).toFixed(2)}
+                      <strong>Total Price:</strong> <Price price={`${parseFloat(order.total_price).toFixed(2)}`} />
                     </Card.Text>
                   </Card.Body>
                 </Card>
