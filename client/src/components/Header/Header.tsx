@@ -36,6 +36,7 @@ const Header: React.FC = () => {
       };
 
       wsNotification.onmessage = (event) => {
+
         // Increase the unread count when a new message is received
         const data = JSON.parse(event.data)
         if(data.sender === 'admin@gmail.com'){
@@ -56,6 +57,7 @@ const Header: React.FC = () => {
       };
     }
   }, [user]);
+
 
   // Function to toggle chat window and clear notification if chat is opened
   const toggleChat = () => {
