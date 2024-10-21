@@ -3,6 +3,7 @@ import orderService from '../../services/orderService';
 import { Card, Container, Row, Col, ListGroup, Image } from 'react-bootstrap';
 import styles from './ActiveOrders.module.css';
 import Price from '../../components/Price/Price';
+import ProgressCountDown from '../../components/ProgressCountDown/ProgressCountDown'
 
 const ActiveOrders: React.FC = () => {
   const [activeOrders, setActiveOrders] = useState<any[]>([]);
@@ -27,7 +28,7 @@ const ActiveOrders: React.FC = () => {
     fetchActiveOrders();
 
     // Polling the API every 10 seconds for updates
-    const intervalId = setInterval(fetchActiveOrders, 10000); // 10,000 ms = 10 seconds
+    const intervalId = setInterval(fetchActiveOrders, 120000);
 
     return () => clearInterval(intervalId); // Clear the interval when the component unmounts
   }, []);
@@ -88,6 +89,8 @@ const ActiveOrders: React.FC = () => {
                     <Card.Text className={styles.cardText}>
                       <strong>Total Price:</strong> <Price price={`${parseFloat(order.total_price).toFixed(2)}`} />
                     </Card.Text>
+                    {order.status=="preparing"?<ProgressCountDown initTime={order.created_at} preparation={order.preparation_time} />:<span></span>}
+
                   </Card.Body>
                 </Card>
               </Col>
