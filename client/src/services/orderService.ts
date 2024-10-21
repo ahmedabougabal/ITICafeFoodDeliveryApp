@@ -136,6 +136,17 @@ export const orderService = {
       throw error;
     }
   },
+  getNotifications: async () => {
+    try {
+      console.log('Fetching notifications...');
+      const response = await axiosInstance.get(`${API_URL}notifications/`);
+      console.log('Server response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching notifications:', error.response?.data || error.message);
+      throw error;
+    }
+  },
 };
 
 export default orderService;

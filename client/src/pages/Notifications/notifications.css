@@ -1,0 +1,80 @@
+.header-container {
+    margin-bottom: 20px;
+    /* Space below the header */
+    text-align: center;
+    /* Center align the header text */
+}
+
+.notification-header {
+    font-size: 24px;
+    /* Larger font size */
+    font-weight: bold;
+    /* Bold text */
+    color: #333;
+    /* Darker text color */
+    text-transform: uppercase;
+    /* Uppercase letters for emphasis */
+    letter-spacing: 1px;
+    /* Space between letters */
+    border-bottom: 2px solid #007bff;
+    /* Blue underline for style */
+    padding-bottom: 10px;
+    /* Space between text and underline */
+    margin: 0;
+    /* Remove default margin */
+}
+
+.notification-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.notification-list {
+    display: flex;
+    /* Use flexbox for vertical alignment */
+    flex-direction: column;
+    /* Stack items in a column */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    /* Reset margin for the list */
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    /* Optional: adds a border around each notification */
+    border-radius: 5px;
+    /* Rounded corners for notifications */
+    margin: 5px 0;
+    /* Space between notifications (top and bottom) */
+    background-color: #fff;
+    /* Background color for each notification */
+    transition: background 0.3s;
+}
+
+.notification-item:hover {
+    background-color: #f0f0f0;
+}
+
+.notification-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.loading {
+    color: #007bff;
+}
+
+.error {
+    color: red;
+}
+
+.no-notifications {
+    color: gray;
+    font-style: italic;
+}

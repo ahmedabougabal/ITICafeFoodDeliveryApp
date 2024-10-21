@@ -1,169 +1,222 @@
 .header {
-  padding: 1rem 0;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: background 0.5s ease;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.5s ease;
 }
 
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
 }
 
 .leftSection {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .rightSection {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: #fff;
-  font-size: 1.5rem;
-  font-weight: bold;
-  transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
 }
 
 .logo:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 .logoIcon {
-  width: 40px;
-  height: 40px;
-  margin-right: 0.5rem;
-  animation: spin 10s linear infinite;
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+    animation: spin 10s linear infinite;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .userMenu {
-  position: relative;
-  margin-left: 1rem;
+    position: relative;
+    margin-left: 1rem;
 }
 
 .userButton {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
 }
 
 .userButton:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .userButton i {
-  margin-left: 0.5rem;
+    margin-left: 0.5rem;
 }
 
 .dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  display: none;
-  z-index: 10;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 10;
 }
 
 .userMenu:hover .dropdown {
-  display: block;
+    display: block;
 }
 
 .dropdown li {
-  list-style: none;
+    list-style: none;
 }
 
-.dropdown a, .dropdown button {
-  display: block;
-  padding: 0.5rem 1rem;
-  color: #333;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  width: 100%;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
+.dropdown a,
+.dropdown button {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
-.dropdown a:hover, .dropdown button:hover {
-  background-color: #f0f0f0;
+.dropdown a:hover,
+.dropdown button:hover {
+    background-color: #f0f0f0;
 }
 
-.cartLink, .chatButton, .authLink {
-  color: #fff;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
+.cartLink,
+.chatButton,
+.authLink {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
 }
 
-.cartLink:hover, .chatButton:hover, .authLink:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.cartLink:hover,
+.chatButton:hover,
+.authLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.cartLink i, .chatButton i {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
+.cartLink i,
+.chatButton i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .cartBadge {
-  background-color: #ff4d4d;
-  color: #fff;
-  border-radius: 50%;
-  padding: 0.2rem 0.5rem;
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
+    background-color: #ff4d4d;
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
 }
 
 .chatButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .rightSection {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+    .userMenu,
+    .cartLink,
+    .chatButton,
+    .authLink {
+        margin-bottom: 0.5rem;
+        margin-left: 0;
+    }
+}
 
-  .rightSection {
-    margin-top: 1rem;
-    flex-wrap: wrap;
-  }
 
-  .userMenu, .cartLink, .chatButton, .authLink {
-    margin-bottom: 0.5rem;
-    margin-left: 0;
-  }
+/* header.module.css */
+
+.notificationLink {
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Position relative for badge positioning */
+    color: white;
+    /* Change to desired color */
+    text-decoration: none;
+    /* Remove underline */
+    padding: 10px;
+    /* Add some padding */
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    /* Increase icon size */
+    margin-right: 5px;
+    /* Spacing between icon and text */
+}
+
+.notificationBadge {
+    position: absolute;
+    top: -5px;
+    /* Adjust badge position */
+    right: -10px;
+    /* Adjust badge position */
+    background-color: red;
+    /* Badge color */
+    color: white;
+    /* Badge text color */
+    border-radius: 50%;
+    padding: 4px 8px;
+    /* Padding around the text */
+    font-size: 0.75rem;
+    /* Smaller font size */
+    font-weight: bold;
+    /* Bold text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

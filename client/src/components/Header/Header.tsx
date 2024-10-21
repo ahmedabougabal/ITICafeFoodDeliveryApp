@@ -8,7 +8,11 @@ import ChatRoom from '../Chat/ChatRoom';
 import styles from './header.module.css';
 import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  notificationCount: number; // Add notification count prop
+}
+
+const Header: React.FC<HeaderProps> = ({ notificationCount }) => {
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
   const { user, setUser } = useUser();
@@ -79,6 +83,13 @@ const Header: React.FC = () => {
                 <i className="bi bi-chat-dots"></i>
                 <span>Chat</span>
               </button>
+              <Link to="/notifications" className={styles.notificationLink}>
+                <i className="bi bi-bell notification-icon"></i>
+                {notificationCount > 0 && (
+                  <span className={styles.notificationBadge}>{notificationCount}</span>
+                )}
+                Notifications
+              </Link>
             </>
           ) : (
             <>

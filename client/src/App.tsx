@@ -20,6 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import ActiveOrders from './pages/Order/ActiveOrder.tsx';
+import Notification from './pages/Notifications/Notifications.tsx';
 
 
 function AppContent() {
@@ -60,6 +61,7 @@ function AppContent() {
         <Route path='/forget-password' element={<PasswordResetRequest/>}/>
         <Route path='/password-reset-confirm/:uid/:token' element={<ResetPassword/>}/>
         <Route path="/active-orders" element={<ActiveOrders/>} />
+        <Route path="/notifications" element={<Notification/>} />
       </Routes>
       <Footer/>
     </>

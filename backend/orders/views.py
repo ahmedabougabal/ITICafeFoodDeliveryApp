@@ -7,30 +7,23 @@ from rest_framework.response import Response
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from rest_framework.views import APIView
-
 from users.models import User
-from .models import Order, OrderItem
+from .models import Order, OrderItem ,Notification
 from .permissions import IsAuthenticatedAndHasBranch, CanCreateOrder
-from .serializers import OrderSerializer, OrderCreateSerializer, OrderUpdateSerializer
+from .serializers import OrderSerializer, OrderCreateSerializer, OrderUpdateSerializer , NotificationSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from utils.email_utils import send_order_notification
-
 from django.db.models.functions import TruncDate , TruncHour
-
-
-
 # email notification imports
 from django.core.mail import send_mail
 from django.conf import settings
 import json
-
 from django.db.models import Count, Sum, Avg
 from django.utils import timezone
 from datetime import timedelta
-
 
 # Initialize logger
 logger = logging.getLogger(__name__)
@@ -511,7 +504,27 @@ class OrderViewSet(viewsets.ModelViewSet):
         ).values('day').annotate(
             count=Count('id')
         ).order_by('day')
-
+    # Add action in OrderViewSet to retrieve notifications
+    @action(detail=False, methods=['get'])
+    def notifications(self, request):
+        try:
+            logger.info(f"Retrieving notifications for user with ID: {request.user.id}")
+            
+            # Calculate the time 24 hours ago
+            time_threshold = timezone.now() - timedelta(days=1)
+            
+            # Filter notifications that were created within the last 24 hours
+            notifications = Notification.objects.filter(
+                user=request.user, 
+                created_at__gte=time_threshold
+            ).order_by('-created_at')
+            
+            serializer = NotificationSerializer(notifications, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            logger.error(f"Error retrieving notifications for user with ID: {request.user.id}: {str(e)}", exc_info=True)
+            return Response({"error": "An unexpected error occurred while retrieving notifications."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 
@@ -524,6 +537,10 @@ class OrderDetailView(APIView):
         except Order.DoesNotExist:
             return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
         
+
+
         
-        
+
+
+
 
