@@ -21,26 +21,6 @@ export const getAll = async (params = {}) => {
     }
 };
 
-// export const getAll = async (params = {}) => {
-//     try {
-//         const response = await AxiosInstance.get(API_URL, { params });
-//         console.log('getAll - API Response:', response.data);
-
-//         if (!response.data.results || !Array.isArray(response.data.results)) {
-//             console.error('getAll - Invalid data structure:', response.data);
-//             throw new Error('Invalid data received from API');
-//         }
-
-//         // Filter items that have stock greater than zero
-//         const filteredResults = response.data.results.filter(item => item.stock > 0);
-
-//         return filteredResults;
-//     } catch (error) {
-//         console.error('getAll - Error fetching menu items:', error);
-//         throw error;
-//     }
-// };
-
 
 export const search = async (searchTerm: string) => {
     try {
