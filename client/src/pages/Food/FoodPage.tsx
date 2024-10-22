@@ -62,7 +62,7 @@ const FoodPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    // const isOutOfStock = food.stock === 0; 
+    const isOutOfStock = food.stock === 0; 
 
     return (
         <div className={classes.container}>
@@ -97,14 +97,14 @@ const FoodPage: React.FC = () => {
                     <Price price={food.price} />
                 </div>
 
-                <button onClick={handleAddToCart}>Add To Cart</button>
-                {/* <button 
+                {/* <button onClick={handleAddToCart}>Add To Cart</button> */}
+                <button 
                     onClick={handleAddToCart} 
                     disabled={isOutOfStock} 
                     className={isOutOfStock ? classes.disabled : ''}
                 >
                     {isOutOfStock ? "Out of Stock" : "Add To Cart"}
-                </button> */}
+                </button>
 
             </div>
 
