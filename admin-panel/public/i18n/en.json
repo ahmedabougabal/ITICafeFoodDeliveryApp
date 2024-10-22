@@ -24,7 +24,30 @@
     "no_completed_orders_yet":"No completed orders yet.",
     "pending":"Pending",
     "preparing":"Preparing",
-    "completed":"Completed"
+    "completed":"Completed",
+    "cash_payment":"Cash Payment",
+    "order_no":"Order #",
+    "total_price":"Total Price:",
+    "payment_status":"Payment Status:",
+    "unpaid":"unpaid",
+    "paid-visa":"paid-visa",
+    "paid-cash":"paid-cash",
+    "paid-paypal":"paid-paypal",
+    "status":"status",
+    "created_at":"Created At:",
+    "branch":"Branch:",
+    "user":"User:",
+    "items":"Items:",
+    "accept":"Accept",
+    "reject":"Reject",
+    "preparation_time_minutes":"Preparation Time (minutes)",
+    "mark_as_completed":"Mark as Completed",
+    "orders":"orders",
+    "home":"Home",
+    "time_left":"Time Left:",
+    "time_delayed":"Time Delayed"
+
+
 
 
 }

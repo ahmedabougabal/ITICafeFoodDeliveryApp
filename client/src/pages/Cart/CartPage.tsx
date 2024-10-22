@@ -101,9 +101,9 @@ export const CartPage = () => {
                                 {cart.items.map((item: any) => (
                                     <li key={item.food.id}>
                                         <div className="w-24 h-24 overflow-hidden rounded-lg border border-gray-200">
-                                            {item.food.imageUrl ? (
+                                            {item.food.image ? (
                                                 <img
-                                                    src={getImagePath(item.food.imageUrl)}
+                                                    src={getImagePath(item.food.image)}
                                                     alt={item.food.name}
                                                     className="w-full h-full object-cover"
                                                     onError={(e) => {

@@ -16,6 +16,7 @@ import {
   CButtonGroup,
 } from '@coreui/react';
 import { useTranslation } from 'react-i18next';
+import Price from '../../components/Price/Price';
 
 const Dashboard = () => {
   const [salesStats, setSalesStats] = useState(null);
@@ -74,7 +75,7 @@ const Dashboard = () => {
   }, []);
 
    const formatCurrency = (value) => {
-    return typeof value === 'number' ? `$${value.toFixed(2)}` : 'N/A';
+    return typeof value === 'number' ? <Price price={`${value.toFixed(2)}`} /> : 'N/A';
   };
 
   if (isLoading) {

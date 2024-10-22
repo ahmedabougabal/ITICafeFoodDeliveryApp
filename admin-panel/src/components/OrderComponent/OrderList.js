@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchActiveOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton, CForm, CFormInput } from '@coreui/react';
+import Price from '../Price/Price';
 
 const OrderCard = ({ order, onAccept, onReject }) => {
   const [preparationTime, setPreparationTime] = useState('');
@@ -18,7 +19,7 @@ const OrderCard = ({ order, onAccept, onReject }) => {
     <CCard className="mb-4">
       <CCardHeader>Order #{order.id}</CCardHeader>
       <CCardBody>
-        <p><strong>Total Price:</strong> ${order.total_price}</p>
+        <p><strong>Total Price:</strong> <Price price={`${order.total_price}`}/></p>
         <p><strong>Status:</strong> {order.status}</p>
         <p><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</p>
         <p><strong>Items:</strong></p>

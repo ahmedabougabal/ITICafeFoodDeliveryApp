@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { CCard, CCardBody, CCardLink, CCardTitle, CListGroup, CListGroupItem, CButton, CForm, CFormInput } from '@coreui/react'
 import classes from './ordercomponent.module.css'
 import DetailsModal from '../DetailsModal/DetailsModal'
+import Price from '../Price/Price'
 
 export default function OrderComponent({ order, actionHandler, handleRefresh }) {
   const {
@@ -38,8 +39,8 @@ export default function OrderComponent({ order, actionHandler, handleRefresh }) 
         <CCardTitle>OrderID: #{id}</CCardTitle>
       </CCardBody>
       <CListGroup flush className={classes.list}>
-        <CListGroupItem key="price"><div>Price</div><div>${total_price}</div></CListGroupItem>
-        {discounted_price && <CListGroupItem key="discounted_price"><div>Discounted Price</div><div>${discounted_price}</div></CListGroupItem>}
+        <CListGroupItem key="price"><div>Price</div><div><Price price={`${total_price}`}/></div></CListGroupItem>
+        {discounted_price && <CListGroupItem key="discounted_price"><div>Discounted Price</div><div><Price price={`${discounted_price}`}/></div></CListGroupItem>}
         <CListGroupItem key="discount"><div>Discount</div><div>{discount}%</div></CListGroupItem>
         <CListGroupItem key="branch"><div>Branch</div><div>{branch_name}</div></CListGroupItem>
         <CListGroupItem key="status"><div>Status</div><div>{status}</div></CListGroupItem>
