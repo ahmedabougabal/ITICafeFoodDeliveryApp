@@ -20,40 +20,38 @@ const FoodPage: React.FC = () => {
         nav('/cart')
     }
 
-    useEffect(() => {
-        const fetchFood = async () => {
-            console.log('Fetching food with ID:', id);
-            try {
-                const fetchedFood = await getById(id);
-                console.log('Fetched Food:', fetchedFood); 
-                if (fetchedFood) {
-                    setFood({ ...fetchedFood, id: fetchedFood.id });
-                } else {
-                    console.warn('No food found with the given ID:', id); 
-                }
-            } catch (error) {
-                console.error('Error fetching food:', error); 
-            }
-        };
-
-        fetchFood();
-    }, [id]);
-
     // useEffect(() => {
     //     const fetchFood = async () => {
-    //         const fetchedFood = await getById(id);
-    //         console.log('Fetched Food:', fetchedFood);
-    //         if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
+    //         console.log('Fetching food with ID:', id);
+    //         try {
+    //             const fetchedFood = await getById(id);
+    //             console.log('Fetched Food:', fetchedFood); 
+    //             if (fetchedFood) {
+    //                 setFood({ ...fetchedFood, id: fetchedFood.id });
+    //             } else {
+    //                 console.warn('No food found with the given ID:', id); 
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching food:', error); 
+    //         }
     //     };
-    
+
     //     fetchFood();
     // }, [id]);
+
+    useEffect(() => {
+        const fetchFood = async () => {
+            const fetchedFood = await getById(id);
+            console.log('Fetched Food:', fetchedFood);
+            if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
+        };
+    
+        fetchFood();
+    }, [id]);
     
     if (!food) {
         return <div>Loading...</div>;
     }
-
-    // const isOutOfStock = food.stock === 0; 
 
     return (
         <div className={classes.container}>
@@ -88,14 +86,14 @@ const FoodPage: React.FC = () => {
                     <Price price={food.price} />
                 </div>
 
-                {/* <button onClick={handleAddToCart}>Add To Cart</button> */}
-                <button 
+                <button onClick={handleAddToCart}>Add To Cart</button>
+                {/* <button 
                     onClick={handleAddToCart} 
                     disabled={isOutOfStock} 
                     className={isOutOfStock ? classes.disabled : ''}
                 >
                     {isOutOfStock ? "Out of Stock" : "Add To Cart"}
-                </button>
+                </button> */}
 
             </div>
 
