@@ -13,3 +13,6 @@ iti_cafe/lib/
 iti_cafe/lib64
 iti_cafe/pyvenv.cfg
 debug.log
+
+*/migrations/*
+!*/migrations/__init__.py
