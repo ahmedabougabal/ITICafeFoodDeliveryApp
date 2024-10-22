@@ -62,7 +62,7 @@ const FoodPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    // const isOutOfStock = food.stock === 0; // Check if stock is zero
+    const isOutOfStock = food.stock === 0; // Check if stock is zero
 
     return (
         <div className={classes.container}>
@@ -97,14 +97,14 @@ const FoodPage: React.FC = () => {
                     <Price price={food.price} />
                 </div>
 
-                <button onClick={handleAddToCart}>Add To Cart</button>
-                {/* <button 
+                {/* <button onClick={handleAddToCart}>Add To Cart</button> */}
+                <button 
                     onClick={handleAddToCart} 
                     disabled={isOutOfStock} // Disable if out of stock
                     className={isOutOfStock ? classes.disabled : ''}
                 >
                     {isOutOfStock ? "Out of Stock" : "Add To Cart"}
-                </button> */}
+                </button>
 
             </div>
 
