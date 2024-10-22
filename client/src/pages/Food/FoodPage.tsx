@@ -22,12 +22,12 @@ const FoodPage: React.FC = () => {
 
     console.log('Food ID from URL:', id); // Log the ID from the URL
 
-    const handleAddToCart = () => {
-        if (food && food.stock > 0) {
-            addToCart(food);
-            nav('/cart');
-        }
-    };
+    // const handleAddToCart = () => {
+    //     if (food && food.stock > 0) {
+    //         addToCart(food);
+    //         nav('/cart');
+    //     }
+    // };
 
     // useEffect(() => {
     //     const fetchFood = async () => {
@@ -48,15 +48,15 @@ const FoodPage: React.FC = () => {
     //     fetchFood();
     // }, [id]);
 
-    // useEffect(() => {
-    //     const fetchFood = async () => {
-    //         const fetchedFood = await getById(id);
-    //         console.log('Fetched Food:', fetchedFood);
-    //         if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
-    //     };
+    useEffect(() => {
+        const fetchFood = async () => {
+            const fetchedFood = await getById(id);
+            console.log('Fetched Food:', fetchedFood);
+            if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
+        };
     
-    //     fetchFood();
-    // }, [id]);
+        fetchFood();
+    }, [id]);
     
     if (!food) {
         return <div>Loading...</div>;
