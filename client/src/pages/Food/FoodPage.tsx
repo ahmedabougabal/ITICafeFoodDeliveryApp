@@ -100,7 +100,7 @@ const FoodPage: React.FC = () => {
                 {/* <button onClick={handleAddToCart}>Add To Cart</button> */}
                 <button 
                     onClick={handleAddToCart} 
-                    disabled={isOutOfStock} // Disable if out of stock
+                    disabled={isOutOfStock} 
                     className={isOutOfStock ? classes.disabled : ''}
                 >
                     {isOutOfStock ? "Out of Stock" : "Add To Cart"}
