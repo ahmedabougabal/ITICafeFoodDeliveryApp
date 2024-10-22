@@ -20,7 +20,7 @@ const FoodPage: React.FC = () => {
         nav('/cart')
     }
 
-    // console.log('Food ID from URL:', id); // Log the ID from the URL
+    console.log('Food ID from URL:', id); // Log the ID from the URL
 
     // const handleAddToCart = () => {
     //     if (food && food.stock > 0) {
@@ -62,7 +62,7 @@ const FoodPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    const isOutOfStock = food.stock === 0; // Check if stock is zero
+    const isOutOfStock = food.stock === 0; 
 
     return (
         <div className={classes.container}>
