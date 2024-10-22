@@ -15,19 +15,10 @@ const FoodPage: React.FC = () => {
     const {addToCart} = useCart()
     const nav = useNavigate();
 
-    // const handleAddToCart = ()=>{
-    //     addToCart(food)
-    //     nav('/cart')
-    // }
-
-    // console.log('Food ID from URL:', id); 
-
-    const handleAddToCart = () => {
-        if (food && food.stock > 0) {
-            addToCart(food);
-            nav('/cart');
-        }
-    };
+    const handleAddToCart = ()=>{
+        addToCart(food)
+        nav('/cart')
+    }
 
     useEffect(() => {
         const fetchFood = async () => {
@@ -62,7 +53,7 @@ const FoodPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-    const isOutOfStock = food.stock === 0; 
+    // const isOutOfStock = food.stock === 0; 
 
     return (
         <div className={classes.container}>
