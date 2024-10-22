@@ -31,17 +31,17 @@ const FoodPage: React.FC = () => {
 
     useEffect(() => {
         const fetchFood = async () => {
-            console.log('Fetching food with ID:', id); // Log the ID before fetching
+            console.log('Fetching food with ID:', id);
             try {
                 const fetchedFood = await getById(id);
-                console.log('Fetched Food:', fetchedFood); // Log the fetched food data
+                console.log('Fetched Food:', fetchedFood); 
                 if (fetchedFood) {
                     setFood({ ...fetchedFood, id: fetchedFood.id });
                 } else {
-                    console.warn('No food found with the given ID:', id); // Warn if no food is found
+                    console.warn('No food found with the given ID:', id); 
                 }
             } catch (error) {
-                console.error('Error fetching food:', error); // Log any error that occurs during fetching
+                console.error('Error fetching food:', error); 
             }
         };
 
