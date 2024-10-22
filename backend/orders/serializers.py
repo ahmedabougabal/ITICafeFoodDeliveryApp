@@ -112,33 +112,6 @@ class OrderCreateSerializer(serializers.ModelSerializer):
             logger.error(f"Error creating order: {str(e)}", exc_info=True)
             raise
 
-
-    # def create(self, validated_data):
-    #     try:
-    #         items_data = validated_data.pop('items')
-    #         user = self.context['request'].user
-
-    #         total_price = Decimal(str(validated_data['total_price']))
-
-    #         discount_rate = user.get_discount_rate()
-    #         discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
-
-    #         order = Order.objects.create(user=user, total_price=total_price, discounted_price=discounted_price)
-
-    #         for item_data in items_data:
-    #             OrderItem.objects.create(
-    #                 order=order,
-    #                 item=item_data['item'],
-    #                 quantity=item_data['quantity'],
-    #                 price_at_time_of_order=item_data['price_at_time_of_order']
-    #             )
-
-    #         logger.debug(f"Order created successfully. Order ID: {order.id}, User ID: {user.id}, Total Price: {total_price}, Discounted Price: {discounted_price}")
-    #         return order
-    #     except Exception as e:
-    #         logger.error(f"Error creating order: {str(e)}", exc_info=True)
-    #         raise
-
     def to_representation(self, instance):
         return OrderSerializer(instance, context=self.context).data
 
