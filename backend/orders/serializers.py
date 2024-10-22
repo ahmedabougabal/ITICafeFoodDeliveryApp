@@ -100,6 +100,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
                     price_at_time_of_order=item_data['price_at_time_of_order']
                 )
 
+                # stock reduction
                 if item.is_available and item.stock >= quantity:
                     item.stock -= quantity  
                     item.save()  
