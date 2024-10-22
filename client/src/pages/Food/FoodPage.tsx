@@ -29,34 +29,34 @@ const FoodPage: React.FC = () => {
     //     }
     // };
 
-    // useEffect(() => {
-    //     const fetchFood = async () => {
-    //         console.log('Fetching food with ID:', id); // Log the ID before fetching
-    //         try {
-    //             const fetchedFood = await getById(id);
-    //             console.log('Fetched Food:', fetchedFood); // Log the fetched food data
-    //             if (fetchedFood) {
-    //                 setFood({ ...fetchedFood, id: fetchedFood.id });
-    //             } else {
-    //                 console.warn('No food found with the given ID:', id); // Warn if no food is found
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching food:', error); // Log any error that occurs during fetching
-    //         }
-    //     };
-
-    //     fetchFood();
-    // }, [id]);
-
     useEffect(() => {
         const fetchFood = async () => {
-            const fetchedFood = await getById(id);
-            console.log('Fetched Food:', fetchedFood);
-            if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
+            console.log('Fetching food with ID:', id); // Log the ID before fetching
+            try {
+                const fetchedFood = await getById(id);
+                console.log('Fetched Food:', fetchedFood); // Log the fetched food data
+                if (fetchedFood) {
+                    setFood({ ...fetchedFood, id: fetchedFood.id });
+                } else {
+                    console.warn('No food found with the given ID:', id); // Warn if no food is found
+                }
+            } catch (error) {
+                console.error('Error fetching food:', error); // Log any error that occurs during fetching
+            }
         };
-    
+
         fetchFood();
     }, [id]);
+
+    // useEffect(() => {
+    //     const fetchFood = async () => {
+    //         const fetchedFood = await getById(id);
+    //         console.log('Fetched Food:', fetchedFood);
+    //         if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
+    //     };
+    
+    //     fetchFood();
+    // }, [id]);
     
     if (!food) {
         return <div>Loading...</div>;
