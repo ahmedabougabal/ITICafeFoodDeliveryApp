@@ -15,19 +15,19 @@ const FoodPage: React.FC = () => {
     const {addToCart} = useCart()
     const nav = useNavigate();
 
-    const handleAddToCart = ()=>{
-        addToCart(food)
-        nav('/cart')
-    }
+    // const handleAddToCart = ()=>{
+    //     addToCart(food)
+    //     nav('/cart')
+    // }
 
     // console.log('Food ID from URL:', id); 
 
-    // const handleAddToCart = () => {
-    //     if (food && food.stock > 0) {
-    //         addToCart(food);
-    //         nav('/cart');
-    //     }
-    // };
+    const handleAddToCart = () => {
+        if (food && food.stock > 0) {
+            addToCart(food);
+            nav('/cart');
+        }
+    };
 
     // useEffect(() => {
     //     const fetchFood = async () => {
