@@ -15,27 +15,54 @@ const FoodPage: React.FC = () => {
     const {addToCart} = useCart()
     const nav = useNavigate();
 
-    const handleAddToCart = ()=>{
-        addToCart(food)
-        nav('/cart')
-    }
+    // const handleAddToCart = ()=>{
+    //     addToCart(food)
+    //     nav('/cart')
+    // }
+
+    // console.log('Food ID from URL:', id); // Log the ID from the URL
+
+    const handleAddToCart = () => {
+        if (food && food.stock > 0) {
+            addToCart(food);
+            nav('/cart');
+        }
+    };
+
+    // useEffect(() => {
+    //     const fetchFood = async () => {
+    //         console.log('Fetching food with ID:', id); // Log the ID before fetching
+    //         try {
+    //             const fetchedFood = await getById(id);
+    //             console.log('Fetched Food:', fetchedFood); // Log the fetched food data
+    //             if (fetchedFood) {
+    //                 setFood({ ...fetchedFood, id: fetchedFood.id });
+    //             } else {
+    //                 console.warn('No food found with the given ID:', id); // Warn if no food is found
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching food:', error); // Log any error that occurs during fetching
+    //         }
+    //     };
+
+    //     fetchFood();
+    // }, [id]);
 
     useEffect(() => {
         const fetchFood = async () => {
             const fetchedFood = await getById(id);
-            if (fetchedFood) 
-            setFood({ ...fetchedFood, id: fetchedFood.id });
-                
+            console.log('Fetched Food:', fetchedFood);
+            if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
         };
-
+    
         fetchFood();
     }, [id]);
-
     
-
     if (!food) {
         return <div>Loading...</div>;
     }
+
+    // const isOutOfStock = food.stock === 0; // Check if stock is zero
 
     return (
         <div className={classes.container}>
@@ -71,7 +98,14 @@ const FoodPage: React.FC = () => {
                 </div>
 
                 <button onClick={handleAddToCart}>Add To Cart</button>
-  
+                {/* <button 
+                    onClick={handleAddToCart} 
+                    disabled={isOutOfStock} // Disable if out of stock
+                    className={isOutOfStock ? classes.disabled : ''}
+                >
+                    {isOutOfStock ? "Out of Stock" : "Add To Cart"}
+                </button> */}
+
             </div>
 
         </div>

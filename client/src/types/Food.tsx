@@ -7,5 +7,5 @@ export type Food = {
     origins: Array<string>,
     stars: number,
     imageUrl: string,
-    tags: Array<string>
+    tags: Array<string>,
   }
