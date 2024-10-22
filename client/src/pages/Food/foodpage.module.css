@@ -92,7 +92,6 @@
     cursor: pointer;
   }
 
-
 .disabled {
     background-color: #ccc; 
     cursor: not-allowed; 
