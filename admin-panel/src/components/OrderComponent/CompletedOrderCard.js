@@ -1,29 +1,31 @@
 import { Button, Card, CardContent, CardHeader , List, ListItem } from '@mui/material'
 import { CIcon } from '@coreui/icons-react';
 import { cibCcVisa,cibCashapp,cibCcPaypal } from '@coreui/icons';
+import Price from '../Price/Price';
 
 import DoneIcon from '@mui/icons-material/Done';
 
 import React from 'react'
+import { t } from 'i18next';
 
 export default function CompletedOrderCard({order,handlePayOrder,refresh}) {
     const [paid,paymentMethod]=order.payment_status.split('-')
   return (
     <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                  <CardHeader title={`Order #${order.id}`} subheader={`Status: ${order.status}`} />
+                  <CardHeader title={t("order_no") +`${order.id}`} subheader={t("status") +`: ${t(order.status)}`} />
                   <CardContent>
                     <List>
-                      <ListItem><strong>Total Price:</strong> ${order.total_price}</ListItem>
-                      <ListItem><strong>Payment Status:</strong> {order.payment_status}</ListItem>
-                      <ListItem><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
-                      <ListItem><strong>Branch:</strong> {order.branch_name}</ListItem>
-                      <ListItem><strong>User:</strong> {order.user}</ListItem>
+                      <ListItem><strong>{t("total_price")}</strong> <Price price={`${order.total_price}`}/></ListItem>
+                      <ListItem><strong>{t("payment_status")}</strong> {t(order.payment_status)}</ListItem>
+                      <ListItem><strong>{t("created_at")}</strong> {new Date(order.created_at).toLocaleString()}</ListItem>
+                      <ListItem><strong>{t("branch")}</strong> {order.branch_name}</ListItem>
+                      <ListItem><strong>{t("user")}</strong> {order.user}</ListItem>
                       <ListItem>
-                        <strong>Items:</strong>
+                        <strong>{t("items")}</strong>
                         <ul>
                           {order.items && order.items.map((item, index) => (
                             <li key={index}>
-                              {item.item.name} - Quantity: {item.quantity}, Price: ${item.price_at_time_of_order}
+                              {item.item.name} - Quantity: {item.quantity}, Price: <Price price={`${item.item.price}`}/>
                             </li>
                           ))}
                         </ul>
@@ -37,7 +39,7 @@ export default function CompletedOrderCard({order,handlePayOrder,refresh}) {
                       disabled={paid=='paid'}
                       sx={{ mt: 2 }}
                     >
-                      Cash Payment
+                      {t('cash_payment')}
                     </Button>
                     
                   </CardContent>

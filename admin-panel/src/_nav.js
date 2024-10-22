@@ -8,17 +8,19 @@ import {
   cilCart,
 } from '@coreui/icons'
 import { CNavItem } from '@coreui/react'
+import { useTranslation } from 'react-i18next'
+
 
 const _nav = [
   {
     component: CNavItem,
-    name: 'Dashboard',
+    name: 'dashboard',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Orders',
+    name: 'orders',
     to: '/orders',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },

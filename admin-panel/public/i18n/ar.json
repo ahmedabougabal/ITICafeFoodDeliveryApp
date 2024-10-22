@@ -1,0 +1,81 @@
+{
+    
+        "dashboard": "لوحة التحكم",
+        "chat": "تحدث",
+        "loading": "تحميل...",
+        "nodata": "غير متوفر بيانات",
+        "sales_statistics": "أحصائيات المبيعات",
+    "today":"اليوم",
+    "last_7_days":"أخر أسبوع",
+    "last_30_days":"أخر شهر",
+    "most_bought_items":"الاشياء الاكثر مبيعا",
+    "item":"شيئ",
+    "quantity":"عدد",
+    "top_customers":"أفضل العملاء",
+    "customer":"عميل",
+    "total_spent":"اجمالي الصرف",
+    "total_sales_last_30_days":"اجمالي المبيعات أخر شهر",
+    "average_order_value":"متوسط قيمة الطلب",
+    "orders_management":"ادارة الطلبات",
+    "refresh_orders":"تحديث الطلبات",
+    "please_enter_preparation_time":"برجاء أدخال وقت التحضير!",
+    "no_pending_orders_at_the_moment":"لا يوجد طلبات في الانتظار",
+    "no_orders_are_currently_being_prepared":"لا يوجد طلبات قيد التحضير",
+    "no_completed_orders_yet":"لا يوجد طلبات منتهية حتي الان",
+    "pending":"انتظار",
+    "preparing":"التحضير",
+    "completed":"منتهي",
+    "cash_payment":"الدفع نقدا",
+    "order_no":"الطلب رقم",
+    "total_price":"أجمالي السعر:",
+    "payment_status":"حالة الدفع:",
+    "unpaid":"غير مدفوع",
+    "paid-visa":"مدفوع فيزا",
+    "paid-cash":"مدفوع نقدا",
+    "paid-paypal":"مدفوع باي بال",
+    "status":"الحالة",
+    "created_at":"صنع في:",
+    "branch":"الفرع:",
+    "user":"مستخدم:",
+    "items":"أشياء:",
+    "accept":"قبول",
+    "reject":"رفض",
+    "preparation_time_minutes":"وقت التحضير بالدقائق",
+    "mark_as_completed":"التعيين ك منتهي",
+    "orders":"الطلبات",
+    "home":"الرئيسية",
+    "time_left":"الوقت المتبقي:",
+    "time_delayed":"الوقت المتأخر"
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+}

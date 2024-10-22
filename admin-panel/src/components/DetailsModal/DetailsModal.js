@@ -1,5 +1,6 @@
 import React from 'react'
 import { CModal, CModalHeader, CModalTitle, CModalBody, CModalFooter, CButton } from '@coreui/react'
+import Price from '../Price/Price'
 
 const DetailsModal = ({ items, orderId }) => {
   const [visible, setVisible] = React.useState(false)
@@ -15,7 +16,7 @@ const DetailsModal = ({ items, orderId }) => {
           <ul>
             {items.map((item, index) => (
               <li key={`${orderId}-item-${index}`}>
-                {item.item.name} - Quantity: {item.quantity} - Price: ${item.price_at_time_of_order}
+                {item.item.name} - Quantity: {item.quantity} - Price: <Price price={`${item.price_at_time_of_order}`}/>
               </li>
             ))}
           </ul>

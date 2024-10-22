@@ -220,3 +220,147 @@
     justify-content: center;
     align-items: center;
 }
+
+.notificationBadge {
+    position: absolute;
+    top: 0rem;
+    right: -1.5rem;
+    background-color: #f11d71;
+    color: #00d9ff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: pulse 1s infinite;
+    /* Add pulse animation */
+    transition: transform 0.2s ease-in-out;
+}
+
+.notificationBadge:hover {
+    transform: scale(1.2);
+    /* Slight zoom on hover */
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(241, 29, 113, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(241, 29, 113, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(241, 29, 113, 0);
+    }
+}
+
+.favoritesLink {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.favoritesLink:hover {
+    transform: scale(1.05);
+}
+
+.favoriteBadge {
+    background-color: white;
+    color: #f11d71;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+    margin-left: 0.2rem;
+}
+
+.notificationBadge {
+    position: absolute;
+    top: 0rem;
+    right: -1.5rem;
+    background-color: #f11d71;
+    color: #00d9ff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: pulse 1s infinite;
+    /* Add pulse animation */
+    transition: transform 0.2s ease-in-out;
+}
+
+.notificationBadge:hover {
+    transform: scale(1.2);
+    /* Slight zoom on hover */
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(241, 29, 113, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(241, 29, 113, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(241, 29, 113, 0);
+    }
+}
+
+
+/* header.module.css */
+
+.notificationLink {
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Position relative for badge positioning */
+    color: white;
+    /* Change to desired color */
+    text-decoration: none;
+    /* Remove underline */
+    padding: 10px;
+    /* Add some padding */
+}
+
+.notification-icon {
+    font-size: 1.5rem;
+    /* Increase icon size */
+    margin-right: 5px;
+    /* Spacing between icon and text */
+}
+
+.notificationBadge {
+    position: absolute;
+    top: -5px;
+    /* Adjust badge position */
+    right: -10px;
+    /* Adjust badge position */
+    background-color: red;
+    /* Badge color */
+    color: white;
+    /* Badge text color */
+    border-radius: 50%;
+    padding: 4px 8px;
+    /* Padding around the text */
+    font-size: 0.75rem;
+    /* Smaller font size */
+    font-weight: bold;
+    /* Bold text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

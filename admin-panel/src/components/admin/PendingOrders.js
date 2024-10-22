@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CCard, CCardBody, CCardHeader, CCol, CRow, CButton, CForm, CFormInput } from '@coreui/react';
 import { fetchActiveOrders, acceptOrder, rejectOrder } from 'src/slices/orderSlice';
 import withAuth from '../../utils/withAuth';
+import Price from '../Price/Price';
 
 const PendingOrders = () => {
   const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const PendingOrders = () => {
                     <CCard className="mb-4">
                       <CCardHeader>Order #{order.id}</CCardHeader>
                       <CCardBody>
-                        <p><strong>Total Price:</strong> ${order.total_price}</p>
+                        <p><strong>Total Price:</strong> <Price price={`${order.total_price}`}/></p>
                         <p><strong>Status:</strong> {order.status}</p>
                         <p><strong>Created At:</strong> {new Date(order.created_at).toLocaleString()}</p>
                         <p><strong>Items:</strong></p>
@@ -98,14 +99,14 @@ const PendingOrders = () => {
                             onClick={() => handleAcceptOrder(order.id)}
                             className="me-2 mt-2"
                           >
-                            Accept
+                            {t("accept")}
                           </CButton>
                           <CButton
                             color="danger"
                             onClick={() => handleRejectOrder(order.id)}
                             className="mt-2"
                           >
-                            Reject
+                            {t("reject")}
                           </CButton>
                         </CForm>
                       </CCardBody>
