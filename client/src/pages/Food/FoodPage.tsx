@@ -22,31 +22,31 @@ const FoodPage: React.FC = () => {
 
     console.log('Food ID from URL:', id); // Log the ID from the URL
 
-    // const handleAddToCart = () => {
-    //     if (food && food.stock > 0) {
-    //         addToCart(food);
-    //         nav('/cart');
-    //     }
-    // };
+    const handleAddToCart = () => {
+        if (food && food.stock > 0) {
+            addToCart(food);
+            nav('/cart');
+        }
+    };
 
-    useEffect(() => {
-        const fetchFood = async () => {
-            console.log('Fetching food with ID:', id);
-            try {
-                const fetchedFood = await getById(id);
-                console.log('Fetched Food:', fetchedFood); 
-                if (fetchedFood) {
-                    setFood({ ...fetchedFood, id: fetchedFood.id });
-                } else {
-                    console.warn('No food found with the given ID:', id); 
-                }
-            } catch (error) {
-                console.error('Error fetching food:', error); 
-            }
-        };
+    // useEffect(() => {
+    //     const fetchFood = async () => {
+    //         console.log('Fetching food with ID:', id);
+    //         try {
+    //             const fetchedFood = await getById(id);
+    //             console.log('Fetched Food:', fetchedFood); 
+    //             if (fetchedFood) {
+    //                 setFood({ ...fetchedFood, id: fetchedFood.id });
+    //             } else {
+    //                 console.warn('No food found with the given ID:', id); 
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching food:', error); 
+    //         }
+    //     };
 
-        fetchFood();
-    }, [id]);
+    //     fetchFood();
+    // }, [id]);
 
     // useEffect(() => {
     //     const fetchFood = async () => {
