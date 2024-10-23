@@ -1,18 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import {useUser} from "../../UserContext.tsx";
+import { useUser } from "../../UserContext";
 import { getAll, search } from '../../services/FoodService';
 import Search from '../../components/Search/Search';
 import { Thumbnails } from '../../components/Thumbnails/Thumbnails';
 import styles from './HomePage.module.css';
 
 const HomePage = () => {
+  // User and food data state
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { searchTerm } = useParams();
   const { user } = useUser();
 
+  // Typing animation state
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [messageIndex, setMessageIndex] = useState(0);
+  const messages = [
+    'Welcome to ITIFoods',
+    'مرحبا بكم في ITIFoods',
+    'Bienvenue à ITIFoods',
+    'Bienvenidos a ITIFoods'
+  ];
+
+  // Animation timing constants
+  const typingSpeed = 150;
+  const deletingSpeed = 200;
+  const pauseDuration = 2000;
+
+  // Typing animation effect
+  useEffect(() => {
+    if (!user) {  // Only run animation when user is not logged in
+      const currentMessage = messages[messageIndex];
+
+      const timeout = setTimeout(() => {
+        if (!isDeleting) {
+          setDisplayText(currentMessage.slice(0, displayText.length + 1));
+
+          if (displayText.length === currentMessage.length) {
+            setTimeout(() => setIsDeleting(true), pauseDuration);
+          }
+        } else {
+          setDisplayText(currentMessage.slice(0, displayText.length - 1));
+
+          if (displayText.length === 0) {
+            setIsDeleting(false);
+            setMessageIndex((prev) => (prev + 1) % messages.length);
+          }
+        }
+      }, isDeleting ? deletingSpeed : typingSpeed);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [displayText, isDeleting, messageIndex, messages, user]);
+
+  // Food loading effect
   useEffect(() => {
     const loadFoods = async () => {
       try {
@@ -57,7 +101,10 @@ const HomePage = () => {
       <div className={styles.loginContainer}>
         <div className={styles.overlay}></div>
         <div className={styles.loginContent}>
-          <h1 className={styles.title}>Welcome to ITIFoods</h1>
+          <h1 className={`${styles.title} ${styles.animatedTitle}`}>
+            {displayText}
+            <span className={styles.cursor}>|</span>
+          </h1>
           <p className={styles.subtitle}>We develop People and Food too!</p>
           <div className={styles.messageBox}>
             <p>Please login or register to order your favorite food from the branch nearest to you.</p>
