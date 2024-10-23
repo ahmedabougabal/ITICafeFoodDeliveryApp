@@ -25,10 +25,8 @@ interface ThumbnailsProps {
 
 const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [itemsAdded, setItemsAdded] = useState(0); // Track the number of items added to cart
+  const [itemsAdded, setItemsAdded] = useState(0); 
   const { addToCart } = useCart();
-  // const { addToCart, cartItems = {} } = useCart(); // Add a default empty object
-
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const isFavorite = favorites.includes(food.id);
 
@@ -45,18 +43,9 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
     });
   };
 
-  //  // Calculate the number of items in the cart for this specific food item
-  //  const cartQuantity = cartItems[food.id] || 0;
-
-  // Calculate the number of items in the cart for this specific food item
-  // const cartQuantity = (cartItems && cartItems[food.id]) ? cartItems[food.id] : 0;
-
-  // Log the cart quantity for debugging
-  // console.log(`Cart quantity for ${food.name} (ID: ${food.id}):`, cartQuantity);
-
   const handleAddToCart = () => {
     addToCart(food);
-    setItemsAdded((prev) => prev + 1); // Increment items added
+    setItemsAdded((prev) => prev + 1); 
     notify(`${food.name} added to cart!`);
   };
 
@@ -72,9 +61,7 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
   };
 
   const isOutOfStock = itemsAdded >= food.stock;
-  // const remainingStock = food.stock - cartQuantity;
-  // const isOutOfStock = remainingStock <= 0;
-
+  
   return (
     <div
       className="relative flex flex-col h-[400px] rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl bg-white"
@@ -127,19 +114,7 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
               </span>
             )}
           </div>
-
-            {/* <p className="text-gray-600 text-sm">
-              {remainingStock > 0 ? `${remainingStock} items remaining` : "Out of stock"}
-            </p>
-            <button
-              onClick={handleAddToCart}
-              className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isOutOfStock}  // Disable button if out of stock
-            >
-              <ShoppingCart className="mr-2" size={16} />
-              {isOutOfStock ? "Out of Stock" : `Add to Cart`}
-            </button> */}
-
+          
           <button
             onClick={handleAddToCart}
             className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"

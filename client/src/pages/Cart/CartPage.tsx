@@ -124,22 +124,9 @@ export const CartPage = () => {
                                             </Link>
                                         </div>
                                         <div>
-                                        {/* <InputNumber
-                                            min={1}
-                                            max={item.food.stock} 
-                                            value={item.quantity}
-                                            onChange={(value) => {
-                                                let newValue = Number(value);
-                                                if (newValue > item.food.stock) {
-                                                    newValue = item.food.stock; // Automatically set to max stock
-                                                }
-                                                changeQuantity(item, newValue); // Adjust the quantity
-                                            }}
-                                            className={classes.quantity_input}
-                                        /> */}
                                             <InputNumber
                                                 min={1}
-                                                max={item.food.stock} // Set the max to the available stock
+                                                max={item.food.stock} 
                                                 value={item.quantity}
                                                 onChange={(value) => changeQuantity(item, Number(value))}
                                                 className={classes.quantity_input}
@@ -186,10 +173,3 @@ export const CartPage = () => {
     );
 };
 
-// // paypal.d.ts
-// declare global {
-//     interface Window {
-//         paypal: any; // You can use a more specific type if you have one
-//     }
-// }
-// export {};
