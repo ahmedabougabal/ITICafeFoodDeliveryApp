@@ -25,6 +25,7 @@ interface ThumbnailsProps {
 
 const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [itemsAdded, setItemsAdded] = useState(0); 
   const { addToCart } = useCart();
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const isFavorite = favorites.includes(food.id);
@@ -44,6 +45,7 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
 
   const handleAddToCart = () => {
     addToCart(food);
+    setItemsAdded((prev) => prev + 1); 
     notify(`${food.name} added to cart!`);
   };
 
@@ -58,6 +60,8 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
     }
   };
 
+  const isOutOfStock = itemsAdded >= food.stock;
+  
   return (
     <div
       className="relative flex flex-col h-[400px] rounded-xl shadow-lg transition-all duration-300 ease-in-out hover:shadow-xl bg-white"
@@ -110,14 +114,16 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
               </span>
             )}
           </div>
+          
           <button
             onClick={handleAddToCart}
             className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={food.stock <= 0} 
+            disabled={isOutOfStock}
           >
             <ShoppingCart className="mr-2" size={16} />
-            {food.stock > 0 ? "Add to Cart" : "Out of Stock"}
+            {isOutOfStock ? "Out of Stock" : `Add to Cart `}
           </button>
+
         </div>
       </div>
     </div>
