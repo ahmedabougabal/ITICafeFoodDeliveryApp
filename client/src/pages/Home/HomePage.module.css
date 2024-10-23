@@ -1,15 +1,45 @@
 .loginContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-image: url('iti_wallpaper.jpg');
-  background-size: cover;
-  background-position: center;
-  position: relative;
+  min-height: 100vh;
   font-family: 'Arial', sans-serif;
   overflow: hidden;
-  animation: backgroundZoom 20s ease-in-out infinite alternate;
+}
+
+/* Background animation for the smoothest experience :) */
+.loginContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('main.jpeg');
+  background-size: cover;
+  background-position: center;
+  animation: backgroundChange 20s ease-in-out infinite,
+             backgroundZoom 20s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+@keyframes backgroundChange {
+  0%, 40% {
+    background-image: url('main.jpeg');
+    opacity: 1;
+  }
+  45%, 50% {
+    opacity: 0.8;
+  }
+  55%, 95% {
+    background-image: url('iti2.jpg');
+    opacity: 1;
+  }
+  100% {
+    background-image: url('main.jpeg');
+    opacity: 1;
+  }
 }
 
 @keyframes backgroundZoom {
@@ -21,102 +51,144 @@
   }
 }
 
+/* so crispy */
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  z-index: -1;
 }
 
 .loginContent {
   position: relative;
-  z-index: 2;
+  width: min(500px, 90%);
+  padding: 2rem;
   text-align: center;
   color: white;
-  max-width: 90%;
-  width: 500px;
-  padding: 2rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(213, 73, 131, 0.75),
+    rgba(34, 67, 77, 0.85)
+  );
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
+/* i have enhanced Typography for better visuals */
 .title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 3vw, 1.3rem);
   margin-bottom: 1.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-weight: 300;
+  letter-spacing: 0.3px;
 }
 
+/* Message box */
 .messageBox {
-  background-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  transform: translateZ(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.messageBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .messageBox p {
   color: #333;
-  font-size: 1.1rem;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
   margin-bottom: 1.2rem;
+  line-height: 1.6;
 }
+
 
 .buttonContainer {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-.loginButton, .registerButton {
-  padding: 0.75rem 1.5rem;
+
+.loginButton,
+.registerButton {
+  padding: 0.75rem 2rem;
   border: none;
-  border-radius: 25px;
+  border-radius: 50px;
   font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .loginButton {
-  background-color: #FF4136;
+  background: linear-gradient(135deg, #d79ab9 0%, #FF6B6B 100%);
   color: white;
 }
 
 .registerButton {
-  background-color: #2ECC40;
+  background: linear-gradient(135deg, #498f4f 0%, #51DE5C 100%);
   color: white;
 }
 
-.loginButton:hover, .registerButton:hover {
+.loginButton:hover,
+.registerButton:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.loginButton:active, .registerButton:active {
+.loginButton:active,
+.registerButton:active {
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
   .loginContent {
-    width: 90%;
+    padding: 1.5rem;
   }
 
-  .title {
-    font-size: 2.2rem;
+  .buttonContainer {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .subtitle {
-    font-size: 1.1rem;
+  .loginButton,
+  .registerButton {
+    width: 100%;
+    padding: 0.75rem 1rem;
   }
 
-  .messageBox p {
-    font-size: 0.9rem;
+  .messageBox {
+    padding: 1.25rem;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
