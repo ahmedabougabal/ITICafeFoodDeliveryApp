@@ -113,10 +113,10 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
           <button
             onClick={handleAddToCart}
             className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled={!food.is_available}
+            disabled={food.stock <= 0} 
           >
             <ShoppingCart className="mr-2" size={16} />
-            Add to Cart
+            {food.stock > 0 ? "Add to Cart" : "Out of Stock"}
           </button>
         </div>
       </div>

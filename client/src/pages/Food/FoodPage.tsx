@@ -23,16 +23,13 @@ const FoodPage: React.FC = () => {
     useEffect(() => {
         const fetchFood = async () => {
             const fetchedFood = await getById(id);
-            if (fetchedFood) 
-            setFood({ ...fetchedFood, id: fetchedFood.id });
-                
+            console.log('Fetched Food:', fetchedFood);
+            if (fetchedFood) setFood({ ...fetchedFood, id: fetchedFood.id });
         };
-
+    
         fetchFood();
     }, [id]);
-
     
-
     if (!food) {
         return <div>Loading...</div>;
     }
@@ -69,9 +66,7 @@ const FoodPage: React.FC = () => {
                 <div className={classes.price}>
                     <Price price={food.price} />
                 </div>
-
                 <button onClick={handleAddToCart}>Add To Cart</button>
-  
             </div>
 
         </div>

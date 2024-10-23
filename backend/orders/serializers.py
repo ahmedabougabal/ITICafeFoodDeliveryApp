@@ -76,7 +76,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(f"Item {item.name} is not available.")
 
         return data
-
+    
     def create(self, validated_data):
         try:
             items_data = validated_data.pop('items')
@@ -86,16 +86,26 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
             discount_rate = user.get_discount_rate()
             discounted_price = total_price * Decimal(1 - discount_rate) if discount_rate > 0 else None
-
+            
             order = Order.objects.create(user=user, total_price=total_price, discounted_price=discounted_price)
 
             for item_data in items_data:
+                item = item_data['item']
+                quantity = item_data['quantity']
+                
                 OrderItem.objects.create(
                     order=order,
-                    item=item_data['item'],
-                    quantity=item_data['quantity'],
+                    item=item,
+                    quantity=quantity,
                     price_at_time_of_order=item_data['price_at_time_of_order']
                 )
+
+                # stock reduction
+                if item.is_available and item.stock >= quantity:
+                    item.stock -= quantity  
+                    item.save()  
+                else:
+                    raise serializers.ValidationError(f"Not enough stock for item {item.name}.")
 
             logger.debug(f"Order created successfully. Order ID: {order.id}, User ID: {user.id}, Total Price: {total_price}, Discounted Price: {discounted_price}")
             return order

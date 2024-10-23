@@ -21,6 +21,7 @@ export const getAll = async (params = {}) => {
     }
 };
 
+
 export const search = async (searchTerm: string) => {
     try {
         const response = await AxiosInstance.get(`${API_URL}?search=${searchTerm}`);
