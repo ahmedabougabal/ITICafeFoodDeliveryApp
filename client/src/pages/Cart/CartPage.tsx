@@ -126,11 +126,18 @@ export const CartPage = () => {
                                         <div>
                                             <InputNumber
                                                 min={1}
-                                                max={10}
+                                                max={item.food.stock} // Set the max to the available stock
                                                 value={item.quantity}
                                                 onChange={(value) => changeQuantity(item, Number(value))}
                                                 className={classes.quantity_input}
                                             />
+                                            {/* <InputNumber
+                                                min={1}
+                                                max={10}
+                                                value={item.quantity}
+                                                onChange={(value) => changeQuantity(item, Number(value))}
+                                                className={classes.quantity_input}
+                                            /> */}
                                         </div>
                                         <div>
                                             <Price price={item.price} />

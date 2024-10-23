@@ -25,6 +25,7 @@ interface ThumbnailsProps {
 
 const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [itemsAdded, setItemsAdded] = useState(0); // Track the number of items added to cart
   const { addToCart } = useCart();
   const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
   const isFavorite = favorites.includes(food.id);
@@ -44,6 +45,7 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
 
   const handleAddToCart = () => {
     addToCart(food);
+    setItemsAdded((prev) => prev + 1); // Increment items added
     notify(`${food.name} added to cart!`);
   };
 
@@ -57,6 +59,8 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
       notify('Added to favorites');
     }
   };
+
+  const isOutOfStock = itemsAdded >= food.stock;
 
   return (
     <div
@@ -113,11 +117,20 @@ const FoodCard: React.FC<{ food: Food }> = ({ food }) => {
           <button
             onClick={handleAddToCart}
             className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isOutOfStock}
+          >
+            <ShoppingCart className="mr-2" size={16} />
+            {/* {isOutOfStock ? "Out of Stock" : `Add to Cart (${food.stock - itemsAdded} left)`} */}
+            {isOutOfStock ? "Out of Stock" : `Add to Cart `}
+          </button>
+          {/* <button
+            onClick={handleAddToCart}
+            className="w-full bg-red-500 text-white px-4 py-2.5 rounded-md hover:bg-red-600 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={food.stock <= 0} 
           >
             <ShoppingCart className="mr-2" size={16} />
             {food.stock > 0 ? "Add to Cart" : "Out of Stock"}
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
