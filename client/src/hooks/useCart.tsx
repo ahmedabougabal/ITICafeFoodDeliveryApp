@@ -118,15 +118,38 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const addToCart = (food: Food) => {
     console.log(`Adding food with ID: ${food.id} to cart...`);
     console.log('Food price:', food.price, 'type:', typeof food.price);
+    
     const cartItem = cartItems.find((item) => item.food.id === food.id);
+
     if (cartItem) {
-      changeQuantity(cartItem, cartItem.quantity + 1);
+        // Check if the current quantity is less than the stock
+        if (cartItem.quantity < food.stock) {
+            changeQuantity(cartItem, cartItem.quantity + 1);
+        } else {
+            console.log('Cannot add more, reached available stock limit.');
+            message.warning('You have reached the maximum stock available for this item.');
+        }
     } else {
-      setCartItems([...cartItems, { food, quantity: 1, price: Number(food.price) }]);
+        // Ensure the item is added with at least 1 or less than stock
+        setCartItems([...cartItems, { food, quantity: 1, price: Number(food.price) }]);
     }
+
     console.log('Cart updated after addition:', cartItems);
   };
 
+
+  // const addToCart = (food: Food) => {
+  //   console.log(`Adding food with ID: ${food.id} to cart...`);
+  //   console.log('Food price:', food.price, 'type:', typeof food.price);
+  //   const cartItem = cartItems.find((item) => item.food.id === food.id);
+  //   if (cartItem) {
+  //     changeQuantity(cartItem, cartItem.quantity + 1);
+  //   } else {
+  //     setCartItems([...cartItems, { food, quantity: 1, price: Number(food.price) }]);
+  //   }
+  //   console.log('Cart updated after addition:', cartItems);
+  // };
+  
   const payOrder = async (id: number, method: string) => {
     try {
       const response = await orderService.payOrder(id, method);
@@ -135,6 +158,8 @@ const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       console.error('Error paying order:', error);
     }
   };
+
+  
 
   const createOrder = async () => {
     try {
