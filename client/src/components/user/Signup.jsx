@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from 'react-router-dom';
-import { FaEye, FaEyeSlash, FaGoogle, FaFacebook } from 'react-icons/fa';
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import './signup.css';
 import './signup/css/style.css'
 import './signup/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'
