@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { Eye, EyeOff, Loader, XCircle } from 'lucide-react';
+import axios from 'axios';
 import AxiosInstance from "../../utils/AxiosInstance";
-import { FaEye, FaEyeSlash, FaGoogle, FaFacebook } from 'react-icons/fa';
-import axios from "axios";
-// client/src/UserContext.tsx
-import {useUser} from '../../UserContext';
-import './login.css';
+import { useUser } from '../../UserContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { setUser } = useUser(); // Use the setUser function from context
+    const { setUser } = useUser();
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [loginError, setLoginError] = useState('');
     const [logindata, setLogindata] = useState({
         email: "",
         password: ""
@@ -20,9 +21,44 @@ const Login = () => {
         password: ""
     });
 
+    const handleSignInWithGoogle = async (response) => {
+        try {
+            setIsLoading(true);
+            setLoginError('');
+            const access_token = response.credential;
+
+            const server_res = await axios.post(
+                "http://127.0.0.1:8000/social-auth/google/",
+                { auth_token: access_token },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            if (server_res.status === 200) {
+                const { access, refresh } = server_res.data.tokens;
+                const user = {
+                    full_name: server_res.data.first_name + " " + server_res.data.last_name,
+                    email: server_res.data.email
+                };
+                localStorage.setItem('token', JSON.stringify(access));
+                localStorage.setItem('refresh_token', JSON.stringify(refresh));
+                localStorage.setItem('user', JSON.stringify(user));
+                setUser(user);
+                await navigate('/');
+                toast.success('Login successful');
+            }
+        } catch (error) {
+            console.error("Error during Google sign-in:", error);
+            setLoginError('Google login failed. Please try again.');
+            toast.error('Google login failed. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const handleOnchange = (e) => {
         setLogindata({ ...logindata, [e.target.name]: e.target.value });
-        setErrorMessages({ ...errorMessages, [e.target.name]: "" }); // Clear error message on change
+        setErrorMessages({ ...errorMessages, [e.target.name]: "" });
+        setLoginError('');
     };
 
     const validateEmail = (email) => {
@@ -31,28 +67,28 @@ const Login = () => {
     };
 
     const validatePassword = (password) => {
-        return password.length >= 8; // Example validation: password must be at least 6 characters
+        return password.length >= 8;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoginError('');
         let valid = true;
 
-        // Validate email
         if (!validateEmail(logindata.email)) {
             setErrorMessages((prev) => ({ ...prev, email: 'Invalid email address' }));
             valid = false;
         }
 
-        // Validate password
         if (!validatePassword(logindata.password)) {
             setErrorMessages((prev) => ({ ...prev, password: 'Password must be at least 8 characters' }));
             valid = false;
         }
 
-        if (!valid) return; 
+        if (!valid) return;
 
-         try {
+        try {
+            setIsLoading(true);
             const res = await AxiosInstance.post('/login', logindata);
             const response = res.data;
             const user = {
@@ -64,129 +100,166 @@ const Login = () => {
                 localStorage.setItem('token', JSON.stringify(response.access_token));
                 localStorage.setItem('refresh_token', JSON.stringify(response.refresh_token));
                 localStorage.setItem('user', JSON.stringify(user));
-                setUser(user); // Update the user in context
+                setUser(user);
                 await navigate('/');
                 toast.success('Login successful');
             }
         } catch (error) {
-            if (error.response) {
-                // Handle specific error messages based on the backend response
-                if (error.response.status === 400) {
-                    const errorMessage = error.response.data.detail || 'Email or password is incorrect';
-                    toast.error(errorMessage);
-                    if (error.response.data.detail === 'Email not verified') {
-                        setErrorMessages((prev) => ({ ...prev, email: 'Email not verified' }));
-                    }
-                } else {
-                    toast.error(error.response.data.detail || 'An unexpected error occurred');
+            if (error.response?.status === 400) {
+                const errorMessage = error.response.data.detail || 'Invalid email or password';
+                setLoginError(errorMessage);
+                if (error.response.data.detail === 'Email not verified') {
+                    setErrorMessages((prev) => ({ ...prev, email: 'Email not verified' }));
                 }
             } else {
-                toast.error('An unexpected error occurred');
+                setLoginError('An unexpected error occurred. Please try again.');
             }
-        }
-    };
-
-    const handleSignInWithGoogle = async (response) => {
-        try {
-            const access_token = response.credential; // Google token
-            console.log("Google payload: ", access_token);
-    
-            // Check if access_token is an array or a string
-            console.log("Type of access_token: ", typeof access_token);
-            console.log("Access Token Value: ", access_token);
-    
-            // Send token to the backend
-            const server_res = await axios.post(
-                "http://127.0.0.1:8000/social-auth/google/", 
-                { auth_token: access_token }, // Ensure you send the token in the correct format
-                { headers: { "Content-Type": "application/json" } }
-            );
-    
-            console.log("Server Response: ", server_res.data);
-    
-            if (server_res.status === 200) {
-                const { access, refresh } = server_res.data.tokens; // Adjust according to your server response
-                const user = {
-                    full_name: server_res.data.first_name + " " + server_res.data.last_name,
-                    email: server_res.data.email
-                };
-                localStorage.setItem('token', JSON.stringify(access));
-                localStorage.setItem('refresh_token', JSON.stringify(refresh));
-                localStorage.setItem('user', JSON.stringify(user));
-                await navigate('/'); // Redirect after successful login
-                window.location.reload();
-                toast.success('Login successful');
-            }
-        } catch (error) {
-            console.error("Error during Google sign-in:", error); // Log full error
-            toast.error('Login failed. Please try again.'); // Notify user of error
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        // Load Google SDK
-        google.accounts.id.initialize({
-            client_id: import.meta.env.VITE_CLIENT_ID,
-            callback: handleSignInWithGoogle,
-        });
-        google.accounts.id.renderButton(
-            document.getElementById('signinDiv'),
-            { theme: 'filled_blue', size: 'medium' }
-        );
+        const loadGoogleScript = () => {
+            if (window.google?.accounts?.id) {
+                google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_CLIENT_ID,
+                    callback: handleSignInWithGoogle,
+                });
+                google.accounts.id.renderButton(
+                    document.getElementById('signinDiv'),
+                    { theme: 'filled_blue', size: 'medium' }
+                );
+            } else {
+                setTimeout(loadGoogleScript, 100);
+            }
+        };
+
+        loadGoogleScript();
     }, []);
 
-
     return (
-        <form className="form_main" onSubmit={handleSubmit}>
-    <p className="heading">Login</p>
-    <div className="inputContainer">
-        <svg viewBox="0 0 16 16" fill="#2e2e2e" height="16" width="16" xmlns="http://www.w3.org/2000/svg" className="inputIcon">
-        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
-        </svg>
-    <input  placeholder="Email" 
-            id="username" className="inputField" 
-            type="email"  value={logindata.email} 
-            name="email"
-            onChange={handleOnchange}/>
-   {errorMessages.email && (
-    <div classNameName="alert alert-danger" role="alert">
-        {errorMessages.email}
-    </div>
-)}
-    </div>
-    
-<div className="inputContainer">
-    <svg viewBox="0 0 16 16" fill="#2e2e2e" height="16" width="16" xmlns="http://www.w3.org/2000/svg" className="inputIcon">
-    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
-    </svg>
-    <input placeholder="Password" id="password" className="inputField" type="password"
-    value={logindata.password}
-    name="password"
-    onChange={handleOnchange}/>
-{errorMessages.password && (
-    <div className="alert alert-danger" role="alert">
-        {errorMessages.password}
-    </div>
-)}
-</div>
-{/* <button id="button">Submit</button> */}
-<input type="submit" value="Login" className="submitButton" id="button"/>
-    <div className="signupContainer">
-        <p className='pass-link'><Link to={'/forget-password'}>Forgot Password?</Link></p>
-        <p>Don't have any account?</p>
-        <Link to={"/"}>Sign up</Link>
-        
-        <div className="google-login-button" id='signinDiv'>
-            <FaGoogle className="google-icon" /> Continue with Google
-        </div>
-    </div>
-</form>
+        <div className="min-h-screen flex items-center justify-center bg-[url('/src/pages/Home/main.jpeg')] backdrop-blur-sm bg-cover bg-center p-4">
+            <div className="max-w-md w-full space-y-8 p-8 rounded-xl bg-white/10 shadow-xl backdrop-blur-md border border-white/20 transform transition-all duration-300 hover:shadow-2xl">
+                <div className="text-center">
+                    <h2 className="text-4xl font-bold text-white mb-2 tracking-tight">Welcome Back</h2>
+                    <p className="text-gray-200 text-lg">Please sign in to continue</p>
+                </div>
 
+                {loginError && (
+                    <div className="flex items-center gap-2 p-4 text-sm rounded-lg bg-red-500/10 border border-red-500/50 text-red-200">
+                        <XCircle className="h-5 w-5 flex-shrink-0" />
+                        <p>{loginError}</p>
+                        <button
+                            onClick={() => setLoginError('')}
+                            className="ml-auto hover:text-red-100 transition-colors"
+                        >
+                            <XCircle className="h-4 w-4" />
+                        </button>
+                    </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+                    <div className="space-y-1">
+                        <label htmlFor="email" className="text-sm font-medium text-gray-200">Email address</label>
+                        <div className="relative">
+                            <input
+                                id="email"
+                                type="email"
+                                name="email"
+                                value={logindata.email}
+                                onChange={handleOnchange}
+                                className={`w-full px-4 py-3 rounded-lg bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
+                                    errorMessages.email ? 'border-red-500/50' : 'border-gray-300/20'
+                                }`}
+                                placeholder="Enter your email"
+                            />
+                        </div>
+                        {errorMessages.email && (
+                            <p className="mt-1 text-sm text-red-400">{errorMessages.email}</p>
+                        )}
+                    </div>
+
+                    <div className="space-y-1">
+                        <label htmlFor="password" className="text-sm font-medium text-gray-200">Password</label>
+                        <div className="relative">
+                            <input
+                                id="password"
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={logindata.password}
+                                onChange={handleOnchange}
+                                className={`w-full px-4 py-3 rounded-lg bg-white/10 border text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 ${
+                                    errorMessages.password ? 'border-red-500/50' : 'border-gray-300/20'
+                                }`}
+                                placeholder="Enter your password"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors duration-200"
+                            >
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
+                        {errorMessages.password && (
+                            <p className="mt-1 text-sm text-red-400">{errorMessages.password}</p>
+                        )}
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <div className="text-sm">
+                            <Link to="/forget-password" className="text-purple-300 hover:text-purple-400 transition-colors duration-200">
+                                Forgot your password?
+                            </Link>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="w-full py-3 px-4 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader className="animate-spin" size={20} />
+                                <span>Signing in...</span>
+                            </>
+                        ) : (
+                            <span>Sign in</span>
+                        )}
+                    </button>
+                </form>
+
+                <div className="mt-8">
+                    <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-300/20"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-2 bg-transparent text-gray-200">Or continue with</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <div id="signinDiv" className="w-full flex justify-center"></div>
+                    </div>
+                </div>
+
+                <div className="text-center mt-6">
+                    <p className="text-gray-200">
+                        Don't have an account?{' '}
+                        <Link to="/signup" className="text-purple-300 hover:text-purple-400 font-semibold transition-colors duration-200">
+                            Sign up
+                        </Link>
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 };
 
 export default Login;
-
 
 
 // <div>

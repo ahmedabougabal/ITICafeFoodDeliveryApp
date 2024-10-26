@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import axios from "axios";
 import { toast } from "react-toastify";
+
 import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 import './signup.css';
 import './signup/css/style.css'
 import './signup/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css'
+
+
 const BRANCHES = {
    "1": "New Capital",
     "2": "Smart Village",
@@ -21,13 +26,12 @@ const BRANCHES = {
     "12": "Sohag",
 };
 
-
 const USER_TYPE_CHOICES = [
     ['user', 'User'],
     ['instructor', 'Instructor'],
 ];
 
-const Signup = () => {
+const ModernSignup = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -46,74 +50,99 @@ const Signup = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prev => ({
+            ...prev,
             [name]: value
-        });
+        }));
     };
+
+    // Google Sign In Handler
+    const handleSignInWithGoogle = async (response) => {
+        try {
+            const access_token = response.credential;
+            console.log("Google payload: ", access_token);
+
+            const server_res = await axios.post(
+                "http://127.0.0.1:8000/social-auth/google/",
+                { auth_token: access_token },
+                { headers: { "Content-Type": "application/json" } }
+            );
+
+            console.log("Server Response: ", server_res.data);
+
+            if (server_res.status === 200) {
+                const { access, refresh } = server_res.data.tokens;
+                const user = {
+                    full_name: server_res.data.first_name + " " + server_res.data.last_name,
+                    email: server_res.data.email
+                };
+                localStorage.setItem('token', JSON.stringify(access));
+                localStorage.setItem('refresh_token', JSON.stringify(refresh));
+                localStorage.setItem('user', JSON.stringify(user));
+                await navigate('/');
+                window.location.reload();
+                toast.success('Login successful');
+            }
+        } catch (error) {
+            console.error("Error during Google sign-in:", error);
+            toast.error('Login failed. Please try again.');
+        }
+    };
+
+    // Initialize Google SDK
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback: handleSignInWithGoogle,
+        });
+        google.accounts.id.renderButton(
+            document.getElementById('signinDiv'),
+            { theme: 'filled_blue', size: 'large' }
+        );
+    }, []);
 
     const validateForm = () => {
         const { email, first_name, last_name, branch, phone_number, password, confirm_password, user_type } = formData;
         let newErrors = {};
         let isValid = true;
 
-        // Email validation
-        if (!email) {
-            newErrors.email = 'Email is required.';
-            isValid = false;
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            newErrors.email = 'Email is invalid.';
+        if (!email || !/\S+@\S+\.\S+/.test(email)) {
+            newErrors.email = 'Valid email is required.';
             isValid = false;
         }
 
-        // First name validation
         if (!first_name) {
             newErrors.first_name = 'First name is required.';
             isValid = false;
         }
 
-        // Last name validation
         if (!last_name) {
             newErrors.last_name = 'Last name is required.';
             isValid = false;
         }
 
-        // Branch validation
         if (!branch) {
             newErrors.branch = 'Branch is required.';
             isValid = false;
         }
 
-        // Phone number validation
         if (!phone_number) {
             newErrors.phone_number = 'Phone number is required.';
             isValid = false;
         }
 
-        // Password validation
-        if (!password) {
-            newErrors.password = 'Password is required.';
-            isValid = false;
-        } else if (password.length < 6) {
+        if (!password || password.length < 6) {
             newErrors.password = 'Password must be at least 6 characters long.';
             isValid = false;
         }
 
-        // Confirm password validation
-        if (!confirm_password) {
-            newErrors.confirm_password = 'Confirm password is required.';
-            isValid = false;
-        } else if (confirm_password !== password) {
+        if (!confirm_password || confirm_password !== password) {
             newErrors.confirm_password = 'Passwords do not match.';
             isValid = false;
         }
 
-        // User type validation
         if (!user_type) {
             newErrors.user_type = 'User type is required.';
-            isValid = false;
-        } else if (!USER_TYPE_CHOICES.some(([value]) => value === user_type)) {
-            newErrors.user_type = 'Invalid user type selected.';
             isValid = false;
         }
 
@@ -123,7 +152,6 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!validateForm()) {
             toast.error('Please fix the errors.');
             return;
@@ -135,24 +163,18 @@ const Signup = () => {
                 apiData.branch = parseInt(apiData.branch);
             }
 
-            console.log('Sending data to backend:', apiData); // For debugging
-
             const response = await axios.post('http://127.0.0.1:8000/api-auth/register', apiData);
             if (response.status === 201) {
                 toast.success('SignUp Successful. Verify Your Email');
                 navigate('/otp/verify');
             }
         } catch (error) {
-            console.error('Registration error:', error.response?.data); // For debugging
-
             if (error.response?.data) {
                 const backendErrors = error.response.data;
                 const newErrors = {};
-
                 Object.entries(backendErrors).forEach(([key, value]) => {
                     newErrors[key] = Array.isArray(value) ? value[0] : value;
                 });
-
                 setErrors(newErrors);
                 toast.error('Please correct the errors in the form.');
             } else {
@@ -161,199 +183,157 @@ const Signup = () => {
         }
     };
 
-
-    const handleSignInWithGoogle = async (response) => {
-        try {
-            const access_token = response.credential; // Google token
-            console.log("Google payload: ", access_token);
-    
-            // Check if access_token is an array or a string
-            console.log("Type of access_token: ", typeof access_token);
-            console.log("Access Token Value: ", access_token);
-    
-            // Send token to the backend
-            const server_res = await axios.post(
-                "http://127.0.0.1:8000/social-auth/google/", 
-                { auth_token: access_token }, // Ensure you send the token in the correct format
-                { headers: { "Content-Type": "application/json" } }
-            );
-    
-            console.log("Server Response: ", server_res.data);
-    
-            if (server_res.status === 200) {
-                const { access, refresh } = server_res.data.tokens; // Adjust according to your server response
-                const user = {
-                    full_name: server_res.data.first_name + " " + server_res.data.last_name,
-                    email: server_res.data.email
-                };
-                localStorage.setItem('token', JSON.stringify(access));
-                localStorage.setItem('refresh_token', JSON.stringify(refresh));
-                localStorage.setItem('user', JSON.stringify(user));
-                await navigate('/'); // Redirect after successful login
-                window.location.reload();
-                toast.success('Login successful');
-            }
-        } catch (error) {
-            console.error("Error during Google sign-in:", error); // Log full error
-            toast.error('Login failed. Please try again.'); // Notify user of error
-        }
-    };
-
-    useEffect(() => {
-        // Load Google SDK
-        google.accounts.id.initialize({
-            client_id: import.meta.env.VITE_CLIENT_ID,
-            callback: handleSignInWithGoogle,
-        });
-        google.accounts.id.renderButton(
-            document.getElementById('signinDiv'),
-            { theme: 'filled_blue', size: 'large' }
-        );
-    }, []);
-
     return (
-        <div
-        className="wrapper"
-        style={{ backgroundImage: `url('/images/pg.jpg')` }}
-    >
-        <div className="inner">
-            <div className="image-holder">
-                <img src="/images/registration-form-1.jpg" alt="" />
-            </div>
-            <form onSubmit={handleSubmit}>
-                <h3>Registration Form</h3>
-                <div className="form-group">
-                    <input
-                        type="text"
-                        placeholder="First Name"
-                        className="form-control"
-                        name="first_name"
-                        value={formData.first_name}
-                        onChange={handleChange}
-                    />
-                    {errors.first_name && <p className="alert-danger">{errors.first_name}</p>}
-                    <input
-                        type="text"
-                        placeholder="Last Name"
-                        className="form-control"
-                        name="last_name"
-                        value={formData.last_name}
-                        onChange={handleChange}
-                    />
-                    {errors.last_name && <p className="alert-danger">{errors.last_name}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <input
-                        type="text"
-                        placeholder="Email Address"
-                        className="form-control"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <i className="zmdi zmdi-email"></i>
-                    {errors.email && <p className="alert-danger">{errors.email}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <input
-                        type="text"
-                        placeholder="Phone Number"
-                        className="form-control"
-                        name="phone_number"
-                        value={formData.phone_number}
-                        onChange={handleChange}
-                    />
-                    <i className="zmdi zmdi-account"></i>
-                    {errors.phone_number && <p className="alert-danger">{errors.phone_number}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <select
-                        className="form-control"
-                        name="branch"
-                        value={formData.branch}
-                        onChange={handleChange}
-                    >
-                        <option value="">Select Branch</option>
-                        {Object.entries(BRANCHES).map(([key, label]) => (
-                            <option key={key} value={key}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-                    <i className="zmdi zmdi-caret-down" style={{ fontSize: '17px' }}></i>
-                    {errors.branch && <p className="alert-danger">{errors.branch}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <select
-                        className="form-control"
-                        name="user_type"
-                        value={formData.user_type}
-                        onChange={handleChange}
-                    >
-                        <option value="">Select User Type</option>
-                        {USER_TYPE_CHOICES.map(([value, label]) => (
-                            <option key={value} value={value}>
-                                {label}
-                            </option>
-                        ))}
-                    </select>
-                    <i className="zmdi zmdi-caret-down" style={{ fontSize: '17px' }}></i>
-                    {errors.user_type && <p className="alert-danger">{errors.user_type}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <input
-                        className="form-control"
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                    <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </span>
-                    {/* <i className="zmdi zmdi-lock"></i> */}
-                    {errors.password && <p className="alert-danger">{errors.password}</p>}
-                </div>
-                <div className="form-wrapper">
-                    <input
-                        className="form-control"
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        name="confirm_password"
-                        placeholder="Confirm Password"
-                        value={formData.confirm_password}
-                        onChange={handleChange}
-                    />
-                    <span className="password-toggle" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                    </span>
-                    {/* <i className="zmdi zmdi-lock"></i> */}
-                    {errors.confirm_password && <p className="alert-danger">{errors.confirm_password}</p>}
-                </div>
-                {/* <button type="submit" className="btn btn-danger custom-red-btn">Register</button> */}
+        <div className="min-h-screen py-6 flex flex-col justify-center relative overflow-hidden sm:py-12">
+            <div className="absolute inset-0 bg-[url('/images/pg.jpg')] bg-cover bg-center"></div>
+            <div className="absolute inset-0  from-rose-400/30 to-purple-600/30 backdrop-blur-sm"></div>
 
-                <button type="submit" className="form-btn">Sign Up</button>
-                <div className="sign-up-label">
-                    Already have an account? <Link to="/login" className="sign-up-link">Log in</Link>
+            <div className="relative px-6 pt-10 pb-8 bg-white/10 shadow-xl ring-1 ring-gray-900/5 sm:max-w-lg sm:mx-auto sm:rounded-lg sm:px-10 backdrop-blur-md border border-white/20">
+                <div className="max-w-md mx-auto">
+                    <div className="divide-y divide-gray-300/50">
+                        <div className="py-8 text-base leading-7 space-y-6">
+                            <h1 className="text-3xl font-bold text-white text-center mb-8">Create Account</h1>
+
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div className="flex gap-4">
+                                    <div className="flex-1">
+                                        <input
+                                            type="text"
+                                            placeholder="First Name"
+                                            name="first_name"
+                                            value={formData.first_name}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                        />
+                                        {errors.first_name && <p className="text-red-300 text-sm mt-1">{errors.first_name}</p>}
+                                    </div>
+                                    <div className="flex-1">
+                                        <input
+                                            type="text"
+                                            placeholder="Last Name"
+                                            name="last_name"
+                                            value={formData.last_name}
+                                            onChange={handleChange}
+                                            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                        />
+                                        {errors.last_name && <p className="text-red-300 text-sm mt-1">{errors.last_name}</p>}
+                                    </div>
+                                </div>
+
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                />
+                                {errors.email && <p className="text-red-300 text-sm mt-1">{errors.email}</p>}
+
+                                <input
+                                    type="text"
+                                    placeholder="Phone Number"
+                                    name="phone_number"
+                                    value={formData.phone_number}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                />
+                                {errors.phone_number && <p className="text-red-300 text-sm mt-1">{errors.phone_number}</p>}
+
+                                <select
+                                    name="branch"
+                                    value={formData.branch}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                >
+                                    <option value="" className="text-gray-900">Select Branch</option>
+                                    {Object.entries(BRANCHES).map(([key, label]) => (
+                                        <option key={key} value={key} className="text-gray-900">{label}</option>
+                                    ))}
+                                </select>
+                                {errors.branch && <p className="text-red-300 text-sm mt-1">{errors.branch}</p>}
+
+                                <select
+                                    name="user_type"
+                                    value={formData.user_type}
+                                    onChange={handleChange}
+                                    className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                >
+                                    <option value="" className="text-gray-900">Select User Type</option>
+                                    {USER_TYPE_CHOICES.map(([value, label]) => (
+                                        <option key={value} value={value} className="text-gray-900">{label}</option>
+                                    ))}
+                                </select>
+                                {errors.user_type && <p className="text-red-300 text-sm mt-1">{errors.user_type}</p>}
+
+                                <div className="relative">
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder="Password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60"
+                                    >
+                                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </button>
+                                </div>
+                                {errors.password && <p className="text-red-300 text-sm mt-1">{errors.password}</p>}
+
+                                <div className="relative">
+                                    <input
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        placeholder="Confirm Password"
+                                        name="confirm_password"
+                                        value={formData.confirm_password}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-rose-400"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/60"
+                                    >
+                                        {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                                    </button>
+                                </div>
+                                {errors.confirm_password && <p className="text-red-300 text-sm mt-1">{errors.confirm_password}</p>}
+
+                                <button
+                                    type="submit"
+                                    className="w-full px-4 py-2 bg-gradient-to-r from-rose-400 to-purple-500 text-white rounded-lg hover:from-rose-500 hover:to-purple-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-gray-800"
+                                >
+                                    Sign Up
+                                </button>
+                            </form>
+
+                            <div className="text-center text-white mt-4">
+                                Already have an account?
+                                <Link to="/login" className="text-rose-300 hover:text-rose-400 ml-1">
+                                    Log in
+                                </Link>
+                            </div>
+
+                            <div id="signinDiv" className="mt-4">
+                                <button
+                                    className="w-full px-4 py-2 bg-white/10 border border-white/20 text-white rounded-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-2">
+                                    <FaGoogle/> Continue with Google
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="google-login-button" id='signinDiv'>
-                    <FaGoogle className="google-icon" /> Continue with Google
-                </div>
-            </form>
+            </div>
         </div>
-    </div>       
     );
 };
 
-export default Signup;
-
-
-
-
-
-
-
-
+export default ModernSignup;
 
 
 {/* <div className="containers">
