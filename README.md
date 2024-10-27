@@ -1,9 +1,16 @@
-# 🥇😋 ITI Cafe Food Delivery/Ordering App - ITI Graduation Project [![Project Status](https://img.shields.io/badge/status-still_in_progress-yellow)](https://github.com/yourusername/mernStackMilestoneProject_ITI)
-
+# 👨‍💻 ITI Cafe Food Delivery/Ordering App - ITI Graduation Project [![Project Status](https://img.shields.io/badge/status-Complete-green)](https://github.com/yourusername/mernStackMilestoneProject_ITI)  [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 Hellllloooooooooooooooooooo Folks! 👋
 
 It's bittersweet to announce that this is our **final ITI graduation project**, but we are excited to share what we've built! 🎓✨ We wanted to leave a lasting impression and solve a real-life problem we encountered within our beloved institution, refer to the repo's description :D
+
+***[The project's overview footage has been released : TAP ME TO WATCH](https://www.linkedin.com/posts/ahmed-abou-gabal_iti-activity-7255345194940702721-e9fV?utm_source=share&utm_medium=member_desktop)***
+<br />
+<br />
+
+***[How to fully install the Project ? Coming soon... ](https://github.com/google/tensorflow)***
+
+
 
 # ITI Café Order System
 
@@ -99,10 +106,10 @@ Built on the latest tech stacks and following modern best practices, this projec
 ## 🛠️ Tech Stack
 We have chosen a **robust and scalable tech stack** to ensure our app runs smoothly and efficiently:
 
-- **Backend**: [Python](https://www.python.org/) / [Django](https://www.djangoproject.com/)
-- **Database**: [PostgreSQL](https://www.postgresql.org/)
+- **Backend**: [Python](https://www.python.org/) / [Django](https://www.djangoproject.com/) / [TypeScript](https://www.typescriptlang.org/)
+- **Database**: [PostgreSQL](https://www.postgresql.org/) / [Redis](https://redis.io/)
 - **Package Management**: [Pipenv](https://pipenv.pypa.io/en/latest/)
-- **Frontend**: [React](https://react.dev/) / [TailWind](https://v2.tailwindcss.com/docs)
+- **Frontend**: [React](https://react.dev/) / [TailWind](https://v2.tailwindcss.com/docs) / [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 - **Deployment**: Coming soon!
 
 ## 📊 Repository Stats
@@ -111,7 +118,7 @@ We have chosen a **robust and scalable tech stack** to ensure our app runs smoot
 ![GitHub last commit](https://img.shields.io/github/last-commit/ahmedabougabal/ITICafeFoodDeliveryApp)
 ![GitHub forks](https://img.shields.io/github/forks/ahmedabougabal/ITICafeFoodDeliveryApp?style=social)
 
-## 🧩 Setup & Installation
+## 🧩 Setup & Installation   **Update: a video will be released demostrating how to fully install the project on your ubuntu machine. Coming Soon!!**
 
 To get started with the project, you'll need **Pipenv** as the primary tool for managing dependencies and the virtual environment.
 
@@ -154,7 +161,7 @@ You're all set! 🎉
 - [KareemMMorsy](https://github.com/KareemMMorsy) - **Collaborator**
 - [Mahmoud Wafi](https://github.com/Mahmoud-Wafi) - **Collaborator**
 - [MoatazSobhy](https://github.com/MoatazSobhy) - **Collaborator**
-- [AhmedFadl](https://github.com/AhmedSayedFadl) - **Collaborator**
+- [AhmedFadl](https://github.com/ahmedootta) - **Collaborator**
 
 
 ## 🔗 Useful Links
