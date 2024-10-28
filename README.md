@@ -8,7 +8,7 @@ It's bittersweet to announce that this is our **final ITI graduation project**, 
 <br />
 <br />
 
-***[How to fully install the Project ? Coming soon... ](https://github.com/google/tensorflow)***
+***[How to start up the django server, configure the ports/websocket, set up the database, make & migrate and run migrations, and fully initiate the Project ? Coming soon... ](https://github.com/google/tensorflow)***
 
 
 
@@ -175,4 +175,4 @@ We thank **ITI** for the wonderful journey, and our instructors for their consta
 
 ---
 
-> "The future belongs to those who believe in the beauty of their dreams." – **Eleanor Roosevelt**
+> "If it is easy, leave it to somebody else." – **Abou Gabal**
