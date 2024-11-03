@@ -4,11 +4,21 @@ Hellllloooooooooooooooooooo Folks! 👋
 
 It's bittersweet to announce that this is our **final ITI graduation project**, but we are excited to share what we've built! 🎓✨ We wanted to leave a lasting impression and solve a real-life problem we encountered within our beloved institution, refer to the repo's description :D
 
-***[The project's overview footage has been released : TAP ME TO WATCH](https://www.linkedin.com/posts/ahmed-abou-gabal_iti-activity-7255345194940702721-e9fV?utm_source=share&utm_medium=member_desktop)***
-<br />
-<br />
+### Watch the Project Overview:
+[![Watch the video](https://img.shields.io/badge/Project%20Overview%20-%20Watch%20Now-blue?style=for-the-badge)](https://www.linkedin.com/posts/ahmed-abou-gabal_iti-activity-7255345194940702721-e9fV?utm_source=share&utm_medium=member_desktop)
 
-***[How to start up the django server, configure the ports/websocket, set up the database, make & migrate and run migrations, and fully initiate the Project ? Coming soon... ](https://github.com/google/tensorflow)***
+---
+
+### Getting Started Guide 🚀
+
+Want to set up and run the project locally? Follow the detailed video guide to:
+
+- Start the Django server
+- Configure ports and WebSocket
+- Set up the database
+- Run migrations to fully initiate the project
+
+[![Watch the video](https://img.shields.io/badge/How%20to%20Start%20the%20Project-%20Watch%20Guide-brightgreen?style=for-the-badge)](https://drive.google.com/drive/folders/186V46_CallClqvyiAJqjni6_HRzmtDKW?usp=sharing)
 
 
 
