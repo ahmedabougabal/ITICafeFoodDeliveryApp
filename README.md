@@ -21,6 +21,22 @@ Want to set up and run the project locally? Follow the detailed video guide to:
 [![Watch the video](https://img.shields.io/badge/How%20to%20Start%20the%20Project-%20Watch%20Guide-brightgreen?style=for-the-badge)](https://drive.google.com/drive/folders/186V46_CallClqvyiAJqjni6_HRzmtDKW?usp=sharing)
 
 
+## 🎯 What actually is the Problem?
+
+Students at our institution regularly face:
+- Long wait times in crowded queues
+- Valuable time lost from their busy academic schedules
+- Inefficient food ordering processes
+
+## 💡 How we came up with a Solution?
+
+We developed a robust a web application that fully streamlines the whole food ordering process powered by a beautiful react frontend and django for the backend . 
+
+
+
+
+
+
 
 # ITI Café Order System
 
