@@ -70,7 +70,7 @@ export const rejectOrder = createAsyncThunk(
 );
 // pay an order
 export const payOrder = createAsyncThunk(
-  'orders/acceptOrder',
+  'orders/payOrder',
   async ({ id, method }, { rejectWithValue }) => {
     try {
       const response = await orderService.payOrder(id, method);
